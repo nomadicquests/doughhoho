@@ -1,0 +1,7 @@
+{
+  "name": "@doughhoho/brand",
+  "private": true,
+  "type": "module",
+  "main": "index.ts",
+  "types": "index.ts"
+}

@@ -1,0 +1,11 @@
+{
+  "name": "doughhoho",
+  "private": true,
+  "packageManager": "pnpm@10.33.0",
+  "scripts": {
+    "studio": "pnpm --filter studio dev",
+    "render": "pnpm --filter studio render",
+    "still": "pnpm --filter studio still",
+    "typecheck": "pnpm -r typecheck"
+  }
+}
