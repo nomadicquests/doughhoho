@@ -35,7 +35,8 @@ const meetTheCookiesDefaults: MeetTheCookiesProps = {
   headlineAccent: 'of Christmas',
   subline: '12 cookies + 1 free 🎄',
   preorderLine: 'Preorder now · order by 18 Dec',
-  orderLine: 'WhatsApp us to order'
+  orderLine: 'WhatsApp us to order',
+  boxLayout: 'cups'
 }
 
 const boxCookieCount = (itemId: string) =>
@@ -100,15 +101,5 @@ export const Root = () => (
         />
       )
     )}
-    <Still
-      id="MeetTheCookies-box-cups"
-      component={MeetTheCookiesSlide}
-      {...formats.portrait}
-      defaultProps={{
-        ...meetTheCookiesDefaults,
-        boxLayout: 'cups',
-        slide: meetTheCookiesSlideCount(meetTheCookiesDefaults.itemId) - 1
-      }}
-    />
   </>
 )

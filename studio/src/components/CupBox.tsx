@@ -90,28 +90,31 @@ const CupCookie = ({
   )
 }
 
-const FreeTag = ({ cup }: { cup: number }) => (
-  <div
-    style={{
-      position: 'absolute',
-      right: cup * 0.02,
-      top: cup * 0.02,
-      transform: 'rotate(10deg)',
-      background: brand.colors.secondary,
-      color: brand.colors.white,
-      border: `3px solid ${brand.colors.white}`,
-      borderRadius: 999,
-      fontFamily: bodyFont,
-      fontWeight: 800,
-      fontSize: cup * 0.13,
-      letterSpacing: 1,
-      padding: `${cup * 0.02}px ${cup * 0.06}px`,
-      boxShadow: '0 6px 12px rgba(0, 0, 0, 0.3)'
-    }}
-  >
-    FREE
-  </div>
-)
+const FreeTag = ({ cup, delay }: { cup: number; delay: number }) => {
+  const pop = useEnter(delay, 10)
+  return (
+    <div
+      style={{
+        position: 'absolute',
+        right: cup * 0.02,
+        top: cup * 0.02,
+        transform: `scale(${pop}) rotate(10deg)`,
+        background: brand.colors.secondary,
+        color: brand.colors.white,
+        border: `3px solid ${brand.colors.white}`,
+        borderRadius: 999,
+        fontFamily: bodyFont,
+        fontWeight: 800,
+        fontSize: cup * 0.13,
+        letterSpacing: 1,
+        padding: `${cup * 0.02}px ${cup * 0.06}px`,
+        boxShadow: '0 6px 12px rgba(0, 0, 0, 0.3)'
+      }}
+    >
+      FREE
+    </div>
+  )
+}
 
 export const CupBox = ({
   cups,
@@ -133,7 +136,11 @@ export const CupBox = ({
   const cup = Math.min(cellW, cellH) * 0.97
   const cookieCount = cups.reduce((n, c) => n + c.count, 0)
   const sticker = useEnter(delay + 8 + cookieCount * 2, 10)
-  let order = 0
+  // Each cup's first cookie drops in after all the cookies in earlier cups
+  const firstIndex = cups.map((_, i) =>
+    cups.slice(0, i).reduce((n, c) => n + c.count, 0)
+  )
+  const dropDelay = (index: number) => delay + 6 + index * 2
   return (
     <div
       style={{
@@ -191,10 +198,15 @@ export const CupBox = ({
                         ? pileTilts[j % pileTilts.length]
                         : (random(`cup-${i}-${j}`) - 0.5) * 50
                     }
-                    delay={delay + 6 + order++ * 2}
+                    delay={dropDelay(firstIndex[i] + j)}
                   />
                 ))}
-                {c.cookie.free ? <FreeTag cup={cup} /> : null}
+                {c.cookie.free ? (
+                  <FreeTag
+                    cup={cup}
+                    delay={dropDelay(firstIndex[i] + c.count) + 6}
+                  />
+                ) : null}
               </div>
             )
           })}
