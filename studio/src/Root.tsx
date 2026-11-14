@@ -306,7 +306,7 @@ const menuCardDefaults: MenuCardProps = {
   cakeTinPhoto: 'christmas-cake/cutouts/cake-tin.webp',
   boxPhoto: 'christmas-cookie-box/photos/box-open-sticker-fixed.jpg',
   deal: '10% off 6 or more cakes or boxes',
-  orderBy: 'Order by Fri 18 Dec'
+  orderBy: 'Preorder by Sat 5 Dec'
 }
 
 // One spotlight per cookie in the box, in posting order
