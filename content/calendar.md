@@ -32,7 +32,7 @@ WhatsApp.
 | ---- | ------- | -------- | -------- | ---- | ------------ | ------ |
 | Mon 16 Nov | Cookie box | Feed (carousel) | MeetTheCookies-slide | Meet the cookies | A baker's dozen of Christmas: 12 cookies + a free Peppermint Snow Ball 🎄 Preorders open, J$2,400 | made |
 | Mon 16 Nov | Cookie box | Reel + TikTok, **ad: Cookie 1** | MeetTheCookies | Meet the cookies | Meet the box. Which one are you? 👇 | made |
-| Mon 16 Nov | Both | Feed, **pin to profile** | Poster share image | The menu: cakes & cookie boxes | Christmas Cakes & Cookie Boxes are here 🎄 Prices inside. WhatsApp (876) 368-0479 to order | to build (feed-size version of the poster) |
+| Mon 16 Nov | Both | Feed, **pin to profile** | MenuPost | The menu: cakes & cookie boxes | Christmas Cakes & Cookie Boxes are here 🎄 All prices on the post. WhatsApp (876) 368-0479 to order | made |
 | Mon 16 Nov | Cookie box | Feed, **pin to profile** | SecretSanta | Secret Santa, sorted | Secret Santa, sorted. Boxes for your team: WhatsApp us | made |
 | Tue 17 Nov | Cake | Reel + TikTok, **ad: Cake 1** | Christmas Cake Reel | The cake, then the three sizes and prices | Real Jamaican black cake, baked by hand 🎄 6" J$3,500 · 8" J$5,750 · 10" J$7,500 | to build |
 | Wed 18 Nov | Both | Reel + TikTok | BoxReveal | Black cake has company | Black cake has company. | made (box photo) |

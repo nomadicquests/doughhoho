@@ -355,6 +355,25 @@ export const Root = () => (
         defaultProps={{ ...posterBoldDefaults, concept }}
       />
     ))}
+    <Still
+      id="MenuPost"
+      component={PosterBold}
+      {...formats.portrait}
+      defaultProps={{
+        ...posterBoldDefaults,
+        concept: 'B',
+        feed: true,
+        products: [
+          {
+            ...posterBoldDefaults.products[0],
+            details: (cake.sizes ?? [])
+              .map((sz) => `${sz.name.replace(' inch', '"')} ${formatPrice(sz.price, cake.currency)}`)
+              .join(' · ')
+          },
+          posterBoldDefaults.products[1]
+        ]
+      }}
+    />
     {(['pill', 'seal', 'tag'] as const).map((priceStyle) => (
       <Still
         key={priceStyle}

@@ -30,6 +30,7 @@ export type PosterBoldProps = {
   logo: 'badge' | 'wordmark' // which logo concept B shows
   priceStyle: 'burst' | 'pill' | 'seal' | 'tag' // B: shape of the price callouts
   heroBackdrop: string // B: colour behind the hero photo, matched to its background
+  feed?: boolean // B: a 4:5 social post instead of print: tighter, no QR code
 }
 
 export const BLEED = 10.6 // 3 mm, in layout units
@@ -464,11 +465,12 @@ const ConceptA = (props: PosterBoldProps & { u: number }) => {
 // to order.
 const ConceptB = (props: PosterBoldProps & { u: number }) => {
   const { u } = props
-  const pad = (BLEED + SAFE) * u
+  const feed = !!props.feed
+  const pad = (feed ? 40 : BLEED + SAFE) * u
   // The first product is the hero across the top; the second goes in the circle
   const [heroP, circleP] = props.products
-  const photoH = 690 * u
-  const circle = 380 * u
+  const photoH = (feed ? 560 : 690) * u
+  const circle = (feed ? 320 : 380) * u
   return (
     <AbsoluteFill style={{ background: brand.colors.primary }}>
       <div style={{ position: 'relative', height: photoH, flexShrink: 0 }}>
@@ -558,7 +560,7 @@ const ConceptB = (props: PosterBoldProps & { u: number }) => {
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
-          padding: `${120 * u}px ${pad}px ${pad}px`
+          padding: `${(feed ? 70 : 120) * u}px ${pad}px ${pad}px`
         }}
       >
         <div style={{ textAlign: 'center' }}>
@@ -566,7 +568,7 @@ const ConceptB = (props: PosterBoldProps & { u: number }) => {
             style={{
               fontFamily: headingFont,
               fontWeight: 700,
-              fontSize: 100 * u,
+              fontSize: (feed ? 84 : 100) * u,
               lineHeight: 1
             }}
           >
@@ -610,7 +612,7 @@ const ConceptB = (props: PosterBoldProps & { u: number }) => {
             ★ {props.badge} ★
           </div>
         </div>
-        <OrderPanel props={props} u={u} />
+        <OrderPanel props={props} u={u} showQr={!feed} />
       </div>
     </AbsoluteFill>
   )
@@ -619,10 +621,12 @@ const ConceptB = (props: PosterBoldProps & { u: number }) => {
 // Order details for B: a labelled QR code, then the WhatsApp number
 export const OrderPanel = ({
   props,
-  u
+  u,
+  showQr = true
 }: {
   props: { qrCode: string; fulfilment: string }
   u: number
+  showQr?: boolean // off for social posts, where there is nothing to scan
 }) => (
   <div
     style={{
@@ -633,32 +637,34 @@ export const OrderPanel = ({
       paddingTop: 26 * u
     }}
   >
-    <div style={{ textAlign: 'center', flexShrink: 0 }}>
-      <Img
-        src={staticFile(props.qrCode)}
-        style={{
-          width: 170 * u,
-          height: 170 * u,
-          background: brand.colors.white,
-          borderRadius: 12 * u,
-          padding: 8 * u,
-          boxSizing: 'border-box',
-          display: 'block'
-        }}
-      />
-      <div
-        style={{
-          fontWeight: 800,
-          fontSize: 20 * u,
-          letterSpacing: 2 * u,
-          textTransform: 'uppercase',
-          marginTop: 8 * u
-        }}
-      >
-        Scan to order
+    {showQr ? (
+      <div style={{ textAlign: 'center', flexShrink: 0 }}>
+        <Img
+          src={staticFile(props.qrCode)}
+          style={{
+            width: 170 * u,
+            height: 170 * u,
+            background: brand.colors.white,
+            borderRadius: 12 * u,
+            padding: 8 * u,
+            boxSizing: 'border-box',
+            display: 'block'
+          }}
+        />
+        <div
+          style={{
+            fontWeight: 800,
+            fontSize: 20 * u,
+            letterSpacing: 2 * u,
+            textTransform: 'uppercase',
+            marginTop: 8 * u
+          }}
+        >
+          Scan to order
+        </div>
       </div>
-    </div>
-    <div style={{ flex: 1 }}>
+    ) : null}
+    <div style={{ flex: 1, textAlign: showQr ? 'left' : 'center' }}>
       <div
         style={{
           fontWeight: 800,
