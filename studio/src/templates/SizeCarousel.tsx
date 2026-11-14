@@ -38,20 +38,17 @@ const Cake = ({
   src,
   w,
   cx,
-  bottom,
-  ghost = false
+  bottom
 }: {
   src: string
   w: number
   cx: number
   bottom: number
-  ghost?: boolean
 }) => {
   const h = w * CAKE_RATIO
   return (
     <>
-      {ghost ? null : (
-        <div
+      <div
           style={{
             position: 'absolute',
             left: cx - w * 0.47,
@@ -63,7 +60,6 @@ const Cake = ({
             filter: `blur(${w * 0.03}px)`
           }}
         />
-      )}
       <Img
         src={staticFile(`menu/${src}`)}
         style={{
@@ -71,9 +67,7 @@ const Cake = ({
           left: cx - w / 2,
           top: bottom - h,
           width: w,
-          height: h,
-          filter: ghost ? 'brightness(0) invert(1)' : undefined,
-          opacity: ghost ? 0.14 : 1
+          height: h
         }}
       />
     </>
@@ -179,6 +173,69 @@ const Cover = (props: SizeCarouselProps & { s: number }) => {
   )
 }
 
+// One ring per size, all resting on the same baseline and drawn to scale.
+// The current size is solid and bold; larger sizes are faint and dashed.
+const SizeRings = ({
+  names,
+  active,
+  maxD,
+  cx,
+  bottom,
+  s
+}: {
+  names: string[]
+  active: number
+  maxD: number
+  cx: number
+  bottom: number
+  s: number
+}) => {
+  const largest = Math.max(...names.map(inches))
+  return (
+    <>
+      {names.map((name, i) => {
+        // smaller sizes would sit behind the cake, so only show this size and up
+        if (i < active) return null
+        const d = (maxD * inches(name)) / largest
+        const on = i === active
+        return (
+          <div key={name}>
+            <div
+              style={{
+                position: 'absolute',
+                left: cx - d / 2,
+                top: bottom - d,
+                width: d,
+                height: d,
+                borderRadius: '50%',
+                border: on
+                  ? `${5 * s}px solid rgba(255, 255, 255, 0.9)`
+                  : `${4 * s}px dashed rgba(255, 255, 255, 0.32)`,
+                boxSizing: 'border-box'
+              }}
+            />
+            <div
+              style={{
+                position: 'absolute',
+                left: cx - 150 * s,
+                width: 300 * s,
+                top: bottom - d + 18 * s,
+                fontWeight: 800,
+                fontSize: (on ? 34 : 26) * s,
+                letterSpacing: 3 * s,
+                textTransform: 'uppercase',
+                color: on ? brand.colors.white : 'rgba(255, 255, 255, 0.45)'
+              }}
+            >
+              {name}
+            </div>
+          </div>
+        )
+      })}
+    </>
+  )
+}
+
 const SizeSlide = (props: SizeCarouselProps & { s: number; index: number }) => {
   const { s } = props
   const item = menu.find((m) => m.id === props.itemId) ?? menu[0]
@@ -186,10 +243,10 @@ const SizeSlide = (props: SizeCarouselProps & { s: number; index: number }) => {
   const size = sizes[props.index]
   const copy = props.sizes[props.index]
   const largest = Math.max(...sizes.map((z) => inches(z.name)))
-  const isLargest = inches(size.name) === largest
-  const max = 720 * s
-  const w = (max * inches(size.name)) / largest
-  const bottom = 1010 * s
+  const maxD = 700 * s
+  const d = (maxD * inches(size.name)) / largest
+  const w = d * 0.84
+  const bottom = 1040 * s
   return (
     <AbsoluteFill style={{ color: brand.colors.white, textAlign: 'center' }}>
       <GinghamBackground theme="red" />
@@ -237,14 +294,19 @@ const SizeSlide = (props: SizeCarouselProps & { s: number; index: number }) => {
       >
         {copy.line}
       </div>
-      {isLargest ? null : (
-        <Cake src={props.cutout} w={max} cx={540 * s} bottom={bottom} ghost />
-      )}
-      <Cake src={props.cutout} w={w} cx={540 * s} bottom={bottom} />
+      <SizeRings
+        names={sizes.map((z) => z.name)}
+        active={props.index}
+        maxD={maxD}
+        cx={540 * s}
+        bottom={bottom}
+        s={s}
+      />
+      <Cake src={props.cutout} w={w} cx={540 * s} bottom={bottom - d * 0.07} />
       <div
         style={{
           position: 'absolute',
-          top: 1070 * s,
+          top: 1080 * s,
           left: 0,
           right: 0,
           display: 'flex',
