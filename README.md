@@ -20,6 +20,7 @@ will be added later.
 | `PromoReel` | Video | 1080×1920 (Reels, TikTok, Stories), length grows with item count |
 | `MeetTheCookies` | Video | 1080×1920: headline, each cookie in turn, all of them packed in the box, price and how to order (about 13 s) |
 | `MeetTheCookies-slide-1` … `-8` | Image | 1080×1350 carousel: cover, one slide per cookie, the packed box, price |
+| `BoxReveal` | Video | 1080×1920, 8 s: the box opens while a line builds word by word, then price and how to order. Set `clip` to a video in `studio/public/footage/` to use real footage instead of the drawn box |
 
 ## Making a post
 

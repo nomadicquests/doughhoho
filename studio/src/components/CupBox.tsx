@@ -16,6 +16,7 @@ type Props = {
   height: number
   columns?: number
   delay?: number
+  stickerDelay?: number // when the logo sticker pops on; after the last cookie by default
 }
 
 // How a stack of cookies sits in a cup: offsets from the centre and size, as
@@ -121,7 +122,8 @@ export const CupBox = ({
   width,
   height,
   columns = 3,
-  delay = 0
+  delay = 0,
+  stickerDelay
 }: Props) => {
   const { durationInFrames } = useVideoConfig()
   const isStill = durationInFrames === 1
@@ -135,7 +137,7 @@ export const CupBox = ({
   const cellH = floorH / rows
   const cup = Math.min(cellW, cellH) * 0.97
   const cookieCount = cups.reduce((n, c) => n + c.count, 0)
-  const sticker = useEnter(delay + 8 + cookieCount * 2, 10)
+  const sticker = useEnter(stickerDelay ?? delay + 8 + cookieCount * 2, 10)
   // Each cup's first cookie drops in after all the cookies in earlier cups
   const firstIndex = cups.map((_, i) =>
     cups.slice(0, i).reduce((n, c) => n + c.count, 0)

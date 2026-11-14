@@ -16,6 +16,12 @@ import {
   meetTheCookiesSlideCount,
   type MeetTheCookiesProps
 } from './templates/MeetTheCookies'
+import {
+  BoxReveal,
+  BOX_REVEAL_FPS,
+  BOX_REVEAL_DURATION,
+  type BoxRevealProps
+} from './templates/BoxReveal'
 
 const itemDropDefaults: ItemDropProps = {
   itemId: menu[0].id,
@@ -37,6 +43,15 @@ const meetTheCookiesDefaults: MeetTheCookiesProps = {
   preorderLine: 'Preorder now · order by 18 Dec',
   orderLine: 'WhatsApp us to order',
   boxLayout: 'cups'
+}
+
+const boxRevealDefaults: BoxRevealProps = {
+  itemId: 'christmas-cookie-box',
+  line: 'Black cake / has / company.',
+  preorderLine: 'Preorder now · order by 18 Dec',
+  orderLine: 'WhatsApp us to order',
+  clip: null,
+  clipStartSeconds: 0
 }
 
 const boxCookieCount = (itemId: string) =>
@@ -101,5 +116,13 @@ export const Root = () => (
         />
       )
     )}
+    <Composition
+      id="BoxReveal"
+      component={BoxReveal}
+      {...formats.story}
+      fps={BOX_REVEAL_FPS}
+      durationInFrames={BOX_REVEAL_DURATION}
+      defaultProps={boxRevealDefaults}
+    />
   </>
 )
