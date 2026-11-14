@@ -39,6 +39,11 @@ import { Poster, POSTER_A3, type PosterProps } from './templates/Poster'
 import { PosterBold, type PosterBoldProps } from './templates/PosterBold'
 import { PosterSingle, type PosterSingleProps } from './templates/PosterSingle'
 import {
+  SizeCarousel,
+  sizeCarouselSlideCount,
+  type SizeCarouselProps
+} from './templates/SizeCarousel'
+import {
   CakeReel,
   CAKE_REEL_FPS,
   cakeReelDuration,
@@ -253,6 +258,20 @@ const cakeReelDefaults: CakeReelProps = {
   orderLine: 'WhatsApp to order'
 }
 
+const sizeCarouselDefaults: SizeCarouselProps = {
+  itemId: 'christmas-cake',
+  slide: 1,
+  coverPhoto: 'christmas-cake/photos/cake-whole.jpg',
+  coverFocus: '55% 45%',
+  coverTitle: 'Which size is your Christmas?',
+  sizePhoto: 'christmas-cake/photos/cake-whole.jpg',
+  sizeFocus: '58% 42%',
+  orderPhoto: 'christmas-cake/photos/cake-tin-tied.jpg',
+  orderTitle: 'Every cake comes in a gold gift tin',
+  orderBy: 'Order by Fri 18 Dec',
+  deal: '10% off 6 or more cakes'
+}
+
 // One spotlight per cookie in the box, in posting order
 const spotlightCookies = [
   'Candy Cane',
@@ -442,5 +461,17 @@ export const Root = () => (
         durationInFrames: cakeReelDuration(props.scenes.length)
       })}
     />
+    {Array.from(
+      { length: sizeCarouselSlideCount(sizeCarouselDefaults.itemId) },
+      (_, i) => (
+        <Still
+          key={`size-${i}`}
+          id={`PickYourSize-slide-${i + 1}`}
+          component={SizeCarousel}
+          {...formats.portrait}
+          defaultProps={{ ...sizeCarouselDefaults, slide: i + 1 }}
+        />
+      )
+    )}
   </>
 )

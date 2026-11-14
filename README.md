@@ -25,6 +25,7 @@ will be added later.
 | `Spotlight-CandyCane`, `-TripleGingerSnap`, `-ButterCookies`, `-CranberryPistachio` (each also `-still`) | Video, Image | 1080×1920 Reel (6 s) and 1080×1350 still: one cookie on a white plate with its name, its tagline from `brand/menu.ts` and how many are in the box. `theme` is `red` or `green` |
 | `BakingDay` | Video | 1080×1920, 11 s: the camera glides down an upright photo (the tray), then pulls back to show it framed on red gingham, while a line builds word by word, and ends on a follow-us screen with the handle. Built on `PhotoPan`; `followLine` empty drops the follow screen |
 | `CakeReel` | Video | 1080×1920, about 14 s: cake photos with lines building word by word, a card per size with its price, then the order-by date and WhatsApp number |
+| `PickYourSize-slide-1` … `-5` | Image | 1080×1350 carousel: cover, one slide per cake size drawn to scale against the largest with its price, then the gift tin and how to order |
 
 ## Making a post
 
