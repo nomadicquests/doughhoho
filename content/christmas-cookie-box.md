@@ -25,7 +25,11 @@ copy, playful motion, and treating each cookie like a character.
 | Peppermint Snow Balls | 1, free |
 
 - **Order:** through the order form or on WhatsApp.
-- **Last day to order:** Friday 18 December.
+- **Last day to order:** Friday 18 December, for the cookie box and the
+  Jamaican Black Cake.
+- **Bulk discount:** 10% off orders of 6 or more.
+- **Also selling:** Jamaican Black Cake in a gold gift tin, 6, 8 or 10 inch,
+  from J$3,000.
 - **Businesses:** order boxes for your team or your Secret Santa. WhatsApp us
   for details.
 

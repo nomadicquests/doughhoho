@@ -148,6 +148,7 @@ const posterBoldDefaults: PosterBoldProps = {
   headline2: '& Cookie Boxes',
   callout: 'Order now for Christmas',
   badge: 'Perfect for gifting',
+  deal: '10% off orders of 6 or more',
   products: [
     {
       photo: 'christmas-cake/photos/cake-slice.jpg',
@@ -166,7 +167,7 @@ const posterBoldDefaults: PosterBoldProps = {
       pricePrefix: ''
     }
   ],
-  orderBy: 'by 18 Dec',
+  orderBy: 'Last orders: Friday 18 December',
   fulfilment: 'Delivery or pickup',
   qrCode: 'print/whatsapp-qr.png'
 }

@@ -22,6 +22,7 @@ export type PosterBoldProps = {
   headline2: string // second line, e.g. '& Cookie Boxes'
   callout: string // e.g. 'Order now for Christmas'
   badge: string // e.g. 'Perfect for gifting'
+  deal: string // e.g. '10% off orders of 6 or more'
   products: PosterProduct[]
   orderBy: string
   fulfilment: string
@@ -125,7 +126,7 @@ const OrderBar = ({
             color: dark ? brand.colors.accent : brand.colors.secondary
           }}
         >
-          WhatsApp to order · {props.orderBy}
+          {props.orderBy}
         </div>
         <div
           style={{
@@ -137,13 +138,50 @@ const OrderBar = ({
         >
           {brand.whatsapp}
         </div>
-        <div style={{ fontWeight: 700, fontSize: 28 * u }}>
-          {props.fulfilment} · {brand.handle}
+        <div style={{ fontWeight: 700, fontSize: 24 * u, whiteSpace: 'nowrap' }}>
+          WhatsApp to order · {props.fulfilment} · {brand.handle}
         </div>
       </div>
     </div>
   )
 }
+
+// The offer, on a gold banner, with the gifting line under it
+const DealBanner = ({ props, u }: { props: PosterBoldProps; u: number }) => (
+  <div
+    style={{
+      width: '100%',
+      background: brand.colors.accent,
+      color: brand.colors.primary,
+      borderRadius: 18 * u,
+      padding: `${14 * u}px ${24 * u}px`,
+      textAlign: 'center',
+      boxShadow: `0 ${6 * u}px ${14 * u}px rgba(0, 0, 0, 0.2)`
+    }}
+  >
+    <div
+      style={{
+        fontWeight: 800,
+        fontSize: 44 * u,
+        lineHeight: 1.1,
+        textTransform: 'uppercase'
+      }}
+    >
+      {props.deal}
+    </div>
+    <div
+      style={{
+        fontWeight: 800,
+        fontSize: 24 * u,
+        letterSpacing: 4 * u,
+        textTransform: 'uppercase',
+        marginTop: 4 * u
+      }}
+    >
+      ★ {props.badge} ★
+    </div>
+  </div>
+)
 
 const ProductLabel = ({
   p,
@@ -242,7 +280,7 @@ const ConceptA = (props: PosterBoldProps & { u: number }) => {
                 src={staticFile(`menu/${p.photo}`)}
                 style={{
                   width: '100%',
-                  aspectRatio: '1 / 0.9',
+                  aspectRatio: '1 / 0.82',
                   objectFit: 'cover',
                   objectPosition: p.focus,
                   borderRadius: 28 * u,
@@ -256,6 +294,9 @@ const ConceptA = (props: PosterBoldProps & { u: number }) => {
             <ProductLabel p={p} u={u} color={brand.colors.primary} />
           </div>
         ))}
+      </div>
+      <div style={{ padding: `0 ${pad}px ${26 * u}px` }}>
+        <DealBanner props={props} u={u} />
       </div>
       <div
         style={{
@@ -275,7 +316,7 @@ const ConceptB = (props: PosterBoldProps & { u: number }) => {
   const pad = (BLEED + SAFE) * u
   return (
     <AbsoluteFill style={{ background: brand.colors.primary }}>
-      <div style={{ display: 'flex', height: '58%', position: 'relative' }}>
+      <div style={{ display: 'flex', height: '51%', position: 'relative' }}>
         {props.products.map((p, i) => (
           <div key={p.name} style={{ flex: 1, position: 'relative' }}>
             <Img
@@ -335,7 +376,7 @@ const ConceptB = (props: PosterBoldProps & { u: number }) => {
           alignItems: 'center',
           justifyContent: 'space-between',
           textAlign: 'center',
-          padding: `${110 * u}px ${pad}px ${pad}px`
+          padding: `${100 * u}px ${pad}px ${pad}px`
         }}
       >
         <div>
@@ -343,7 +384,7 @@ const ConceptB = (props: PosterBoldProps & { u: number }) => {
             style={{
               fontFamily: headingFont,
               fontWeight: 700,
-              fontSize: 104 * u,
+              fontSize: 90 * u,
               lineHeight: 1
             }}
           >
@@ -362,6 +403,7 @@ const ConceptB = (props: PosterBoldProps & { u: number }) => {
             {props.callout}
           </div>
         </div>
+        <DealBanner props={props} u={u} />
         <OrderBar props={props} u={u} dark />
       </div>
     </AbsoluteFill>
@@ -470,17 +512,8 @@ const ConceptC = (props: PosterBoldProps & { u: number }) => {
             </div>
           ))}
         </div>
-        <div
-          style={{
-            fontWeight: 800,
-            fontSize: 30 * u,
-            letterSpacing: 4 * u,
-            textTransform: 'uppercase',
-            color: brand.colors.secondary,
-            marginBottom: 20 * u
-          }}
-        >
-          ★ {props.badge} ★
+        <div style={{ width: '100%', marginBottom: 20 * u }}>
+          <DealBanner props={props} u={u} />
         </div>
         <div
           style={{
