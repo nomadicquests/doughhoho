@@ -242,7 +242,7 @@ const SizeSlide = (props: SizeCarouselProps & { s: number; index: number }) => {
   const size = sizes[props.index]
   const copy = props.sizes[props.index]
   const largest = Math.max(...sizes.map((z) => inches(z.name)))
-  const maxW = 680 * s
+  const maxW = 640 * s
   const w = (maxW * inches(size.name)) / largest
   const bottom = 930 * s
   return (
@@ -304,6 +304,20 @@ const SizeSlide = (props: SizeCarouselProps & { s: number; index: number }) => {
       <div
         style={{
           position: 'absolute',
+          left: 0,
+          right: 0,
+          top: bottom - w * CAKE_RATIO - 62 * s,
+          fontWeight: 800,
+          fontSize: 44 * s,
+          letterSpacing: 4 * s,
+          textTransform: 'uppercase'
+        }}
+      >
+        {size.name}
+      </div>
+      <div
+        style={{
+          position: 'absolute',
           top: 1080 * s,
           left: 0,
           right: 0,
@@ -313,9 +327,6 @@ const SizeSlide = (props: SizeCarouselProps & { s: number; index: number }) => {
           gap: 26 * s
         }}
       >
-        <div style={{ fontFamily: headingFont, fontWeight: 700, fontSize: 84 * s }}>
-          {size.name.replace(' inch', '"')}
-        </div>
         <div
           style={{
             background: brand.colors.white,
