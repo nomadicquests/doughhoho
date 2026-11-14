@@ -2,6 +2,7 @@ import {
   AbsoluteFill,
   Easing,
   Img,
+  Sequence,
   interpolate,
   staticFile,
   useCurrentFrame,
@@ -12,6 +13,7 @@ import { headingFont, bodyFont } from '../fonts'
 import { formatPrice } from '../components/Price'
 import { Logo } from '../components/Logo'
 import { GinghamBackground, useEnter } from '../components/Festive'
+import { FollowCard } from '../components/FollowCard'
 
 export type PhotoPanProps = {
   itemId: string
@@ -19,10 +21,15 @@ export type PhotoPanProps = {
   line: string // the words that build up, with / between each beat
   detailLine: string
   zoom: number // how close the camera starts, e.g. 1.9
+  followLine: string // ends on a follow-us screen with this line; empty for none
 }
 
 export const PHOTO_PAN_FPS = 30
-export const PHOTO_PAN_DURATION = 270 // 9 seconds
+const MAIN = 270 // 9 seconds
+const FOLLOW = 66 // the follow-us screen adds about 2 seconds
+
+export const photoPanDuration = (followLine: string) =>
+  MAIN + (followLine ? FOLLOW : 0)
 
 const PAN_END = 180 // the camera glides from the top of the photo to the bottom
 const PULL_BACK_END = 222 // then pulls back to show all of it
@@ -33,7 +40,7 @@ const CTA_START = 206
 // A Reel made from one upright (3:4) photo: the camera starts close near the
 // top, glides down it, then pulls back until the whole photo sits framed on
 // red gingham. Words build at the top on a red band; the box price and order
-// line come in at the bottom.
+// line come in at the bottom. Optionally ends on a follow-us screen.
 export const PhotoPan = (props: PhotoPanProps) => {
   const frame = useCurrentFrame()
   const { width, height, durationInFrames } = useVideoConfig()
@@ -172,6 +179,11 @@ export const PhotoPan = (props: PhotoPanProps) => {
           {props.detailLine}
         </div>
       </div>
+      {props.followLine ? (
+        <Sequence from={MAIN}>
+          <FollowCard line={props.followLine} />
+        </Sequence>
+      ) : null}
     </AbsoluteFill>
   )
 }

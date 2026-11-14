@@ -32,7 +32,7 @@ import {
 import {
   PhotoPan,
   PHOTO_PAN_FPS,
-  PHOTO_PAN_DURATION,
+  photoPanDuration,
   type PhotoPanProps
 } from './templates/PhotoPan'
 import {
@@ -97,7 +97,8 @@ const bakingDayDefaults: PhotoPanProps = {
   photo: 'christmas-cookie-box/photos/photo-3705.jpg',
   line: 'Christmas / is / baking.',
   detailLine: '12 cookies + a free Snow Ball · order by 18 Dec',
-  zoom: 1.9
+  zoom: 1.9,
+  followLine: 'Follow us for more Christmas baking'
 }
 
 // One spotlight per cookie in the box, in posting order
@@ -217,8 +218,11 @@ export const Root = () => (
       component={PhotoPan}
       {...formats.story}
       fps={PHOTO_PAN_FPS}
-      durationInFrames={PHOTO_PAN_DURATION}
+      durationInFrames={photoPanDuration(bakingDayDefaults.followLine)}
       defaultProps={bakingDayDefaults}
+      calculateMetadata={({ props }) => ({
+        durationInFrames: photoPanDuration(props.followLine)
+      })}
     />
   </>
 )
