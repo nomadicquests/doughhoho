@@ -25,6 +25,7 @@ export type PosterSingleProps = {
   inset: string // round second photo
   insetFocus: string
   headline: string
+  headlineSize: number // in layout units; 96 fits 'Christmas Cookie Box'
   subline: string
   pricePrefix: string // e.g. 'from', or empty
   showContents: boolean // a strip of the cookies inside
@@ -138,7 +139,7 @@ export const PosterSingle = (props: PosterSingleProps) => {
             style={{
               fontFamily: headingFont,
               fontWeight: 700,
-              fontSize: 96 * u,
+              fontSize: props.headlineSize * u,
               lineHeight: 1,
               whiteSpace: 'nowrap'
             }}
