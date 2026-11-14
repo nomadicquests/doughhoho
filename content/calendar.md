@@ -13,7 +13,7 @@ Status: idea → planned → made → posted.
 | Mon 16 Nov | Feed, **pin to profile** | SecretSanta | Cookie box | Secret Santa, sorted. Boxes for your team: WhatsApp us | made |
 | Wed 18 Nov | Reel + TikTok | Box Reveal | Cookie box | Black cake has company. | made (box photo) |
 | Fri 20 Nov | Reel + TikTok | Spotlight-CandyCane | Candy Cane | Peppermint, twisted by hand 🍬 4 in every box | made |
-| Mon 23 Nov | Reel + TikTok | Tray footage | Full cookie set | Baking day 🎄 Order by 18 Dec | planned |
+| Mon 23 Nov | Reel + TikTok | BakingDay | Full cookie set (tray photo) | Christmas is baking 🎄 Order by 18 Dec | made |
 | Wed 25 Nov | Reel + TikTok | Spotlight-TripleGingerSnap | Triple Ginger Snap | Three kinds of ginger for a real kick | made |
 | Fri 27 Nov | Feed | Announcement | Cookie box | Office party coming up? Secret Santa, sorted. | planned |
 | Mon 30 Nov | Reel + TikTok, **ad 2 starts** | Box Reveal | Cookie box | Who's on your list? | planned |

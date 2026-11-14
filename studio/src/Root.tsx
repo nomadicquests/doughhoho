@@ -30,6 +30,12 @@ import {
   type CookieSpotlightProps
 } from './templates/CookieSpotlight'
 import {
+  PhotoPan,
+  PHOTO_PAN_FPS,
+  PHOTO_PAN_DURATION,
+  type PhotoPanProps
+} from './templates/PhotoPan'
+import {
   PhotoAnnouncement,
   type PhotoAnnouncementProps
 } from './templates/PhotoAnnouncement'
@@ -84,6 +90,14 @@ const cookieSpotlightDefaults: CookieSpotlightProps = {
   tagline: '',
   orderLine: 'Order by 18 Dec · link in bio or WhatsApp',
   theme: 'red'
+}
+
+const bakingDayDefaults: PhotoPanProps = {
+  itemId: 'christmas-cookie-box',
+  photo: 'christmas-cookie-box/photos/photo-3705.jpg',
+  line: 'Christmas / is / baking.',
+  detailLine: '12 cookies + a free Snow Ball · order by 18 Dec',
+  zoom: 1.9
 }
 
 // One spotlight per cookie in the box, in posting order
@@ -198,5 +212,13 @@ export const Root = () => (
         </Fragment>
       )
     })}
+    <Composition
+      id="BakingDay"
+      component={PhotoPan}
+      {...formats.story}
+      fps={PHOTO_PAN_FPS}
+      durationInFrames={PHOTO_PAN_DURATION}
+      defaultProps={bakingDayDefaults}
+    />
   </>
 )
