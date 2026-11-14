@@ -19,7 +19,7 @@ export type MenuItem = {
   photo: string | null // filename in studio/public/menu/, or null
   available: boolean
   contents?: BoxContent[] // for boxes and bundles: what is inside
-  sizes?: string[] // when it comes in sizes; price is then the smallest
+  sizes?: { name: string; price: number }[] // when it comes in sizes; price is then the smallest
 }
 
 export const menu: MenuItem[] = [
@@ -69,10 +69,14 @@ export const menu: MenuItem[] = [
     id: 'christmas-cake',
     name: 'Jamaican Black Cake',
     description: 'Traditional Jamaican Christmas cake',
-    price: 3000, // the 6 inch; larger sizes cost more
+    price: 3500, // the 6 inch; see sizes
     currency: 'JMD',
     photo: 'christmas-cake/photos/cake-cut.jpg',
     available: true,
-    sizes: ['6 inch', '8 inch', '10 inch']
+    sizes: [
+      { name: '6 inch', price: 3500 },
+      { name: '8 inch', price: 6800 },
+      { name: '10 inch', price: 7500 }
+    ]
   }
 ]
