@@ -16,11 +16,11 @@ export const ItemPhoto = ({ photo, style }: Props) => {
   return (
     <div
       style={{
-        background: `repeating-linear-gradient(45deg, ${brand.colors.accent}, ${brand.colors.accent} 30px, #fde68a 30px, #fde68a 60px)`,
+        background: `repeating-linear-gradient(45deg, ${brand.colors.accent}, ${brand.colors.accent} 30px, ${brand.colors.accent}cc 30px, ${brand.colors.accent}cc 60px)`,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        color: brand.colors.secondary,
+        color: brand.colors.white,
         fontSize: 40,
         fontWeight: 700,
         ...style,

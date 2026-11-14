@@ -30,9 +30,10 @@ export const ItemDrop = ({ itemId, badge, callToAction }: ItemDropProps) => {
           position: 'absolute',
           top: 48 * scale,
           left: 48 * scale,
-          background: brand.colors.primary,
-          color: brand.colors.textOnPrimary,
+          background: brand.colors.secondary,
+          color: brand.colors.white,
           fontFamily: headingFont,
+          fontStyle: 'italic',
           fontWeight: 700,
           fontSize: 56 * scale,
           padding: `${12 * scale}px ${36 * scale}px`,
@@ -53,7 +54,9 @@ export const ItemDrop = ({ itemId, badge, callToAction }: ItemDropProps) => {
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
-          color: brand.colors.text,
+          background: brand.colors.primary,
+          borderTop: `${10 * scale}px solid ${brand.colors.accent}`,
+          color: brand.colors.white,
         }}
       >
         <div
@@ -82,12 +85,12 @@ export const ItemDrop = ({ itemId, badge, callToAction }: ItemDropProps) => {
               fontFamily: headingFont,
               fontWeight: 700,
               fontSize: 72 * scale,
-              color: brand.colors.primary,
+              color: brand.colors.accent,
             }}
           >
             {formatPrice(item.price, item.currency)}
           </div>
-          <div style={{ fontSize: 34 * scale, fontWeight: 700 }}>
+          <div style={{ fontSize: 34 * scale, fontWeight: 800 }}>
             {callToAction} · {brand.handle}
           </div>
         </div>

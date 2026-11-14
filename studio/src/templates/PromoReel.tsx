@@ -46,7 +46,7 @@ const BigText = ({ children }: { children: React.ReactNode }) => {
           fontWeight: 700,
           fontSize: 130,
           lineHeight: 1.05,
-          color: brand.colors.secondary,
+          color: brand.colors.primary,
           transform: `scale(${pop})`,
         }}
       >
@@ -81,7 +81,7 @@ const ItemCard = ({ itemId }: { itemId: string }) => {
             fontFamily: headingFont,
             fontWeight: 700,
             fontSize: 96,
-            color: brand.colors.secondary,
+            color: brand.colors.primary,
           }}
         >
           {item.name}
@@ -91,7 +91,7 @@ const ItemCard = ({ itemId }: { itemId: string }) => {
             fontFamily: headingFont,
             fontWeight: 700,
             fontSize: 80,
-            color: brand.colors.primary,
+            color: brand.colors.secondary,
           }}
         >
           {formatPrice(item.price, item.currency)}
@@ -135,7 +135,16 @@ export const PromoReel = ({ hook, itemIds, callToAction }: PromoReelProps) => {
             }}
           >
             <div style={{ fontSize: 120, padding: 60 }}>{callToAction}</div>
-            <div style={{ fontSize: 64 }}>{brand.handle}</div>
+            <div
+              style={{
+                fontFamily: bodyFont,
+                fontWeight: 800,
+                fontSize: 60,
+                color: brand.colors.accent,
+              }}
+            >
+              {brand.handle}
+            </div>
           </AbsoluteFill>
         </AbsoluteFill>
       </Sequence>
