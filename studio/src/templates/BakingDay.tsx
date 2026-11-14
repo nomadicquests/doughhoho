@@ -34,7 +34,7 @@ export type BakingDayProps = {
 }
 
 export const BAKING_DAY_FPS = 30
-const TRAY = 165
+const TRAY = 255 // a slow, unhurried glide down the whole tray
 const CAKE = 165
 const MENU = 120
 const FOLLOW = 75

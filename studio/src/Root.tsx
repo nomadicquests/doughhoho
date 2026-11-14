@@ -123,7 +123,7 @@ const bakingDayDefaults: BakingDayProps = {
   boxPhoto: 'christmas-cookie-box/photos/box-open-sticker-fixed.jpg',
   orderBy: 'Order by Fri 18 Dec',
   followLine: 'Follow us for more Christmas baking',
-  cakeTransition: 'scroll'
+  cakeTransition: 'dissolve'
 }
 
 const posterDefaults: PosterProps = {
