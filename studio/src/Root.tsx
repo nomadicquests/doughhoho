@@ -208,7 +208,7 @@ const posterCake: PosterSingleProps = {
   inset: 'christmas-cake/photos/cake-slice.jpg',
   insetFocus: '55% 62%',
   headline: 'Christmas Cake',
-  headlineSize: 124,
+  headlineSize: 112,
   subline: 'Real Jamaican black cake, baked by hand',
   pricePrefix: 'from',
   showContents: false,

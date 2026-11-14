@@ -51,9 +51,10 @@ export const PosterSingle = (props: PosterSingleProps) => {
     price: formatPrice(item.price, item.currency),
     pricePrefix: props.pricePrefix
   }
-  const photoH = 640 * u
+  const photoH = 600 * u
   const circle = 340 * u
   const contents = (item.contents ?? []).filter((c) => c.cutout)
+  const gap = 32 * u // between the blocks in the green band
   return (
     <AbsoluteFill style={{ fontFamily: bodyFont, background: brand.colors.primary }}>
       <div style={{ position: 'relative', height: photoH, flexShrink: 0 }}>
@@ -129,9 +130,8 @@ export const PosterSingle = (props: PosterSingleProps) => {
           color: brand.colors.white,
           display: 'flex',
           flexDirection: 'column',
-          justifyContent: 'space-between',
           textAlign: 'center',
-          padding: `${110 * u}px ${pad}px ${pad}px`
+          padding: `${96 * u}px ${pad}px ${pad}px`
         }}
       >
         <div>
@@ -146,12 +146,18 @@ export const PosterSingle = (props: PosterSingleProps) => {
           >
             {props.headline}
           </div>
-          <div style={{ fontWeight: 700, fontSize: 34 * u, marginTop: 14 * u }}>
+          <div style={{ fontWeight: 700, fontSize: 34 * u, marginTop: 20 * u }}>
             {props.subline}
           </div>
         </div>
         {props.showContents ? (
-          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              marginTop: gap
+            }}
+          >
             {contents.map((c) => (
               <div
                 key={c.name}
@@ -210,7 +216,7 @@ export const PosterSingle = (props: PosterSingleProps) => {
           </div>
         ) : null}
         {props.showSizes && item.sizes ? (
-          <div>
+          <div style={{ marginTop: gap }}>
             <div style={{ display: 'flex', justifyContent: 'center', gap: 26 * u }}>
               {item.sizes.map((sz) => (
                 <div
@@ -219,7 +225,7 @@ export const PosterSingle = (props: PosterSingleProps) => {
                     background: brand.colors.white,
                     color: brand.colors.primary,
                     borderRadius: 18 * u,
-                    padding: `${14 * u}px ${30 * u}px`,
+                    padding: `${10 * u}px ${30 * u}px`,
                     minWidth: 250 * u
                   }}
                 >
@@ -230,7 +236,7 @@ export const PosterSingle = (props: PosterSingleProps) => {
                     style={{
                       fontFamily: headingFont,
                       fontWeight: 700,
-                      fontSize: 56 * u,
+                      fontSize: 52 * u,
                       lineHeight: 1.05,
                       color: brand.colors.secondary
                     }}
@@ -246,7 +252,7 @@ export const PosterSingle = (props: PosterSingleProps) => {
                   fontFamily: headingFont,
                   fontStyle: 'italic',
                   fontSize: 36 * u,
-                  marginTop: 18 * u
+                  marginTop: 20 * u
                 }}
               >
                 {props.note}
@@ -254,7 +260,7 @@ export const PosterSingle = (props: PosterSingleProps) => {
             ) : null}
           </div>
         ) : null}
-        <div>
+        <div style={{ marginTop: gap }}>
           <div style={{ fontWeight: 800, fontSize: 40 * u, color: brand.colors.accent }}>
             {props.deal}
           </div>
@@ -270,7 +276,7 @@ export const PosterSingle = (props: PosterSingleProps) => {
             ★ {props.badge} ★
           </div>
         </div>
-        <div style={{ textAlign: 'left' }}>
+        <div style={{ textAlign: 'left', marginTop: 'auto' }}>
           <OrderPanel props={props} u={u} />
         </div>
       </div>
