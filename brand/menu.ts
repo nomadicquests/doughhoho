@@ -7,6 +7,7 @@ export type BoxContent = {
   count: number
   free?: boolean // thrown in at no charge
   cutout?: string // photo with the background removed, in studio/public/menu/
+  tagline?: string // one line about the cookie, for posts
 }
 
 export type MenuItem = {
@@ -33,21 +34,25 @@ export const menu: MenuItem[] = [
     contents: [
       {
         name: 'Candy Cane',
+        tagline: 'Peppermint, twisted by hand.',
         cutout: 'christmas-cookie-box/cutouts/candy-cane.webp',
         count: 4
       },
       {
         name: 'Butter Cookies',
+        tagline: 'Melts in your mouth. Tastes like Christmas.',
         cutout: 'christmas-cookie-box/cutouts/butter-cookie.webp',
         count: 4
       },
       {
         name: 'Cranberry Pistachio',
+        tagline: 'Chewy, and packed with real cranberries and pistachios.',
         cutout: 'christmas-cookie-box/cutouts/cranberry-pistachio.webp',
         count: 2
       },
       {
         name: 'Triple Ginger Snap',
+        tagline: 'Snappy, with three kinds of ginger for a real kick.',
         cutout: 'christmas-cookie-box/cutouts/triple-ginger-snap.webp',
         count: 2
       },

@@ -15,7 +15,7 @@ export type CookieSpotlightProps = {
   itemId: string // the box the cookie comes in
   cookie: string // a cookie name from the box's contents, e.g. 'Candy Cane'
   kicker: string // small line above the name
-  tagline: string // one line about the cookie
+  tagline: string // one line about the cookie; leave empty to use the menu's
   orderLine: string
   theme: Theme
 }
@@ -45,7 +45,10 @@ export const CookieSpotlight = (props: CookieSpotlightProps) => {
   const footer = useEnter(60, 16)
   const float = isStill ? 0 : Math.sin(frame / 14) * 8 * s
 
-  const plateSize = Math.min(width * 0.66, height * (tall ? 0.34 : 0.33))
+  // Names that wrap onto two lines get a smaller name and plate so it all fits
+  const longName = cookie.name.length > 14
+  const plateSize =
+    Math.min(width * 0.66, height * (tall ? 0.34 : 0.33)) * (longName ? 0.86 : 1)
   const cookieSize = plateSize * 0.8
   const tagSize = plateSize * 0.3
   const rise = (p: number) => ({
@@ -68,7 +71,10 @@ export const CookieSpotlight = (props: CookieSpotlightProps) => {
           paddingBottom: height * (tall ? 0.17 : 0.04)
         }}
       >
-        <Logo variant="wordmarkOnDark" style={{ width: 260 * s }} />
+        <Logo
+          variant="wordmarkOnDark"
+          style={{ width: 260 * s, marginBottom: 20 * s }}
+        />
         <div
           style={{
             flex: 1,
@@ -148,7 +154,7 @@ export const CookieSpotlight = (props: CookieSpotlightProps) => {
             style={{
               fontFamily: headingFont,
               fontWeight: 700,
-              fontSize: 112 * s,
+              fontSize: (longName ? 96 : 112) * s,
               lineHeight: 1.05,
               marginTop: (tall ? 52 : 34) * s,
               padding: `0 ${60 * s}px`,
@@ -171,7 +177,7 @@ export const CookieSpotlight = (props: CookieSpotlightProps) => {
               ...rise(tagline)
             }}
           >
-            {props.tagline}
+            {props.tagline || cookie.tagline}
           </div>
           <div
             style={{
@@ -193,6 +199,7 @@ export const CookieSpotlight = (props: CookieSpotlightProps) => {
             flexDirection: 'column',
             alignItems: 'center',
             gap: 14 * s,
+            marginTop: 28 * s,
             ...rise(footer)
           }}
         >

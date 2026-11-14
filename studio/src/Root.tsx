@@ -1,3 +1,4 @@
+import { Fragment } from 'react'
 import { Composition, Still } from 'remotion'
 import { menu } from '@doughhoho/brand'
 import { formats } from './formats'
@@ -80,10 +81,18 @@ const cookieSpotlightDefaults: CookieSpotlightProps = {
   itemId: 'christmas-cookie-box',
   cookie: 'Candy Cane',
   kicker: 'Meet the cookies',
-  tagline: 'Twisted by hand, one stripe at a time.',
+  tagline: '',
   orderLine: 'Order by 18 Dec · link in bio or WhatsApp',
   theme: 'red'
 }
+
+// One spotlight per cookie in the box, in posting order
+const spotlightCookies = [
+  'Candy Cane',
+  'Triple Ginger Snap',
+  'Butter Cookies',
+  'Cranberry Pistachio'
+]
 
 const boxCookieCount = (itemId: string) =>
   (menu.find((m) => m.id === itemId)?.contents ?? []).filter((c) => c.cutout)
@@ -167,19 +176,27 @@ export const Root = () => (
       {...formats.story}
       defaultProps={secretSantaDefaults}
     />
-    <Composition
-      id="CookieSpotlight"
-      component={CookieSpotlight}
-      {...formats.story}
-      fps={COOKIE_SPOTLIGHT_FPS}
-      durationInFrames={COOKIE_SPOTLIGHT_DURATION}
-      defaultProps={cookieSpotlightDefaults}
-    />
-    <Still
-      id="CookieSpotlight-still"
-      component={CookieSpotlight}
-      {...formats.portrait}
-      defaultProps={cookieSpotlightDefaults}
-    />
+    {spotlightCookies.map((cookie) => {
+      const id = cookie.replace(/[^A-Za-z]/g, '')
+      const props = { ...cookieSpotlightDefaults, cookie }
+      return (
+        <Fragment key={cookie}>
+          <Composition
+            id={`Spotlight-${id}`}
+            component={CookieSpotlight}
+            {...formats.story}
+            fps={COOKIE_SPOTLIGHT_FPS}
+            durationInFrames={COOKIE_SPOTLIGHT_DURATION}
+            defaultProps={props}
+          />
+          <Still
+            id={`Spotlight-${id}-still`}
+            component={CookieSpotlight}
+            {...formats.portrait}
+            defaultProps={props}
+          />
+        </Fragment>
+      )
+    })}
   </>
 )
