@@ -5,20 +5,24 @@ import { formatPrice } from '../components/Price'
 import { Logo } from '../components/Logo'
 import { GinghamBackground, GoldFlecks } from '../components/Festive'
 
-// An Instagram carousel for a product sold in sizes: a cover, one slide per
-// size with the cake drawn to scale against the largest size, then how to
-// order. Slide 1 is the cover; the last slide is the order slide.
+// An Instagram carousel for a product sold in sizes: a cover with every size
+// side by side, one slide per size with the cake drawn to scale against a
+// faint outline of the largest, then how to order.
+
+export type SizeCopy = { headline: string; line: string }
 
 export type SizeCarouselProps = {
   itemId: string
   slide: number
-  coverPhoto: string // path inside studio/public/menu/
-  coverFocus: string
+  cutout: string // the product with its background removed, in studio/public/menu/
   coverTitle: string
-  sizePhoto: string // shown in the round "cake" on each size slide
-  sizeFocus: string
+  coverAccent: string // a word in coverTitle set in gold italics
+  coverAside: string
+  coverSwipe: string
+  sizes: SizeCopy[] // one per size, smallest first
   orderPhoto: string
   orderTitle: string
+  orderLine: string
   orderBy: string
   deal: string
 }
@@ -27,15 +31,63 @@ export const sizeCarouselSlideCount = (itemId: string) =>
   (menu.find((m) => m.id === itemId)?.sizes?.length ?? 0) + 2
 
 const inches = (name: string) => parseFloat(name) || 1
+const CAKE_RATIO = 1573 / 1938 // height / width of the cut-out
 
-const Swipe = ({ s }: { s: number }) => (
+// The cake sitting on a soft shadow, `w` pixels wide, bottom at `bottom`
+const Cake = ({
+  src,
+  w,
+  cx,
+  bottom,
+  ghost = false
+}: {
+  src: string
+  w: number
+  cx: number
+  bottom: number
+  ghost?: boolean
+}) => {
+  const h = w * CAKE_RATIO
+  return (
+    <>
+      {ghost ? null : (
+        <div
+          style={{
+            position: 'absolute',
+            left: cx - w * 0.47,
+            top: bottom - h * 0.16,
+            width: w * 0.94,
+            height: h * 0.24,
+            borderRadius: '50%',
+            background: 'rgba(0, 0, 0, 0.35)',
+            filter: `blur(${w * 0.03}px)`
+          }}
+        />
+      )}
+      <Img
+        src={staticFile(`menu/${src}`)}
+        style={{
+          position: 'absolute',
+          left: cx - w / 2,
+          top: bottom - h,
+          width: w,
+          height: h,
+          filter: ghost ? 'brightness(0) invert(1)' : undefined,
+          opacity: ghost ? 0.14 : 1
+        }}
+      />
+    </>
+  )
+}
+
+const Swipe = ({ s, text }: { s: number; text: string }) => (
   <div
     style={{
       position: 'absolute',
       right: 50 * s,
-      bottom: 50 * s,
+      bottom: 46 * s,
       fontWeight: 800,
-      fontSize: 30 * s,
+      fontSize: 28 * s,
       letterSpacing: 3 * s,
       textTransform: 'uppercase',
       color: brand.colors.white,
@@ -44,71 +96,85 @@ const Swipe = ({ s }: { s: number }) => (
       borderRadius: 999
     }}
   >
-    Swipe →
+    {text}
   </div>
 )
 
 const Cover = (props: SizeCarouselProps & { s: number }) => {
   const { s } = props
-  const { height } = useVideoConfig()
+  const item = menu.find((m) => m.id === props.itemId) ?? menu[0]
+  const sizes = item.sizes ?? []
+  const largest = Math.max(...sizes.map((z) => inches(z.name)))
+  const max = 400 * s
+  const widths = sizes.map((z) => (max * inches(z.name)) / largest)
+  const gap = 20 * s
+  const total = widths.reduce((a, b) => a + b, 0) + gap * (sizes.length - 1)
+  let x = (1080 * s - total) / 2
+  const bottom = 1090 * s
+  const [before, after] = props.coverTitle.split(props.coverAccent)
   return (
-    <AbsoluteFill style={{ background: brand.colors.primary }}>
-      <Img
-        src={staticFile(`menu/${props.coverPhoto}`)}
-        style={{
-          position: 'absolute',
-          inset: 0,
-          width: '100%',
-          height: '100%',
-          objectFit: 'cover',
-          objectPosition: props.coverFocus
-        }}
-      />
-      <AbsoluteFill
-        style={{
-          background:
-            'linear-gradient(0deg, rgba(23, 50, 11, 0.95) 0%, rgba(23, 50, 11, 0.8) 30%, transparent 58%)'
-        }}
-      />
+    <AbsoluteFill style={{ color: brand.colors.white, textAlign: 'center' }}>
+      <GinghamBackground theme="green" />
+      <GoldFlecks />
       <Logo
-        variant="wordmark"
-        style={{ position: 'absolute', left: 40 * s, top: 40 * s, width: 250 * s }}
+        variant="wordmarkOnDark"
+        style={{ position: 'absolute', left: 540 * s - 120 * s, top: 54 * s, width: 240 * s }}
       />
       <div
         style={{
           position: 'absolute',
-          left: 60 * s,
-          right: 60 * s,
-          top: height * 0.62,
-          color: brand.colors.white,
-          textAlign: 'center'
+          top: 230 * s,
+          left: 70 * s,
+          right: 70 * s,
+          fontFamily: headingFont,
+          fontWeight: 700,
+          fontSize: 100 * s,
+          lineHeight: 1.04,
+          textWrap: 'balance'
         }}
       >
-        <div
-          style={{
-            fontFamily: headingFont,
-            fontWeight: 700,
-            fontSize: 104 * s,
-            lineHeight: 1.02,
-            textWrap: 'balance'
-          }}
-        >
-          {props.coverTitle}
-        </div>
-        <div
-          style={{
-            fontWeight: 800,
-            fontSize: 34 * s,
-            letterSpacing: 4 * s,
-            textTransform: 'uppercase',
-            color: brand.colors.accent,
-            marginTop: 20 * s
-          }}
-        >
-          Jamaican black cake · 3 sizes
-        </div>
+        {before}
+        <span style={{ fontStyle: 'italic', color: brand.colors.accent }}>
+          {props.coverAccent}
+        </span>
+        {after}
       </div>
-      <Swipe s={s} />
+      <div
+        style={{
+          position: 'absolute',
+          top: 580 * s,
+          left: 0,
+          right: 0,
+          fontFamily: headingFont,
+          fontStyle: 'italic',
+          fontSize: 44 * s
+        }}
+      >
+        {props.coverAside}
+      </div>
+      {sizes.map((z, i) => {
+        const w = widths[i]
+        const cx = x + w / 2
+        x += w + gap
+        return (
+          <div key={z.name}>
+            <Cake src={props.cutout} w={w} cx={cx} bottom={bottom} />
+            <div
+              style={{
+                position: 'absolute',
+                left: cx - 80 * s,
+                width: 160 * s,
+                top: bottom + 26 * s,
+                fontWeight: 800,
+                fontSize: 40 * s
+              }}
+            >
+              {z.name.replace(' inch', '"')}
+            </div>
+          </div>
+        )
+      })}
+      <Swipe s={s} text={props.coverSwipe} />
     </AbsoluteFill>
   )
 }
@@ -118,10 +184,12 @@ const SizeSlide = (props: SizeCarouselProps & { s: number; index: number }) => {
   const item = menu.find((m) => m.id === props.itemId) ?? menu[0]
   const sizes = item.sizes ?? []
   const size = sizes[props.index]
+  const copy = props.sizes[props.index]
   const largest = Math.max(...sizes.map((z) => inches(z.name)))
-  const max = 620 * s
-  const d = (max * inches(size.name)) / largest
-  const cm = Math.round(inches(size.name) * 2.54)
+  const isLargest = inches(size.name) === largest
+  const max = 720 * s
+  const w = (max * inches(size.name)) / largest
+  const bottom = 1010 * s
   return (
     <AbsoluteFill style={{ color: brand.colors.white, textAlign: 'center' }}>
       <GinghamBackground theme="red" />
@@ -129,13 +197,14 @@ const SizeSlide = (props: SizeCarouselProps & { s: number; index: number }) => {
       <div
         style={{
           position: 'absolute',
-          top: 70 * s,
+          top: 54 * s,
           left: 0,
           right: 0,
           fontWeight: 800,
-          fontSize: 34 * s,
+          fontSize: 28 * s,
           letterSpacing: 5 * s,
-          textTransform: 'uppercase'
+          textTransform: 'uppercase',
+          opacity: 0.9
         }}
       >
         Pick your size · {props.index + 1} of {sizes.length}
@@ -143,72 +212,59 @@ const SizeSlide = (props: SizeCarouselProps & { s: number; index: number }) => {
       <div
         style={{
           position: 'absolute',
-          left: '50%',
-          top: 160 * s,
-          width: max,
-          height: max,
-          transform: 'translateX(-50%)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center'
+          top: 110 * s,
+          left: 60 * s,
+          right: 60 * s,
+          fontFamily: headingFont,
+          fontWeight: 700,
+          fontSize: 92 * s,
+          lineHeight: 1.02
         }}
       >
-        <div
-          style={{
-            position: 'absolute',
-            inset: 0,
-            borderRadius: '50%',
-            border: `${4 * s}px dashed rgba(255, 255, 255, 0.45)`
-          }}
-        />
-        <Img
-          src={staticFile(`menu/${props.sizePhoto}`)}
-          style={{
-            width: d,
-            height: d,
-            objectFit: 'cover',
-            objectPosition: props.sizeFocus,
-            borderRadius: '50%',
-            border: `${10 * s}px solid ${brand.colors.white}`,
-            boxSizing: 'border-box',
-            boxShadow: `0 ${18 * s}px ${36 * s}px rgba(0, 0, 0, 0.4)`
-          }}
-        />
+        {copy.headline}
       </div>
       <div
         style={{
           position: 'absolute',
-          top: 820 * s,
+          top: 220 * s,
+          left: 90 * s,
+          right: 90 * s,
+          fontWeight: 700,
+          fontSize: 36 * s,
+          lineHeight: 1.3,
+          textWrap: 'balance'
+        }}
+      >
+        {copy.line}
+      </div>
+      {isLargest ? null : (
+        <Cake src={props.cutout} w={max} cx={540 * s} bottom={bottom} ghost />
+      )}
+      <Cake src={props.cutout} w={w} cx={540 * s} bottom={bottom} />
+      <div
+        style={{
+          position: 'absolute',
+          top: 1070 * s,
           left: 0,
           right: 0,
           display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center'
+          justifyContent: 'center',
+          alignItems: 'center',
+          gap: 26 * s
         }}
       >
-        <div
-          style={{
-            fontFamily: headingFont,
-            fontWeight: 700,
-            fontSize: 120 * s,
-            lineHeight: 1
-          }}
-        >
-          {size.name.replace(' inch', '"')} cake
-        </div>
-        <div style={{ fontWeight: 700, fontSize: 32 * s, marginTop: 10 * s, opacity: 0.85 }}>
-          {inches(size.name)} inches ({cm} cm) across
+        <div style={{ fontFamily: headingFont, fontWeight: 700, fontSize: 84 * s }}>
+          {size.name.replace(' inch', '"')}
         </div>
         <div
           style={{
-            marginTop: 30 * s,
             background: brand.colors.white,
             color: brand.colors.secondary,
             fontFamily: headingFont,
             fontWeight: 700,
-            fontSize: 96 * s,
+            fontSize: 80 * s,
             lineHeight: 1,
-            padding: `${18 * s}px ${56 * s}px`,
+            padding: `${14 * s}px ${44 * s}px`,
             borderRadius: 999,
             boxShadow: `0 ${10 * s}px ${22 * s}px rgba(0, 0, 0, 0.3)`
           }}
@@ -216,7 +272,7 @@ const SizeSlide = (props: SizeCarouselProps & { s: number; index: number }) => {
           {formatPrice(size.price, item.currency)}
         </div>
       </div>
-      <Swipe s={s} />
+      <Swipe s={s} text="Swipe →" />
     </AbsoluteFill>
   )
 }
@@ -236,10 +292,10 @@ const OrderSlide = (props: SizeCarouselProps & { s: number }) => {
         src={staticFile(`menu/${props.orderPhoto}`)}
         style={{
           position: 'absolute',
-          top: 30 * s,
+          top: 20 * s,
           left: '50%',
-          width: 640 * s,
-          height: 640 * s,
+          width: 560 * s,
+          height: 540 * s,
           objectFit: 'contain',
           transform: 'translateX(-50%)'
         }}
@@ -247,7 +303,7 @@ const OrderSlide = (props: SizeCarouselProps & { s: number }) => {
       <div
         style={{
           position: 'absolute',
-          top: 660 * s,
+          top: 570 * s,
           left: 0,
           right: 0,
           bottom: 0,
@@ -256,14 +312,14 @@ const OrderSlide = (props: SizeCarouselProps & { s: number }) => {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          padding: `${50 * s}px ${50 * s}px 0`
+          padding: `${44 * s}px ${60 * s}px 0`
         }}
       >
         <div
           style={{
             fontFamily: headingFont,
             fontWeight: 700,
-            fontSize: 72 * s,
+            fontSize: 76 * s,
             lineHeight: 1.05,
             textWrap: 'balance'
           }}
@@ -272,13 +328,39 @@ const OrderSlide = (props: SizeCarouselProps & { s: number }) => {
         </div>
         <div
           style={{
-            marginTop: 26 * s,
+            fontWeight: 700,
+            fontSize: 32 * s,
+            lineHeight: 1.35,
+            marginTop: 16 * s,
+            textWrap: 'balance'
+          }}
+        >
+          {props.orderLine}
+        </div>
+        <div
+          style={{
+            marginTop: 30 * s,
+            fontWeight: 800,
+            fontSize: 32 * s,
+            letterSpacing: 3 * s,
+            textTransform: 'uppercase',
+            color: brand.colors.accent
+          }}
+        >
+          WhatsApp to order
+        </div>
+        <div style={{ fontWeight: 800, fontSize: 100 * s, lineHeight: 1.05 }}>
+          {brand.whatsapp}
+        </div>
+        <div
+          style={{
+            marginTop: 22 * s,
             background: brand.colors.secondary,
             fontWeight: 800,
-            fontSize: 40 * s,
+            fontSize: 36 * s,
             letterSpacing: 2 * s,
             textTransform: 'uppercase',
-            padding: `${14 * s}px ${34 * s}px`,
+            padding: `${12 * s}px ${30 * s}px`,
             borderRadius: 14 * s,
             border: `${4 * s}px solid ${brand.colors.white}`
           }}
@@ -287,24 +369,13 @@ const OrderSlide = (props: SizeCarouselProps & { s: number }) => {
         </div>
         <div
           style={{
-            marginTop: 34 * s,
             fontWeight: 800,
-            fontSize: 36 * s,
-            letterSpacing: 3 * s,
-            textTransform: 'uppercase',
-            color: brand.colors.accent
+            fontSize: 34 * s,
+            color: brand.colors.accent,
+            marginTop: 22 * s
           }}
         >
-          WhatsApp to order
-        </div>
-        <div style={{ fontWeight: 800, fontSize: 104 * s, lineHeight: 1.05 }}>
-          {brand.whatsapp}
-        </div>
-        <div style={{ fontWeight: 800, fontSize: 34 * s, color: brand.colors.accent, marginTop: 16 * s }}>
           {props.deal}
-        </div>
-        <div style={{ fontWeight: 700, fontSize: 28 * s, marginTop: 8 * s }}>
-          Delivery or pickup · {brand.handle}
         </div>
       </div>
     </AbsoluteFill>

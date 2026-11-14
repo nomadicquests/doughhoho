@@ -36,7 +36,7 @@ WhatsApp.
 | Mon 16 Nov | Cookie box | Feed, **pin to profile** | SecretSanta | Secret Santa, sorted | Secret Santa, sorted. Boxes for your team: WhatsApp us | made |
 | Tue 17 Nov | Cake | Reel + TikTok, **ad: Cake 1** | CakeReel | "Real Jamaican black cake." → "Rum. Wine. Christmas." → gift tin → sizes and prices → order | Real Jamaican black cake, baked by hand 🎄 6" J$3,500 · 8" J$5,750 · 10" J$7,500 | made |
 | Wed 18 Nov | Both | Reel + TikTok | BoxReveal | Black cake has company | Black cake has company. | made (box photo) |
-| Thu 19 Nov | Cake | Feed (carousel) | PickYourSize-slide | Pick your size: cover, one slide per size drawn to scale with its price, then gift tin and how to order | Which size is your Christmas? 6, 8 or 10 inch 👇 | made |
+| Thu 19 Nov | Cake | Feed (carousel) | PickYourSize-slide | How much Christmas cake do you truly need? (No judgment here.) Cover with all three sizes, then Just for you · For the family · For the whole crew, then how to order | Which size are you? Tell us below 👇 6" J$3,500 · 8" J$5,750 · 10" J$7,500 | made |
 | Fri 20 Nov | Cookie box | Reel + TikTok | Spotlight-CandyCane | Candy Cane | Peppermint, twisted by hand 🍬 4 in every box | made |
 | Mon 23 Nov | Cookie box | Reel + TikTok | BakingDay | Baking day | Christmas is baking 🎄 Order by 18 Dec | made |
 | Tue 24 Nov | Cake | Reel + TikTok | Owner's rum pour footage + text overlay | Rum pour: a hand pours rum over the whole cake, "Rum. / Wine. / Christmas." builds word by word, then sizes, prices and order-by | Made with rum and wine for the richest festive flavour 🎄 | **waiting on footage** (owner films; see shot list below) |

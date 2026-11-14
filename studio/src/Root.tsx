@@ -261,13 +261,28 @@ const cakeReelDefaults: CakeReelProps = {
 const sizeCarouselDefaults: SizeCarouselProps = {
   itemId: 'christmas-cake',
   slide: 1,
-  coverPhoto: 'christmas-cake/photos/cake-whole.jpg',
-  coverFocus: '55% 45%',
-  coverTitle: 'Which size is your Christmas?',
-  sizePhoto: 'christmas-cake/photos/cake-whole.jpg',
-  sizeFocus: '58% 42%',
+  cutout: 'christmas-cake/cutouts/cake.webp',
+  coverTitle: 'How much Christmas cake do you truly need?',
+  coverAccent: 'truly',
+  coverAside: '(No judgment here.)',
+  coverSwipe: 'Swipe to find your perfect size →',
+  sizes: [
+    {
+      headline: 'Just for you',
+      line: 'No need to share. Your secret is safe with us.'
+    },
+    {
+      headline: 'For the family',
+      line: "Enough to go around for Mummy, Daddy, the kids and all of Grandma's opinions."
+    },
+    {
+      headline: 'For the whole crew',
+      line: 'Aunties, cousins, neighbours who just drop by, and a secret extra slice for you.'
+    }
+  ],
   orderPhoto: 'christmas-cake/photos/cake-tin-tied.jpg',
-  orderTitle: 'Every cake comes gift-ready',
+  orderTitle: 'Found your perfect size?',
+  orderLine: "WhatsApp your name, cake size and quantity, and we'll handle the rest.",
   orderBy: 'Order by Fri 18 Dec',
   deal: '10% off 6 or more cakes'
 }
