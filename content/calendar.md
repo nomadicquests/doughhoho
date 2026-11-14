@@ -10,7 +10,7 @@ is in [`christmas-cookie-box.md`](christmas-cookie-box.md).
 
 Last orders for both: Friday 18 December.
 
-Status: idea → planned → to build (needs a new template) → made → posted.
+Status: idea → planned → to build (needs a new template) → waiting on footage → made → posted.
 
 ## Ads
 
@@ -39,7 +39,7 @@ WhatsApp.
 | Thu 19 Nov | Cake | Feed (carousel) | to build | Pick your size: one slide per size with its price | Which size is your Christmas? 6, 8 or 10 inch 👇 | to build |
 | Fri 20 Nov | Cookie box | Reel + TikTok | Spotlight-CandyCane | Candy Cane | Peppermint, twisted by hand 🍬 4 in every box | made |
 | Mon 23 Nov | Cookie box | Reel + TikTok | BakingDay | Baking day | Christmas is baking 🎄 Order by 18 Dec | made |
-| Tue 24 Nov | Cake | Reel + TikTok | BoxReveal (cake photo) | "Rum. / Wine. / Christmas." over the slice | Made with rum and wine for the richest festive flavour | to build (new photo, same template) |
+| Tue 24 Nov | Cake | Reel + TikTok | Owner's rum pour footage + text overlay | Rum pour: a hand pours rum over the whole cake, "Rum. / Wine. / Christmas." builds word by word, then sizes, prices and order-by | Made with rum and wine for the richest festive flavour 🎄 | **waiting on footage** (owner films; see shot list below) |
 | Wed 25 Nov | Cookie box | Reel + TikTok | Spotlight-TripleGingerSnap | Triple Ginger Snap | Three kinds of ginger for a real kick | made |
 | Thu 26 Nov | Cake | Feed | PhotoAnnouncement (tied tin photo) | Gift-ready in a gold tin | Every cake comes in a gold gift tin. Ready to give 🎁 | to build (new photo, same template) |
 | Fri 27 Nov | Both | Feed | PhotoAnnouncement | Office party coming up? | Secret Santa, sorted: cakes and cookie boxes for your team. 10% off 6 or more | planned |
@@ -57,3 +57,20 @@ WhatsApp.
 | Mon 14 Dec | Both | Feed + Story | Announcement | Last week to order | Last week to order 🎄 | planned |
 | Wed 16 Dec | Both | Story | Announcement | 2 days left | 2 days left | planned |
 | Fri 18 Dec | Both | Feed + Story | Announcement | Last day to order! | Last day to order! | planned |
+
+## Shot list: rum pour (Tue 24 Nov)
+
+Film by **Sun 22 Nov** so there's time to edit.
+
+- The whole cake on its plate, phone upright, camera fixed (leaned on
+  something). A few seconds before and after the pour.
+- A Black person's hand pours a thin, slow stream of rum from a small glass or
+  the bottle onto the top. Slow, so it glistens and soaks in.
+- Daylight from a window to the side.
+- If possible: 2 to 3 seconds close up as it soaks in.
+- Bottle in the background or label turned away (Meta alcohol ad rules; set
+  any ad for this post to 18+).
+- Film 2 or 3 takes and send them all.
+
+The edit adds "Rum. / Wine. / Christmas." word by word, the three sizes and
+prices, Order by Fri 18 Dec and the follow screen. Add music when posting.
