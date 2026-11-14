@@ -145,3 +145,14 @@ Render: `pnpm still PosterBold-B out/poster-a3.png`
 
 Version 2 (cake from J$3,500) replaces version 1 (from J$3,000). Do not print
 version 1.
+
+### Final print set (signed off)
+
+| Poster | Render | Notes |
+| ------ | ------ | ----- |
+| Cake and cookie box | `PosterBold-B` | Cake from J$3,500. Replaces every earlier print file |
+| Christmas cake only | `Poster-Cake` | 6" J$3,500 · 8" J$5,750 · 10" J$7,500 |
+| Cookie box only | `Poster-CookieBox` | J$2,400, what's inside, 10% off 6 or more boxes |
+
+All A3 with 3 mm bleed at 300 dpi, text at least 10 mm inside the trim, QR
+codes checked to open the WhatsApp chat.
