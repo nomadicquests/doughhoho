@@ -1,8 +1,12 @@
 // The menu: items, prices and photos. Templates pull from this list, and the
 // ordering form will too when it is built.
-//
-// TODO: replace the sample items with the real menu.
 // Photos go in studio/public/menu/ and are referenced by filename.
+
+export type BoxContent = {
+  name: string
+  count: number
+  free?: boolean // thrown in at no charge
+}
 
 export type MenuItem = {
   id: string
@@ -12,25 +16,24 @@ export type MenuItem = {
   currency: string
   photo: string | null // filename in studio/public/menu/, or null
   available: boolean
+  contents?: BoxContent[] // for boxes and bundles: what is inside
 }
 
 export const menu: MenuItem[] = [
   {
-    id: 'sample-1',
-    name: 'Sample Item One',
-    description: 'A short, tasty description goes here.',
-    price: 1500,
+    id: 'christmas-cookie-box',
+    name: 'Christmas Cookie Box',
+    description: '12 Christmas cookies + a free Peppermint Snow Ball',
+    price: 2400,
     currency: 'JMD',
-    photo: null,
+    photo: null, // TODO: a box shot showing only the cookies below
     available: true,
-  },
-  {
-    id: 'sample-2',
-    name: 'Sample Item Two',
-    description: 'Another item, another description.',
-    price: 2200,
-    currency: 'JMD',
-    photo: null,
-    available: true,
+    contents: [
+      { name: 'Candy Cane', count: 4 },
+      { name: 'Butter Cookies', count: 4 },
+      { name: 'Cranberry Pistachio', count: 2 },
+      { name: 'Triple Ginger Snap', count: 2 },
+      { name: 'Peppermint Snow Balls', count: 1, free: true },
+    ],
   },
 ]

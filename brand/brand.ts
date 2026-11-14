@@ -13,6 +13,9 @@ import wordmarkBlack from './assets/wordmark-black.svg'
 export const brand = {
   name: 'Dough Ho Ho Bakery',
   handle: '@doughhoho.bakery',
+  // How people order. TODO: fill in so templates and captions can show them
+  whatsapp: null as string | null, // e.g. '876 555 0123'
+  orderUrl: null as string | null,
   colors: {
     green: '#17320B', // main brand colour
     gold: '#CB9B09',
