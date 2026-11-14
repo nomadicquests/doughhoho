@@ -40,7 +40,7 @@ pnpm render PromoReel out/promo.mp4
 - **Colours, handle:** `brand/brand.ts`
 - **Fonts:** `.woff2` files in `studio/public/fonts/`, listed in `studio/src/fonts.ts`
 - **Menu items and prices:** `brand/menu.ts`; photos go in `studio/public/menu/`
-- **Logo:** `brand/assets/`
+- **Logo:** files in `brand/assets/`, listed in `brand.logos` in `brand/brand.ts`
 
 Templates are built with [Remotion](https://www.remotion.dev). Its licence is
 free for individuals and companies of up to 3 people; larger companies need a
