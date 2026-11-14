@@ -22,6 +22,10 @@ import {
   BOX_REVEAL_DURATION,
   type BoxRevealProps
 } from './templates/BoxReveal'
+import {
+  PhotoAnnouncement,
+  type PhotoAnnouncementProps
+} from './templates/PhotoAnnouncement'
 
 const itemDropDefaults: ItemDropProps = {
   itemId: menu[0].id,
@@ -52,6 +56,17 @@ const boxRevealDefaults: BoxRevealProps = {
   orderLine: 'WhatsApp us to order',
   clip: null,
   clipStartSeconds: 0
+}
+
+const secretSantaDefaults: PhotoAnnouncementProps = {
+  photo: 'christmas-cookie-box/photos/box-open.jpg',
+  photoFocus: '50% 55%',
+  kicker: 'For the office',
+  headline: 'Secret Santa,',
+  headlineAccent: 'sorted.',
+  body: 'Order Christmas Cookie Boxes for your team or Secret Santa. J$2,400 each.',
+  buttonLine: 'WhatsApp us for team orders',
+  footer: 'Order by 18 Dec · @doughhoho.bakery'
 }
 
 const boxCookieCount = (itemId: string) =>
@@ -123,6 +138,18 @@ export const Root = () => (
       fps={BOX_REVEAL_FPS}
       durationInFrames={BOX_REVEAL_DURATION}
       defaultProps={boxRevealDefaults}
+    />
+    <Still
+      id="SecretSanta"
+      component={PhotoAnnouncement}
+      {...formats.portrait}
+      defaultProps={secretSantaDefaults}
+    />
+    <Still
+      id="SecretSanta-story"
+      component={PhotoAnnouncement}
+      {...formats.story}
+      defaultProps={secretSantaDefaults}
     />
   </>
 )
