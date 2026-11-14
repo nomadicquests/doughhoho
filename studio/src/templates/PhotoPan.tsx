@@ -22,6 +22,8 @@ export type PhotoPanProps = {
   detailLine: string
   zoom: number // how close the camera starts, e.g. 1.9
   followLine: string // ends on a follow-us screen with this line; empty for none
+  panOnly?: boolean // just the glide: no pull-back, price or follow screen
+  panFrames?: number // how long the glide takes (default 180)
 }
 
 export const PHOTO_PAN_FPS = 30
@@ -31,7 +33,7 @@ const FOLLOW = 66 // the follow-us screen adds about 2 seconds
 export const photoPanDuration = (followLine: string) =>
   MAIN + (followLine ? FOLLOW : 0)
 
-const PAN_END = 180 // the camera glides from the top of the photo to the bottom
+const PAN_END = 180 // the camera glides from the top of the photo to the bottom (default)
 const PULL_BACK_END = 222 // then pulls back to show all of it
 const FIRST_WORD = 10
 const WORD_GAP = 16
@@ -55,7 +57,8 @@ export const PhotoPan = (props: PhotoPanProps) => {
   const bigW = Math.max(width, height * 0.75) * props.zoom
   const bigH = (bigW * 4) / 3
   const reach = height / 2 / bigH // keep the frame covered
-  const along = interpolate(frame, [0, PAN_END], [reach, 1 - reach], {
+  const panEnd = props.panFrames ?? PAN_END
+  const along = interpolate(frame, [0, panEnd], [reach, 1 - reach], {
     ...clamp,
     easing: ease
   })
@@ -63,7 +66,9 @@ export const PhotoPan = (props: PhotoPanProps) => {
   const endW = width * 0.72
   const endH = (endW * 4) / 3
   const endTop = height * 0.285
-  const t = isStill
+  const t = props.panOnly
+    ? 0
+    : isStill
     ? 1
     : interpolate(frame, [PAN_END, PULL_BACK_END], [0, 1], {
         ...clamp,
@@ -94,6 +99,7 @@ export const PhotoPan = (props: PhotoPanProps) => {
           left: photoLeft,
           top: photoTop,
           objectFit: 'cover',
+          filter: 'contrast(1.12) saturate(1.22) brightness(1.02)',
           borderRadius: t * 28 * s,
           border: `${t * 10 * s}px solid ${brand.colors.white}`,
           boxShadow: `0 ${t * 30 * s}px ${t * 60 * s}px rgba(0, 0, 0, 0.4)`
@@ -101,13 +107,13 @@ export const PhotoPan = (props: PhotoPanProps) => {
       />
       <AbsoluteFill
         style={{
-          background: `linear-gradient(180deg, ${bandTop} 0%, ${bandTop} 14%, ${bandFade} ${40 - t * 16}%)`
+          background: `linear-gradient(180deg, ${bandTop} 0%, ${bandTop} 10%, ${bandFade} ${28 - t * 4}%)`
         }}
       />
       <AbsoluteFill
         style={{
-          opacity: 1 - t,
-          background: `linear-gradient(0deg, ${bandTop} 0%, ${bandFade} 30%)`
+          opacity: props.panOnly ? 0 : 1 - t,
+          background: `linear-gradient(0deg, ${bandTop} 0%, ${bandFade} 22%)`
         }}
       />
       <div
@@ -143,10 +149,10 @@ export const PhotoPan = (props: PhotoPanProps) => {
       <div
         style={{
           position: 'absolute',
+          display: props.panOnly ? 'none' : 'flex',
           left: 0,
           right: 0,
           top: endTop + endH + 40 * s,
-          display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
           textAlign: 'center',
@@ -179,7 +185,7 @@ export const PhotoPan = (props: PhotoPanProps) => {
           {props.detailLine}
         </div>
       </div>
-      {props.followLine ? (
+      {props.followLine && !props.panOnly ? (
         <Sequence from={MAIN}>
           <FollowCard line={props.followLine} />
         </Sequence>

@@ -36,6 +36,12 @@ import {
   type PhotoPanProps
 } from './templates/PhotoPan'
 import { Poster, POSTER_A3, type PosterProps } from './templates/Poster'
+import {
+  BakingDay,
+  BAKING_DAY_FPS,
+  BAKING_DAY_DURATION,
+  type BakingDayProps
+} from './templates/BakingDay'
 import { PosterBold, type PosterBoldProps } from './templates/PosterBold'
 import { PosterSingle, type PosterSingleProps } from './templates/PosterSingle'
 import {
@@ -107,12 +113,15 @@ const cookieSpotlightDefaults: CookieSpotlightProps = {
   theme: 'red'
 }
 
-const bakingDayDefaults: PhotoPanProps = {
-  itemId: 'christmas-cookie-box',
-  photo: 'christmas-cookie-box/photos/photo-3705.jpg',
-  line: 'Christmas / is / baking.',
-  detailLine: '12 cookies + a free Snow Ball · order by 18 Dec',
-  zoom: 1.9,
+const bakingDayDefaults: BakingDayProps = {
+  trayPhoto: 'christmas-cookie-box/photos/photo-3705.jpg',
+  trayLine: 'Christmas / is / baking.',
+  cakePhoto: 'christmas-cake/photos/cake-whole.jpg',
+  cakeLine: 'Black cake / is / ready.',
+  menuTitle: 'Fresh for Christmas',
+  cakeCutout: 'christmas-cake/cutouts/cake.webp',
+  boxPhoto: 'christmas-cookie-box/photos/box-open-sticker-fixed.jpg',
+  orderBy: 'Order by Fri 18 Dec',
   followLine: 'Follow us for more Christmas baking'
 }
 
@@ -401,14 +410,11 @@ export const Root = () => (
     })}
     <Composition
       id="BakingDay"
-      component={PhotoPan}
+      component={BakingDay}
       {...formats.story}
-      fps={PHOTO_PAN_FPS}
-      durationInFrames={photoPanDuration(bakingDayDefaults.followLine)}
+      fps={BAKING_DAY_FPS}
+      durationInFrames={BAKING_DAY_DURATION}
       defaultProps={bakingDayDefaults}
-      calculateMetadata={({ props }) => ({
-        durationInFrames: photoPanDuration(props.followLine)
-      })}
     />
     <Still
       id="Poster-A3"
