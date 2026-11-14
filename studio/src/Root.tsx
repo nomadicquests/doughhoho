@@ -302,7 +302,8 @@ const menuCardDefaults: MenuCardProps = {
   style: 'card',
   title: 'Christmas Menu',
   cakeNote: 'Made with rum and wine',
-  cakeCutout: 'christmas-cake/cutouts/cake.webp',
+  cakePhoto: 'christmas-cake/photos/cake-whole.jpg',
+  cakeTinPhoto: 'christmas-cake/cutouts/cake-tin.webp',
   boxPhoto: 'christmas-cookie-box/photos/box-open-sticker-fixed.jpg',
   deal: '10% off 6 or more cakes or boxes',
   orderBy: 'Order by Fri 18 Dec'

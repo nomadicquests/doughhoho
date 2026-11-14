@@ -13,7 +13,8 @@ export type MenuCardProps = {
   style: 'card' | 'chalk' | 'split'
   title: string
   cakeNote: string
-  cakeCutout: string
+  cakePhoto: string // the cake on its plate
+  cakeTinPhoto: string // the cake in its tin
   boxPhoto: string
   deal: string
   orderBy: string
@@ -62,6 +63,52 @@ const PriceRow = ({
     </span>
   </div>
 )
+
+// The cake on its plate in a circle, the cut-out tin resting on its corner
+const TIN_RATIO = 1181 / 1425 // height / width of the tin cut-out
+const CakePhotos = ({
+  plate,
+  tin,
+  size,
+  ring
+}: {
+  plate: string
+  tin: string
+  size: number
+  ring: string
+}) => {
+  const tinW = size * 0.68
+  const tinH = tinW * TIN_RATIO
+  return (
+    <div style={{ position: 'relative', width: size + tinW * 0.35, height: size + tinH * 0.35, flexShrink: 0 }}>
+      <Img
+        src={staticFile(`menu/${plate}`)}
+        style={{
+          width: size,
+          height: size,
+          objectFit: 'cover',
+          objectPosition: '55% 60%',
+          borderRadius: '50%',
+          border: `${Math.max(4, size * 0.03)}px solid ${ring}`,
+          boxSizing: 'border-box',
+          boxShadow: '0 10px 22px rgba(0, 0, 0, 0.28)',
+          filter: 'contrast(1.08) saturate(1.15)'
+        }}
+      />
+      <Img
+        src={staticFile(`menu/${tin}`)}
+        style={{
+          position: 'absolute',
+          right: 0,
+          bottom: 0,
+          width: tinW,
+          height: tinH,
+          filter: 'drop-shadow(0 10px 10px rgba(0, 0, 0, 0.35))'
+        }}
+      />
+    </div>
+  )
+}
 
 const Ornament = ({ color, width }: { color: string; width: number }) => (
   <div style={{ display: 'flex', alignItems: 'center', gap: 14, width }}>
@@ -152,14 +199,9 @@ const CardStyle = (props: MenuCardProps) => {
                 ))}
               </div>
             </div>
-            <Img
-              src={staticFile(`menu/${props.cakeCutout}`)}
-              style={{
-                width: 250,
-                alignSelf: 'center',
-                filter: 'drop-shadow(0 14px 14px rgba(0, 0, 0, 0.25))'
-              }}
-            />
+            <div style={{ alignSelf: 'center' }}>
+              <CakePhotos plate={props.cakePhoto} tin={props.cakeTinPhoto} size={220} ring={brand.colors.accent} />
+            </div>
           </div>
 
           <div style={{ marginTop: 34 }}>
@@ -338,10 +380,7 @@ const ChalkStyle = (props: MenuCardProps) => {
                 ))}
               </div>
             </div>
-            <Img
-              src={staticFile(`menu/${props.cakeCutout}`)}
-              style={{ width: 260, filter: 'drop-shadow(0 12px 12px rgba(0,0,0,0.45))' }}
-            />
+            <CakePhotos plate={props.cakePhoto} tin={props.cakeTinPhoto} size={220} ring="rgba(255, 255, 255, 0.9)" />
           </div>
 
           <div style={{ width: '100%', marginTop: 40 }}>
@@ -441,10 +480,7 @@ const SplitStyle = (props: MenuCardProps) => {
       >
         <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', paddingRight: 34 }}>
           <div style={{ height: 280, display: 'flex', alignItems: 'center' }}>
-            <Img
-              src={staticFile(`menu/${props.cakeCutout}`)}
-              style={{ width: 330, filter: 'drop-shadow(0 16px 16px rgba(0,0,0,0.25))' }}
-            />
+            <CakePhotos plate={props.cakePhoto} tin={props.cakeTinPhoto} size={230} ring={brand.colors.accent} />
           </div>
           <div style={colHead}>Black Cake</div>
           <div style={{ fontFamily: headingFont, fontStyle: 'italic', fontSize: 26, color: red, marginTop: 6, textAlign: 'center' }}>
