@@ -1,6 +1,6 @@
 import { Fragment } from 'react'
 import { Composition, Still } from 'remotion'
-import { menu } from '@doughhoho/brand'
+import { brand, menu } from '@doughhoho/brand'
 import { formats } from './formats'
 import { ItemDrop, type ItemDropProps } from './templates/ItemDrop'
 import {
@@ -80,8 +80,8 @@ const secretSantaDefaults: PhotoAnnouncementProps = {
   headline: 'Secret Santa,',
   headlineAccent: 'sorted.',
   body: 'Order Christmas Cookie Boxes for your team or Secret Santa. J$2,400 each.',
-  buttonLine: 'WhatsApp us for team orders',
-  footer: 'Order by 18 Dec · @doughhoho.bakery'
+  buttonLine: `WhatsApp ${brand.whatsapp} for team orders`,
+  footer: `Order by 18 Dec · ${brand.handle}`
 }
 
 const cookieSpotlightDefaults: CookieSpotlightProps = {
@@ -134,7 +134,7 @@ const posterDefaults: PosterProps = {
   orderBy: 'Order by 18 December',
   orderLine: 'WhatsApp to order',
   fulfilment: 'Delivery or pickup',
-  qrCode: null
+  qrCode: 'print/whatsapp-qr.png'
 }
 
 // One spotlight per cookie in the box, in posting order

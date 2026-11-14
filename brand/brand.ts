@@ -13,9 +13,10 @@ import wordmarkBlack from './assets/wordmark-black.svg'
 export const brand = {
   name: 'Dough Ho Ho Bakery',
   handle: '@doughhoho.bakery',
-  // How people order. TODO: fill in so templates and captions can show them
-  whatsapp: null as string | null, // e.g. '876 555 0123'
-  orderUrl: null as string | null,
+  // How people order
+  whatsapp: '(876) 368-0479' as string | null,
+  whatsappUrl: 'https://wa.me/18763680479', // opens a chat; used for QR codes
+  orderUrl: null as string | null, // TODO: the order form link
   colors: {
     green: '#17320B', // main brand colour
     gold: '#CB9B09',
