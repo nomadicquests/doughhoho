@@ -41,7 +41,7 @@ WhatsApp.
 | Mon 23 Nov | Cookie box | Reel + TikTok | BakingDay | Baking day | Christmas is baking 🎄 Order by 18 Dec | made |
 | Tue 24 Nov | Cake | Reel + TikTok | Owner's rum pour footage + text overlay | Rum pour: a hand pours rum over the whole cake, "Rum. / Wine. / Christmas." builds word by word, then sizes, prices and order-by | Made with rum and wine for the richest festive flavour 🎄 | **waiting on footage** (owner films; see shot list below) |
 | Wed 25 Nov | Cookie box | Reel + TikTok | Spotlight-TripleGingerSnap | Triple Ginger Snap | Three kinds of ginger for a real kick | made |
-| Thu 26 Nov | Cake | Feed | PhotoAnnouncement (tied tin photo) | Gift-ready in a gold tin | Every cake comes in a gold gift tin. Ready to give 🎁 | to build (new photo, same template) |
+| Thu 26 Nov | Cake | Feed | PhotoAnnouncement (tied tin photo) | Gift-ready | Every cake comes gift-ready. Just add a bow 🎁 | to build (new photo, same template) |
 | Fri 27 Nov | Both | Feed | PhotoAnnouncement | Office party coming up? | Secret Santa, sorted: cakes and cookie boxes for your team. 10% off 6 or more | planned |
 | Mon 30 Nov | Cookie box | Reel + TikTok, **ad: Cookie 2** | BoxReveal | Who's on your list? | Who's on your list? | planned |
 | Tue 1 Dec | Cake | Feed | PhotoAnnouncement (stack of tins) | One for every house | Cakes for the whole family: 10% off 6 or more | to build (new photo, same template) |

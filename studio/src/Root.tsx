@@ -249,7 +249,7 @@ const cakeReelDefaults: CakeReelProps = {
       photo: 'christmas-cake/photos/cake-tin-tied.jpg',
       focus: '50% 50%',
       fit: 'contain',
-      line: 'Gift-ready / in gold.',
+      line: 'Gift / ready.',
       dark: true
     }
   ],
@@ -267,7 +267,7 @@ const sizeCarouselDefaults: SizeCarouselProps = {
   sizePhoto: 'christmas-cake/photos/cake-whole.jpg',
   sizeFocus: '58% 42%',
   orderPhoto: 'christmas-cake/photos/cake-tin-tied.jpg',
-  orderTitle: 'Every cake comes in a gold gift tin',
+  orderTitle: 'Every cake comes gift-ready',
   orderBy: 'Order by Fri 18 Dec',
   deal: '10% off 6 or more cakes'
 }
