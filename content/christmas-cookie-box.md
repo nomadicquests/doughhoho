@@ -134,3 +134,11 @@ on launch day, Box Reveal by 18 November and Cookie Spotlight by 20 November.
 - [ ] The WhatsApp number and order form link, set in `brand/brand.ts`
 - [ ] Delivery areas, for ad targeting and captions
 - [ ] Confirm the ad budget is US$
+
+## Print poster (A3)
+
+Signed off: `PosterBold-B` in `studio/` (wordmark, gift-tag prices, black
+cake as the hero). A3 at 300 dpi with 3 mm bleed; text kept 10 mm inside the
+trim. The QR code opens a WhatsApp chat with (876) 368-0479.
+
+Render: `pnpm still PosterBold-B out/poster-a3.png`
