@@ -43,6 +43,7 @@ import {
   type BakingDayProps
 } from './templates/BakingDay'
 import { PosterBold, type PosterBoldProps } from './templates/PosterBold'
+import { MenuCard, type MenuCardProps } from './templates/MenuCard'
 import { PosterSingle, type PosterSingleProps } from './templates/PosterSingle'
 import {
   SizeCarousel,
@@ -297,6 +298,16 @@ const sizeCarouselDefaults: SizeCarouselProps = {
   deal: '10% off 6 or more cakes'
 }
 
+const menuCardDefaults: MenuCardProps = {
+  style: 'card',
+  title: 'Christmas Menu',
+  cakeNote: 'Made with rum and wine',
+  cakeCutout: 'christmas-cake/cutouts/cake.webp',
+  boxPhoto: 'christmas-cookie-box/photos/box-open-sticker-fixed.jpg',
+  deal: '10% off 6 or more cakes or boxes',
+  orderBy: 'Order by Fri 18 Dec'
+}
+
 // One spotlight per cookie in the box, in posting order
 const spotlightCookies = [
   'Candy Cane',
@@ -506,5 +517,14 @@ export const Root = () => (
         />
       )
     )}
+    {(['card', 'chalk', 'split'] as const).map((style) => (
+      <Still
+        key={style}
+        id={`MenuCard-${style}`}
+        component={MenuCard}
+        {...formats.portrait}
+        defaultProps={{ ...menuCardDefaults, style }}
+      />
+    ))}
   </>
 )
