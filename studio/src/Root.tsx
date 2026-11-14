@@ -197,6 +197,24 @@ const posterCookieBox: PosterSingleProps = {
   qrCode: 'print/whatsapp-qr.png'
 }
 
+const posterCake: PosterSingleProps = {
+  ...posterCookieBox,
+  itemId: 'christmas-cake',
+  photo: 'christmas-cake/photos/cake-whole.jpg',
+  focus: '50% 62%',
+  photoWidth: 0.78,
+  backdrop: '#DEDBD6',
+  inset: 'christmas-cake/photos/cake-slice.jpg',
+  insetFocus: '55% 62%',
+  headline: 'Jamaican Black Cake',
+  subline: 'The traditional Christmas cake, baked by hand',
+  pricePrefix: 'from',
+  showContents: false,
+  showSizes: true,
+  note: 'Made with rum and wine for the richest festive flavour',
+  deal: '10% off 6 or more cakes'
+}
+
 // One spotlight per cookie in the box, in posting order
 const spotlightCookies = [
   'Candy Cane',
@@ -344,6 +362,12 @@ export const Root = () => (
         defaultProps={{ ...posterBoldDefaults, concept: 'B', priceStyle }}
       />
     ))}
+    <Still
+      id="Poster-Cake"
+      component={PosterSingle}
+      {...POSTER_A3}
+      defaultProps={posterCake}
+    />
     <Still
       id="Poster-CookieBox"
       component={PosterSingle}

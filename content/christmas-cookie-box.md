@@ -29,7 +29,7 @@ copy, playful motion, and treating each cookie like a character.
   Jamaican Black Cake.
 - **Bulk discount:** 10% off orders of 6 or more.
 - **Also selling:** Jamaican Black Cake in a gold gift tin, 6, 8 or 10 inch,
-  6" J$3,500 · 8" J$6,800 · 10" J$7,500.
+  6" J$3,500 · 8" J$5,750 · 10" J$7,500.
 - **Businesses:** order boxes for your team or your Secret Santa. WhatsApp us
   for details.
 

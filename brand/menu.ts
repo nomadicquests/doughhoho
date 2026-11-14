@@ -75,7 +75,7 @@ export const menu: MenuItem[] = [
     available: true,
     sizes: [
       { name: '6 inch', price: 3500 },
-      { name: '8 inch', price: 6800 },
+      { name: '8 inch', price: 5750 },
       { name: '10 inch', price: 7500 }
     ]
   }
