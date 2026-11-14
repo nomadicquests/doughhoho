@@ -1,6 +1,6 @@
-# Doughhoho
+# Dough Ho Ho Bakery
 
-Social media graphics, videos and ad content for Doughhoho. An ordering form
+Social media graphics, videos and ad content for Dough Ho Ho Bakery. An ordering form
 will be added later.
 
 ## What's where
