@@ -2,7 +2,16 @@
 // Every template in studio/ reads from here, so changing a colour or font
 // here changes it everywhere.
 //
-// TODO: add the logo (brand/assets/) and confirm the social handle.
+// TODO: confirm the business name and social handle (the logo says
+// "Dough Ho-Ho Bakery").
+
+import badgeGreen from './assets/badge-green.svg'
+import badgeWhite from './assets/badge-white.svg'
+import badgeBlack from './assets/badge-black.svg'
+import badgeBlackGold from './assets/badge-black-gold.svg'
+import wordmarkGreen from './assets/wordmark-green.svg'
+import wordmarkWhite from './assets/wordmark-white.svg'
+import wordmarkBlack from './assets/wordmark-black.svg'
 
 export const brand = {
   name: 'Doughhoho',
@@ -25,6 +34,17 @@ export const brand = {
     heading: 'Playfair Display', // titles
     body: 'Nunito Sans',
   },
-  // Put the logo file in brand/assets/ and set the filename here.
-  logo: null as string | null,
+  // Logo files in brand/assets/, with transparent backgrounds. Badges are
+  // round stickers with a solid centre, so they sit on photos or any colour.
+  // Wordmarks are the name in text: pick the one that contrasts with what is
+  // behind it (green or black on light, white on dark).
+  logos: {
+    badge: badgeGreen, // green ring, white centre: the default
+    badgeOnDark: badgeWhite, // white ring, green centre
+    badgeBlack, // black ring, black tools
+    badgeBlackGold, // black ring, gold tools
+    wordmark: wordmarkGreen, // for light backgrounds
+    wordmarkOnDark: wordmarkWhite, // for green, red or dark photos
+    wordmarkBlack,
+  },
 } as const

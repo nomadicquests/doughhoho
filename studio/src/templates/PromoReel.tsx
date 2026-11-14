@@ -10,6 +10,7 @@ import { brand, menu } from '@doughhoho/brand'
 import { headingFont, bodyFont } from '../fonts'
 import { ItemPhoto } from '../components/ItemPhoto'
 import { formatPrice } from '../components/Price'
+import { Logo } from '../components/Logo'
 
 export type PromoReelProps = {
   hook: string // the first line people see; make it grab attention
@@ -112,6 +113,9 @@ export const PromoReel = ({ hook, itemIds, callToAction }: PromoReelProps) => {
     >
       <Sequence durationInFrames={hookFrames}>
         <BigText>{hook}</BigText>
+        <AbsoluteFill style={{ alignItems: 'center', paddingTop: 140 }}>
+          <Logo variant="wordmark" style={{ width: 420 }} />
+        </AbsoluteFill>
       </Sequence>
       {itemIds.map((id, i) => (
         <Sequence
@@ -134,6 +138,7 @@ export const PromoReel = ({ hook, itemIds, callToAction }: PromoReelProps) => {
               fontWeight: 700,
             }}
           >
+            <Logo variant="badgeOnDark" style={{ width: 460 }} />
             <div style={{ fontSize: 120, padding: 60 }}>{callToAction}</div>
             <div
               style={{

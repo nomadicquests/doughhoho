@@ -3,6 +3,7 @@ import { brand, menu } from '@doughhoho/brand'
 import { headingFont, bodyFont } from '../fonts'
 import { ItemPhoto } from '../components/ItemPhoto'
 import { formatPrice } from '../components/Price'
+import { Logo } from '../components/Logo'
 
 export type ItemDropProps = {
   itemId: string
@@ -24,6 +25,16 @@ export const ItemDrop = ({ itemId, badge, callToAction }: ItemDropProps) => {
       <ItemPhoto
         photo={item.photo}
         style={{ width, height: photoHeight, position: 'absolute', top: 0 }}
+      />
+      <Logo
+        variant="badge"
+        style={{
+          position: 'absolute',
+          top: 32 * scale,
+          right: 32 * scale,
+          width: 220 * scale,
+          filter: 'drop-shadow(0 6px 12px rgba(0, 0, 0, 0.25))',
+        }}
       />
       <div
         style={{
