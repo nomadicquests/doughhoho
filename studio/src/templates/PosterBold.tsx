@@ -28,6 +28,7 @@ export type PosterBoldProps = {
   fulfilment: string
   qrCode: string // image in studio/public/
   logo: 'badge' | 'wordmark' // which logo concept B shows
+  priceStyle: 'burst' | 'pill' | 'seal' | 'tag' // B: shape of the price callouts
   heroBackdrop: string // B: colour behind the hero photo, matched to its background
 }
 
@@ -81,6 +82,151 @@ const PriceBurst = ({
       <div style={{ fontWeight: 800, fontSize: size * 0.22, lineHeight: 1 }}>
         {p.price}
       </div>
+    </div>
+  )
+}
+
+// A price callout in one of several shapes; `size` sets its scale
+const PriceCallout = ({
+  p,
+  kind,
+  size,
+  u
+}: {
+  p: PosterProduct
+  kind: PosterBoldProps['priceStyle']
+  size: number
+  u: number
+}) => {
+  if (kind === 'burst') return <PriceBurst p={p} size={size} u={u} />
+  const prefix = p.pricePrefix ? (
+    <div
+      style={{
+        fontFamily: headingFont,
+        fontStyle: 'italic',
+        fontWeight: 700,
+        fontSize: size * 0.15,
+        lineHeight: 1
+      }}
+    >
+      {p.pricePrefix}
+    </div>
+  ) : null
+  if (kind === 'pill') {
+    return (
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'baseline',
+          gap: size * 0.05,
+          background: brand.colors.white,
+          color: brand.colors.primary,
+          borderRadius: 999,
+          padding: `${size * 0.07}px ${size * 0.14}px`,
+          border: `${4 * u}px solid ${brand.colors.accent}`,
+          boxShadow: `0 ${8 * u}px ${18 * u}px rgba(0, 0, 0, 0.3)`,
+          whiteSpace: 'nowrap'
+        }}
+      >
+        {prefix}
+        <div
+          style={{
+            fontFamily: headingFont,
+            fontWeight: 700,
+            fontSize: size * 0.26,
+            lineHeight: 1
+          }}
+        >
+          {p.price}
+        </div>
+      </div>
+    )
+  }
+  if (kind === 'seal') {
+    return (
+      <div
+        style={{
+          width: size,
+          height: size,
+          borderRadius: '50%',
+          background: brand.colors.secondary,
+          color: brand.colors.white,
+          border: `${6 * u}px solid ${brand.colors.white}`,
+          outline: `${3 * u}px solid ${brand.colors.secondary}`,
+          boxSizing: 'border-box',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          boxShadow: `0 ${8 * u}px ${18 * u}px rgba(0, 0, 0, 0.35)`,
+          transform: 'rotate(-8deg)'
+        }}
+      >
+        {prefix}
+        <div
+          style={{
+            fontFamily: headingFont,
+            fontWeight: 700,
+            fontSize: size * 0.21,
+            lineHeight: 1.05
+          }}
+        >
+          {p.price}
+        </div>
+      </div>
+    )
+  }
+  // gift tag: a white hang tag with a punched hole and a red string
+  const w = size * 1.25
+  const h = size * 0.58
+  return (
+    <div
+      style={{
+        position: 'relative',
+        width: w,
+        height: h,
+        transform: 'rotate(-8deg)',
+        filter: `drop-shadow(0 ${8 * u}px ${12 * u}px rgba(0, 0, 0, 0.3))`
+      }}
+    >
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          background: brand.colors.white,
+          clipPath: `polygon(${h * 0.4}px 0, 100% 0, 100% 100%, ${h * 0.4}px 100%, 0 50%)`,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          paddingLeft: h * 0.4,
+          color: brand.colors.secondary
+        }}
+      >
+        {prefix}
+        <div
+          style={{
+            fontFamily: headingFont,
+            fontWeight: 700,
+            fontSize: size * 0.22,
+            lineHeight: 1.05
+          }}
+        >
+          {p.price}
+        </div>
+      </div>
+      <div
+        style={{
+          position: 'absolute',
+          left: h * 0.22,
+          top: h / 2 - size * 0.035,
+          width: size * 0.07,
+          height: size * 0.07,
+          borderRadius: '50%',
+          background: brand.colors.secondary,
+          boxShadow: 'inset 0 1px 2px rgba(0, 0, 0, 0.4)'
+        }}
+      />
     </div>
   )
 }
@@ -375,7 +521,7 @@ const ConceptB = (props: PosterBoldProps & { u: number }) => {
           }}
         />
         <div style={{ position: 'absolute', right: pad - 16 * u, top: pad - 10 * u }}>
-          <PriceBurst p={heroP} size={210 * u} u={u} />
+          <PriceCallout p={heroP} kind={props.priceStyle} size={210 * u} u={u} />
         </div>
         <div
           style={{
@@ -400,7 +546,7 @@ const ConceptB = (props: PosterBoldProps & { u: number }) => {
             }}
           />
           <div style={{ position: 'absolute', right: -60 * u, top: -20 * u }}>
-            <PriceBurst p={circleP} size={190 * u} u={u} />
+            <PriceCallout p={circleP} kind={props.priceStyle} size={190 * u} u={u} />
           </div>
         </div>
       </div>

@@ -170,7 +170,8 @@ const posterBoldDefaults: PosterBoldProps = {
   orderBy: 'Order by Fri 18 Dec',
   fulfilment: 'Delivery or pickup',
   qrCode: 'print/whatsapp-qr.png',
-  logo: 'badge',
+  logo: 'wordmark',
+  priceStyle: 'pill',
   heroBackdrop: '#DEDBD6'
 }
 
@@ -312,11 +313,14 @@ export const Root = () => (
         defaultProps={{ ...posterBoldDefaults, concept }}
       />
     ))}
-    <Still
-      id="PosterBold-B-wordmark"
-      component={PosterBold}
-      {...POSTER_A3}
-      defaultProps={{ ...posterBoldDefaults, concept: 'B', logo: 'wordmark' }}
-    />
+    {(['pill', 'seal', 'tag'] as const).map((priceStyle) => (
+      <Still
+        key={priceStyle}
+        id={`PosterBold-B-${priceStyle}`}
+        component={PosterBold}
+        {...POSTER_A3}
+        defaultProps={{ ...posterBoldDefaults, concept: 'B', priceStyle }}
+      />
+    ))}
   </>
 )
