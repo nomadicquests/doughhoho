@@ -1,6 +1,14 @@
-import { AbsoluteFill, Img, staticFile } from 'remotion'
+import {
+  AbsoluteFill,
+  Img,
+  interpolate,
+  staticFile,
+  useCurrentFrame,
+  useVideoConfig
+} from 'remotion'
 import { TransitionSeries, springTiming } from '@remotion/transitions'
 import { fade } from '@remotion/transitions/fade'
+import { slide } from '@remotion/transitions/slide'
 import { brand, menu } from '@doughhoho/brand'
 import { headingFont, bodyFont } from '../fonts'
 import { formatPrice } from '../components/Price'
@@ -22,18 +30,148 @@ export type BakingDayProps = {
   boxPhoto: string
   orderBy: string
   followLine: string
+  cakeTransition: 'dissolve' | 'scroll' | 'drop'
 }
 
 export const BAKING_DAY_FPS = 30
 const TRAY = 165
-const CAKE = 135
+const CAKE = 165
 const MENU = 120
 const FOLLOW = 75
 const T = 14
 
-export const BAKING_DAY_DURATION = TRAY + CAKE + MENU + FOLLOW - T * 3
+const T_CAKE = 28 // the slower move into the cake
+
+export const BAKING_DAY_DURATION = TRAY + CAKE + MENU + FOLLOW - T * 2 - T_CAKE
 
 const smooth = springTiming({ config: { damping: 200 }, durationInFrames: T })
+const slow = springTiming({ config: { damping: 200 }, durationInFrames: T_CAKE })
+
+// The words over the cake, built one beat at a time on a short red band
+const CakeWords = ({ line, delay }: { line: string; delay: number }) => {
+  const beats = line
+    .split('/')
+    .map((b) => b.trim())
+    .filter(Boolean)
+  return (
+    <>
+      <AbsoluteFill
+        style={{
+          background: `linear-gradient(180deg, ${brand.colors.secondary}F2 0%, ${brand.colors.secondary}F2 10%, ${brand.colors.secondary}00 28%)`
+        }}
+      />
+      <div
+        style={{
+          position: 'absolute',
+          top: 115,
+          left: 0,
+          right: 0,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          color: brand.colors.white
+        }}
+      >
+        <Logo variant="wordmarkOnDark" style={{ width: 240 }} />
+        <div
+          style={{
+            fontFamily: headingFont,
+            fontWeight: 700,
+            fontSize: 110,
+            lineHeight: 1.05,
+            marginTop: 26,
+            padding: '0 50px',
+            textAlign: 'center',
+            textShadow: '0 4px 20px rgba(0, 0, 0, 0.3)'
+          }}
+        >
+          {beats.map((b, i) => (
+            <Word key={i} text={b} delay={delay + i * 16} last={i === beats.length - 1} />
+          ))}
+        </div>
+      </div>
+    </>
+  )
+}
+
+const Word = ({ text, delay, last }: { text: string; delay: number; last: boolean }) => {
+  const p = useEnter(delay, 14)
+  return (
+    <span
+      style={{
+        display: 'inline-block',
+        margin: '0 0.14em',
+        opacity: p,
+        transform: `translateY(${(1 - p) * 30}px) scale(${0.85 + p * 0.15})`,
+        fontStyle: last ? 'italic' : 'normal'
+      }}
+    >
+      {text}
+    </span>
+  )
+}
+
+// The cake photo filling the frame, easing slowly in
+const CakePush = ({ photo, line, delay }: { photo: string; line: string; delay: number }) => {
+  const frame = useCurrentFrame()
+  const { durationInFrames } = useVideoConfig()
+  const zoom = interpolate(frame, [0, durationInFrames], [1.0, 1.12])
+  return (
+    <AbsoluteFill style={{ background: brand.colors.secondary }}>
+      <Img
+        src={staticFile(`menu/${photo}`)}
+        style={{
+          width: '100%',
+          height: '100%',
+          objectFit: 'cover',
+          objectPosition: '55% 60%',
+          transform: `scale(${zoom})`,
+          transformOrigin: '55% 60%',
+          filter: 'contrast(1.12) saturate(1.22) brightness(1.02)'
+        }}
+      />
+      <CakeWords line={line} delay={delay} />
+    </AbsoluteFill>
+  )
+}
+
+// The cut-out cake drops onto red gingham with a soft bounce
+const CakeDrop = ({ cutout, line }: { cutout: string; line: string }) => {
+  const drop = useEnter(T + 4, 9)
+  const w = 860
+  const h = w * (1573 / 1938)
+  return (
+    <AbsoluteFill>
+      <GinghamBackground theme="red" />
+      <GoldFlecks color={brand.colors.white} />
+      <div
+        style={{
+          position: 'absolute',
+          left: (1080 - w * 0.9) / 2,
+          top: 1350 - h * 0.12,
+          width: w * 0.9,
+          height: h * 0.22,
+          borderRadius: '50%',
+          background: 'rgba(0, 0, 0, 0.35)',
+          filter: 'blur(24px)',
+          opacity: drop
+        }}
+      />
+      <Img
+        src={staticFile(`menu/${cutout}`)}
+        style={{
+          position: 'absolute',
+          left: (1080 - w) / 2,
+          top: 1350 - h,
+          width: w,
+          height: h,
+          transform: `translateY(${(1 - drop) * -1100}px)`
+        }}
+      />
+      <CakeWords line={line} delay={T + 20} />
+    </AbsoluteFill>
+  )
+}
 
 const Product = ({
   img,
@@ -201,21 +339,22 @@ export const BakingDay = (props: BakingDayProps) => (
           zoom={1.9}
           followLine=""
           panOnly
-          panFrames={TRAY}
+          panFrames={TRAY + T_CAKE}
+          lineSize={96}
         />
       </TransitionSeries.Sequence>
-      <TransitionSeries.Transition presentation={fade()} timing={smooth} />
+      <TransitionSeries.Transition
+        presentation={
+          props.cakeTransition === 'scroll' ? slide({ direction: 'from-bottom' }) : fade()
+        }
+        timing={slow}
+      />
       <TransitionSeries.Sequence durationInFrames={CAKE}>
-        <PhotoPan
-          itemId="christmas-cake"
-          photo={props.cakePhoto}
-          line={props.cakeLine}
-          detailLine=""
-          zoom={1.5}
-          followLine=""
-          panOnly
-          panFrames={CAKE}
-        />
+        {props.cakeTransition === 'drop' ? (
+          <CakeDrop cutout={props.cakeCutout} line={props.cakeLine} />
+        ) : (
+          <CakePush photo={props.cakePhoto} line={props.cakeLine} delay={T_CAKE} />
+        )}
       </TransitionSeries.Sequence>
       <TransitionSeries.Transition presentation={fade()} timing={smooth} />
       <TransitionSeries.Sequence durationInFrames={MENU}>

@@ -115,14 +115,15 @@ const cookieSpotlightDefaults: CookieSpotlightProps = {
 
 const bakingDayDefaults: BakingDayProps = {
   trayPhoto: 'christmas-cookie-box/photos/photo-3705.jpg',
-  trayLine: 'Christmas / is / baking.',
+  trayLine: "It's beginning to / smell a lot / like Christmas.",
   cakePhoto: 'christmas-cake/photos/cake-whole.jpg',
-  cakeLine: 'Black cake / is / ready.',
+  cakeLine: 'Black cake / season / is here.',
   menuTitle: 'Fresh for Christmas',
   cakeCutout: 'christmas-cake/cutouts/cake.webp',
   boxPhoto: 'christmas-cookie-box/photos/box-open-sticker-fixed.jpg',
   orderBy: 'Order by Fri 18 Dec',
-  followLine: 'Follow us for more Christmas baking'
+  followLine: 'Follow us for more Christmas baking',
+  cakeTransition: 'scroll'
 }
 
 const posterDefaults: PosterProps = {
@@ -416,6 +417,17 @@ export const Root = () => (
       durationInFrames={BAKING_DAY_DURATION}
       defaultProps={bakingDayDefaults}
     />
+    {(['dissolve', 'scroll', 'drop'] as const).map((cakeTransition) => (
+      <Composition
+        key={cakeTransition}
+        id={`BakingDay-${cakeTransition}`}
+        component={BakingDay}
+        {...formats.story}
+        fps={BAKING_DAY_FPS}
+        durationInFrames={BAKING_DAY_DURATION}
+        defaultProps={{ ...bakingDayDefaults, cakeTransition }}
+      />
+    ))}
     <Still
       id="Poster-A3"
       component={Poster}

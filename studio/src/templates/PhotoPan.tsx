@@ -24,6 +24,7 @@ export type PhotoPanProps = {
   followLine: string // ends on a follow-us screen with this line; empty for none
   panOnly?: boolean // just the glide: no pull-back, price or follow screen
   panFrames?: number // how long the glide takes (default 180)
+  lineSize?: number // font size of the words (default 120)
 }
 
 export const PHOTO_PAN_FPS = 30
@@ -134,7 +135,7 @@ export const PhotoPan = (props: PhotoPanProps) => {
           style={{
             fontFamily: headingFont,
             fontWeight: 700,
-            fontSize: 120 * s,
+            fontSize: (props.lineSize ?? 120) * s,
             lineHeight: 1.05,
             marginTop: 26 * s,
             padding: `0 ${50 * s}px`,
