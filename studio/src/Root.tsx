@@ -169,7 +169,9 @@ const posterBoldDefaults: PosterBoldProps = {
   ],
   orderBy: 'Order by Fri 18 Dec',
   fulfilment: 'Delivery or pickup',
-  qrCode: 'print/whatsapp-qr.png'
+  qrCode: 'print/whatsapp-qr.png',
+  logo: 'badge',
+  heroBackdrop: '#DEDBD6'
 }
 
 // One spotlight per cookie in the box, in posting order
@@ -310,5 +312,11 @@ export const Root = () => (
         defaultProps={{ ...posterBoldDefaults, concept }}
       />
     ))}
+    <Still
+      id="PosterBold-B-wordmark"
+      component={PosterBold}
+      {...POSTER_A3}
+      defaultProps={{ ...posterBoldDefaults, concept: 'B', logo: 'wordmark' }}
+    />
   </>
 )

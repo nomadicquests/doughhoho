@@ -27,6 +27,8 @@ export type PosterBoldProps = {
   orderBy: string
   fulfilment: string
   qrCode: string // image in studio/public/
+  logo: 'badge' | 'wordmark' // which logo concept B shows
+  heroBackdrop: string // B: colour behind the hero photo, matched to its background
 }
 
 const BLEED = 10.6 // 3 mm, in layout units
@@ -317,61 +319,88 @@ const ConceptA = (props: PosterBoldProps & { u: number }) => {
 const ConceptB = (props: PosterBoldProps & { u: number }) => {
   const { u } = props
   const pad = (BLEED + SAFE) * u
-  // The first product is the hero across the top; the second sits by the headline
-  const [heroP, sideP] = props.products
-  const photoH = 640 * u
-  const side = 250 * u
+  // The first product is the hero across the top; the second goes in the circle
+  const [heroP, circleP] = props.products
+  const photoH = 690 * u
+  const circle = 380 * u
   return (
     <AbsoluteFill style={{ background: brand.colors.primary }}>
       <div style={{ position: 'relative', height: photoH, flexShrink: 0 }}>
+        <div style={{ position: 'absolute', inset: 0, background: props.heroBackdrop }} />
         <Img
           src={staticFile(`menu/${heroP.photo}`)}
           style={{
-            width: '100%',
+            position: 'absolute',
+            right: 0,
+            top: 0,
+            width: '78%',
             height: '100%',
             objectFit: 'cover',
-            objectPosition: heroP.focus
+            objectPosition: heroP.focus,
+            maskImage: 'linear-gradient(90deg, transparent 0%, black 16%)',
+            WebkitMaskImage: 'linear-gradient(90deg, transparent 0%, black 16%)'
           }}
         />
-        <Logo
-          variant="badge"
+        <div
           style={{
             position: 'absolute',
-            left: pad,
+            right: pad,
+            bottom: -34 * u,
+            background: brand.colors.secondary,
+            color: brand.colors.white,
+            fontWeight: 800,
+            fontSize: 42 * u,
+            letterSpacing: 2 * u,
+            textTransform: 'uppercase',
+            padding: `${16 * u}px ${32 * u}px`,
+            border: `${4 * u}px solid ${brand.colors.white}`,
+            zIndex: 2,
+            borderRadius: 14 * u,
+            boxShadow: `0 ${8 * u}px ${18 * u}px rgba(0, 0, 0, 0.35)`
+          }}
+        >
+          {props.orderBy}
+        </div>
+        <Logo
+          variant={props.logo === 'wordmark' ? 'wordmark' : 'badge'}
+          style={{
+            position: 'absolute',
+            left: pad - (props.logo === 'wordmark' ? 10 * u : 0),
             top: pad,
-            width: 230 * u,
-            filter: `drop-shadow(0 ${8 * u}px ${16 * u}px rgba(0, 0, 0, 0.35))`
+            width: (props.logo === 'wordmark' ? 270 : 230) * u,
+            filter:
+              props.logo === 'wordmark'
+                ? undefined
+                : `drop-shadow(0 ${8 * u}px ${16 * u}px rgba(0, 0, 0, 0.35))`
           }}
         />
         <div style={{ position: 'absolute', right: pad - 16 * u, top: pad - 10 * u }}>
-          <PriceBurst p={heroP} size={220 * u} u={u} />
+          <PriceBurst p={heroP} size={210 * u} u={u} />
         </div>
         <div
           style={{
             position: 'absolute',
-            left: 0,
-            right: 0,
-            bottom: -40 * u,
-            display: 'flex',
-            justifyContent: 'center',
-            zIndex: 2
+            left: pad,
+            top: photoH - circle * 0.78,
+            width: circle,
+            height: circle
           }}
         >
-          <div
+          <Img
+            src={staticFile(`menu/${circleP.photo}`)}
             style={{
-              background: brand.colors.secondary,
-              color: brand.colors.white,
-              fontWeight: 800,
-              fontSize: 44 * u,
-              letterSpacing: 2 * u,
-              textTransform: 'uppercase',
-              padding: `${16 * u}px ${36 * u}px`,
-              borderRadius: 14 * u,
-              border: `${4 * u}px solid ${brand.colors.white}`,
-              boxShadow: `0 ${8 * u}px ${18 * u}px rgba(0, 0, 0, 0.35)`
+              width: circle,
+              height: circle,
+              objectFit: 'cover',
+              objectPosition: circleP.focus,
+              borderRadius: '50%',
+              border: `${10 * u}px solid ${brand.colors.white}`,
+              boxSizing: 'border-box',
+              boxShadow: `0 ${12 * u}px ${28 * u}px rgba(0, 0, 0, 0.4)`
             }}
-          >
-            {props.orderBy}
+          />
+          <div style={{ position: 'absolute', right: -60 * u, top: -20 * u }}>
+            <PriceBurst p={circleP} size={190 * u} u={u} />
           </div>
         </div>
       </div>
@@ -383,40 +412,21 @@ const ConceptB = (props: PosterBoldProps & { u: number }) => {
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
-          padding: `${80 * u}px ${pad}px ${pad}px`
+          padding: `${120 * u}px ${pad}px ${pad}px`
         }}
       >
-        <div style={{ display: 'flex', alignItems: 'center', gap: 34 * u }}>
+        <div style={{ textAlign: 'center' }}>
           <div
             style={{
-              flex: 1,
               fontFamily: headingFont,
               fontWeight: 700,
-              fontSize: 82 * u,
-              lineHeight: 1.02,
-              whiteSpace: 'nowrap'
+              fontSize: 100 * u,
+              lineHeight: 1
             }}
           >
             {props.headline}
             <br />
             {props.headline2}
-          </div>
-          <div style={{ position: 'relative', width: side, height: side, flexShrink: 0 }}>
-            <Img
-              src={staticFile(`menu/${sideP.photo}`)}
-              style={{
-                width: side,
-                height: side,
-                objectFit: 'cover',
-                objectPosition: sideP.focus,
-                borderRadius: '50%',
-                border: `${8 * u}px solid ${brand.colors.white}`,
-                boxSizing: 'border-box'
-              }}
-            />
-            <div style={{ position: 'absolute', right: -40 * u, top: -40 * u }}>
-              <PriceBurst p={sideP} size={140 * u} u={u} />
-            </div>
           </div>
         </div>
         <div
