@@ -123,8 +123,8 @@ on launch day, Box Reveal by 18 November and Cookie Spotlight by 20 November.
 
 ## Still needed
 
-- [ ] The cookie cut-outs as separate transparent PNGs, in
-      `studio/public/menu/christmas-cookie-box/`
+- [x] The cookie cut-outs, now in
+      `studio/public/menu/christmas-cookie-box/cutouts/`
 - [ ] A box photo showing only the five box cookies
 - [ ] The existing video clips, in `studio/public/footage/`
 - [ ] The WhatsApp number and order form link, set in `brand/brand.ts`

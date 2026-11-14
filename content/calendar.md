@@ -8,8 +8,8 @@ Status: idea → planned → made → posted.
 
 | Date | Platform | Template | Item(s) | Caption | Status |
 | ---- | -------- | -------- | ------- | ------- | ------ |
-| Mon 16 Nov | Feed (carousel) | Meet the Cookies | Cookie box | A baker's dozen of Christmas: 12 cookies + a free Peppermint Snow Ball 🎄 Preorders open, J$2,400 | planned |
-| Mon 16 Nov | Reel + TikTok, **ad 1 starts** | Meet the Cookies | Cookie box | Meet the box. Which one are you? 👇 | planned |
+| Mon 16 Nov | Feed (carousel) | Meet the Cookies | Cookie box | A baker's dozen of Christmas: 12 cookies + a free Peppermint Snow Ball 🎄 Preorders open, J$2,400 | made |
+| Mon 16 Nov | Reel + TikTok, **ad 1 starts** | Meet the Cookies | Cookie box | Meet the box. Which one are you? 👇 | made |
 | Mon 16 Nov | Feed, **pin to profile** | Announcement | Cookie box | Secret Santa, sorted. Boxes for your team: WhatsApp us | planned |
 | Wed 18 Nov | Reel + TikTok | Box Reveal | Cookie box | Black cake has company. | planned |
 | Fri 20 Nov | Reel + TikTok | Cookie Spotlight | Candy Cane | | planned |

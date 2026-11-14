@@ -18,6 +18,8 @@ will be added later.
 | ----------- | ----- | ---------------------------------------- |
 | `ItemDrop`  | Image | square 1080×1080, portrait 1080×1350, story 1080×1920 |
 | `PromoReel` | Video | 1080×1920 (Reels, TikTok, Stories), length grows with item count |
+| `MeetTheCookies` | Video | 1080×1920: headline, each cookie in a box, all together, price and how to order (about 15 s) |
+| `MeetTheCookies-slide-1` … `-7` | Image | 1080×1350 carousel: cover, one slide per cookie, price |
 
 ## Making a post
 

@@ -8,6 +8,14 @@ import {
   promoReelDuration,
   type PromoReelProps,
 } from './templates/PromoReel'
+import {
+  MeetTheCookies,
+  MeetTheCookiesSlide,
+  MEET_THE_COOKIES_FPS,
+  meetTheCookiesDuration,
+  meetTheCookiesSlideCount,
+  type MeetTheCookiesProps
+} from './templates/MeetTheCookies'
 
 const itemDropDefaults: ItemDropProps = {
   itemId: menu[0].id,
@@ -20,6 +28,19 @@ const promoReelDefaults: PromoReelProps = {
   itemIds: menu.map((m) => m.id),
   callToAction: 'Order now!',
 }
+
+const meetTheCookiesDefaults: MeetTheCookiesProps = {
+  itemId: 'christmas-cookie-box',
+  headline: 'A baker\'s dozen',
+  headlineAccent: 'of Christmas',
+  subline: '12 cookies + 1 free 🎄',
+  preorderLine: 'Preorder now · order by 18 Dec',
+  orderLine: 'WhatsApp us to order'
+}
+
+const boxCookieCount = (itemId: string) =>
+  (menu.find((m) => m.id === itemId)?.contents ?? []).filter((c) => c.cutout)
+    .length
 
 // Every template appears here. Open `pnpm studio` to edit the text live in the
 // sidebar, then render from the Studio or the command line.
@@ -54,5 +75,30 @@ export const Root = () => (
         durationInFrames: promoReelDuration(props.itemIds.length),
       })}
     />
+    <Composition
+      id="MeetTheCookies"
+      component={MeetTheCookies}
+      {...formats.story}
+      fps={MEET_THE_COOKIES_FPS}
+      durationInFrames={meetTheCookiesDuration(
+        boxCookieCount(meetTheCookiesDefaults.itemId)
+      )}
+      defaultProps={meetTheCookiesDefaults}
+      calculateMetadata={({ props }) => ({
+        durationInFrames: meetTheCookiesDuration(boxCookieCount(props.itemId))
+      })}
+    />
+    {Array.from(
+      { length: meetTheCookiesSlideCount(meetTheCookiesDefaults.itemId) },
+      (_, i) => (
+        <Still
+          key={i}
+          id={`MeetTheCookies-slide-${i + 1}`}
+          component={MeetTheCookiesSlide}
+          {...formats.portrait}
+          defaultProps={{ ...meetTheCookiesDefaults, slide: i + 1 }}
+        />
+      )
+    )}
   </>
 )
