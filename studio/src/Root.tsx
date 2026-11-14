@@ -100,5 +100,15 @@ export const Root = () => (
         />
       )
     )}
+    <Still
+      id="MeetTheCookies-box-cups"
+      component={MeetTheCookiesSlide}
+      {...formats.portrait}
+      defaultProps={{
+        ...meetTheCookiesDefaults,
+        boxLayout: 'cups',
+        slide: meetTheCookiesSlideCount(meetTheCookiesDefaults.itemId) - 1
+      }}
+    />
   </>
 )

@@ -7,6 +7,7 @@ import { headingFont, bodyFont } from '../fonts'
 import { formatPrice } from '../components/Price'
 import { Logo } from '../components/Logo'
 import { CookieBox } from '../components/CookieBox'
+import { CupBox, type Cup } from '../components/CupBox'
 import {
   Cookie,
   GinghamBackground,
@@ -21,6 +22,7 @@ export type MeetTheCookiesProps = {
   subline: string
   preorderLine: string
   orderLine: string // the button on the last screen
+  boxLayout?: 'rows' | 'cups' // cookies laid in rows, or in paper cups like the real box
 }
 
 // Reel timing, in frames at 30 fps
@@ -268,8 +270,36 @@ const CookieFeature = ({ cookie }: { cookie: BoxContent }) => {
   )
 }
 
+// Which cookies go in which paper cup, left to right then top to bottom,
+// matching the real box. Butter Cookies take two cups, where the pinwheels
+// used to go.
+const realBoxCups: [string, number][] = [
+  ['Triple Ginger Snap', 2],
+  ['Butter Cookies', 2],
+  ['Peppermint Snow Balls', 1],
+  ['Cranberry Pistachio', 2],
+  ['Candy Cane', 4],
+  ['Butter Cookies', 2]
+]
+
+const cupsFor = (contents: BoxContent[]): Cup[] => {
+  const cups = realBoxCups.flatMap(([name, count]) => {
+    const cookie = contents.find((c) => c.name === name)
+    return cookie ? [{ cookie, count }] : []
+  })
+  return cups.length > 0
+    ? cups
+    : contents.map((cookie) => ({ cookie, count: cookie.count }))
+}
+
 // Every cookie packed into the box: "12 cookies + a free Peppermint Snow Ball".
-const BoxScene = ({ itemId }: { itemId: string }) => {
+const BoxScene = ({
+  itemId,
+  layout = 'rows'
+}: {
+  itemId: string
+  layout?: 'rows' | 'cups'
+}) => {
   const { width, height } = useVideoConfig()
   const { contents } = findBox(itemId)
   const paid = contents.filter((c) => !c.free)
@@ -279,8 +309,9 @@ const BoxScene = ({ itemId }: { itemId: string }) => {
   const textDelay = TRANSITION + 10 + cookieCount * 2
   const title = useEnter(textDelay, 16)
   const sub = useEnter(textDelay + 6, 16)
-  const boxH = Math.min(width * 0.84 * 0.92, height * 0.5)
-  const boxW = boxH / 0.92
+  const aspect = layout === 'cups' ? 1.4 : 1 / 0.92
+  const boxW = Math.min(width * 0.86, height * 0.5 * aspect)
+  const boxH = boxW / aspect
   return (
     <AbsoluteFill
       style={{
@@ -290,12 +321,21 @@ const BoxScene = ({ itemId }: { itemId: string }) => {
         color: brand.colors.white
       }}
     >
-      <CookieBox
-        contents={contents}
-        width={boxW}
-        height={boxH}
-        delay={TRANSITION}
-      />
+      {layout === 'cups' ? (
+        <CupBox
+          cups={cupsFor(contents)}
+          width={boxW}
+          height={boxH}
+          delay={TRANSITION}
+        />
+      ) : (
+        <CookieBox
+          contents={contents}
+          width={boxW}
+          height={boxH}
+          delay={TRANSITION}
+        />
+      )}
       <div
         style={{
           fontFamily: headingFont,
@@ -463,7 +503,7 @@ export const MeetTheCookies = (props: MeetTheCookiesProps) => {
         ])}
         <TransitionSeries.Transition presentation={fade()} timing={smooth} />
         <TransitionSeries.Sequence durationInFrames={BOX}>
-          <BoxScene itemId={props.itemId} />
+          <BoxScene itemId={props.itemId} layout={props.boxLayout} />
         </TransitionSeries.Sequence>
         <TransitionSeries.Transition presentation={fade()} timing={smooth} />
         <TransitionSeries.Sequence durationInFrames={CTA}>
@@ -493,7 +533,7 @@ export const MeetTheCookiesSlide = (props: MeetTheCookiesSlideProps) => {
       ) : cookie ? (
         <CookieFeature cookie={cookie} />
       ) : props.slide === boxSlide ? (
-        <BoxScene itemId={props.itemId} />
+        <BoxScene itemId={props.itemId} layout={props.boxLayout} />
       ) : (
         <CallToAction {...props} />
       )}
