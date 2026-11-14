@@ -171,7 +171,7 @@ const posterBoldDefaults: PosterBoldProps = {
   fulfilment: 'Delivery or pickup',
   qrCode: 'print/whatsapp-qr.png',
   logo: 'wordmark',
-  priceStyle: 'pill',
+  priceStyle: 'tag',
   heroBackdrop: '#DEDBD6'
 }
 

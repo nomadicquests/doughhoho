@@ -521,7 +521,7 @@ const ConceptB = (props: PosterBoldProps & { u: number }) => {
           }}
         />
         <div style={{ position: 'absolute', right: pad - 16 * u, top: pad - 10 * u }}>
-          <PriceCallout p={heroP} kind={props.priceStyle} size={210 * u} u={u} />
+          <PriceCallout p={heroP} kind={props.priceStyle} size={250 * u} u={u} />
         </div>
         <div
           style={{
@@ -546,7 +546,7 @@ const ConceptB = (props: PosterBoldProps & { u: number }) => {
             }}
           />
           <div style={{ position: 'absolute', right: -60 * u, top: -20 * u }}>
-            <PriceCallout p={circleP} kind={props.priceStyle} size={190 * u} u={u} />
+            <PriceCallout p={circleP} kind={props.priceStyle} size={215 * u} u={u} />
           </div>
         </div>
       </div>
