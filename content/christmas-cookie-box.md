@@ -89,19 +89,21 @@ The dated posts are in [`calendar.md`](calendar.md).
 
 ## Ads
 
-The budget is $100 for the cookie box and the Christmas cakes together. This
-plan assumes US dollars; confirm.
+The budget is US$100 for the cookie box and the Christmas cake together. The
+cake is the main product, so it gets the larger share.
 
-- **Cookie box: about $60.** Christmas cakes get the other $40 once that
-  campaign is planned.
+- **Christmas cake: about $55.**
+  1. **17 Nov to 3 Dec, about $30:** the Christmas Cake Reel (the cake, then
+     all three sizes and prices).
+  2. **4 to 18 Dec, about $25:** boost the best cake post so far, with a
+     last-call caption.
+- **Cookie box: about $45.**
+  1. **16 to 29 Nov, about $20:** the "Meet the Cookies" Reel.
+  2. **30 Nov to 11 Dec, about $15:** boost the best cookie post so far.
+  3. **12 to 18 Dec, about $10:** the last-call countdown, for both products.
 - **Meta only** (Instagram and Facebook). That is where the page needs reach.
   TikTok grows on its own.
-- **Use one ad at a time** so the small budget isn't split:
-  1. **16 to 29 Nov, about $25:** the "Meet the Cookies" Reel, with "a baker's
-     dozen of Christmas" and the price.
-  2. **30 Nov to 11 Dec, about $20:** boost whichever post has done best by
-     then, organic posts on TikTok included.
-  3. **12 to 18 Dec, about $15:** the last-call countdown.
+- **One ad per product at a time**, so the small budget isn't split further.
 - **Goal: messages, sending people to WhatsApp.** Orders come in on WhatsApp,
   so a "Send WhatsApp message" button goes straight to an order. This needs
   WhatsApp Business connected to the Facebook/Instagram page.

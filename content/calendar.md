@@ -14,17 +14,17 @@ Status: idea → planned → to build (needs a new template) → made → posted
 
 ## Ads
 
-Two ads run side by side, one per product, each switched to the best post
+US$100 in total: about $55 on the cake, $45 on the cookie box. Two ads run side by side, one per product, each switched to the best post
 when its first one ends. Each ad's goal is messages, sending people to
 WhatsApp.
 
-| Ad | Product | Runs | Post |
-| -- | ------- | ---- | ---- |
-| Cookie 1 | Cookie box | 16 to 29 Nov | Meet the Cookies Reel |
-| Cake 1 | Christmas cake | 17 Nov to 3 Dec | Christmas Cake Reel |
-| Cookie 2 | Cookie box | 30 Nov to 11 Dec | Best cookie post so far |
-| Cake 2 | Christmas cake | 4 to 18 Dec | Best cake post so far, with a last-call caption |
-| Cookie 3 | Both | 12 to 18 Dec | Last-call countdown |
+| Ad | Product | Runs | Post | Budget (US$) |
+| -- | ------- | ---- | ---- | ------------ |
+| Cookie 1 | Cookie box | 16 to 29 Nov | Meet the Cookies Reel | $20 |
+| Cake 1 | Christmas cake | 17 Nov to 3 Dec | Christmas Cake Reel | $30 |
+| Cookie 2 | Cookie box | 30 Nov to 11 Dec | Best cookie post so far | $15 |
+| Cake 2 | Christmas cake | 4 to 18 Dec | Best cake post so far, with a last-call caption | $25 |
+| Cookie 3 | Both | 12 to 18 Dec | Last-call countdown | $10 |
 
 ## Posts
 
@@ -41,7 +41,7 @@ WhatsApp.
 | Mon 23 Nov | Cookie box | Reel + TikTok | BakingDay | Baking day | Christmas is baking 🎄 Order by 18 Dec | made |
 | Tue 24 Nov | Cake | Reel + TikTok | BoxReveal (cake photo) | "Rum. / Wine. / Christmas." over the slice | Made with rum and wine for the richest festive flavour | to build (new photo, same template) |
 | Wed 25 Nov | Cookie box | Reel + TikTok | Spotlight-TripleGingerSnap | Triple Ginger Snap | Three kinds of ginger for a real kick | made |
-| Thu 26 Nov | Cake | Feed | PhotoAnnouncement | Gift-ready in a gold tin | Every cake comes in a gold gift tin. Ready to give 🎁 | to build (new photo, same template) |
+| Thu 26 Nov | Cake | Feed | PhotoAnnouncement (tied tin photo) | Gift-ready in a gold tin | Every cake comes in a gold gift tin. Ready to give 🎁 | to build (new photo, same template) |
 | Fri 27 Nov | Both | Feed | PhotoAnnouncement | Office party coming up? | Secret Santa, sorted: cakes and cookie boxes for your team. 10% off 6 or more | planned |
 | Mon 30 Nov | Cookie box | Reel + TikTok, **ad: Cookie 2** | BoxReveal | Who's on your list? | Who's on your list? | planned |
 | Tue 1 Dec | Cake | Feed | PhotoAnnouncement (stack of tins) | One for every house | Cakes for the whole family: 10% off 6 or more | to build (new photo, same template) |
@@ -49,7 +49,7 @@ WhatsApp.
 | Thu 3 Dec | Cake | Reel + TikTok | PhotoPan (cake) | Slow glide over the cut cake | Look at that crumb 👀 Real Jamaican black cake | to build (new photo, same template) |
 | Fri 4 Dec | Both | Reel + TikTok, **ad: Cake 2 starts** | MeetTheCookies | Sorrel's new best friend | Sorrel's new best friend. | planned |
 | Mon 7 Dec | Both | Feed | PhotoAnnouncement | Secret Santa, last orders | Secret Santa, sorted. Last orders 18 Dec | planned |
-| Tue 8 Dec | Cake | Feed | PhotoAnnouncement (tin) | Thank your clients | Thank your clients with a Christmas cake. WhatsApp for business orders | to build (new photo, same template) |
+| Tue 8 Dec | Cake | Feed | PhotoAnnouncement (tied tin photo) | Thank your clients | Thank your clients with a Christmas cake. WhatsApp for business orders | to build (new photo, same template) |
 | Wed 9 Dec | Cookie box | Reel + TikTok | Spotlight-CranberryPistachio | Cranberry Pistachio | Chewy, and packed with real cranberries and pistachios | made |
 | Thu 10 Dec | Cake | Reel + TikTok | BoxReveal (cake photo) | "Christmas cake / is / sorted." | One week left to order your Christmas cake | to build (new photo, same template) |
 | Fri 11 Dec | Cookie box | Reel + TikTok | BoxReveal | One week left | One week left to order | planned |
