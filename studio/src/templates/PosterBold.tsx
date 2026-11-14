@@ -352,6 +352,16 @@ const ConceptB = (props: PosterBoldProps & { u: number }) => {
         >
           {props.orderBy}
         </div>
+        <Logo
+          variant="badge"
+          style={{
+            position: 'absolute',
+            left: pad,
+            top: pad,
+            width: 250 * u,
+            filter: `drop-shadow(0 ${8 * u}px ${16 * u}px rgba(0, 0, 0, 0.35))`
+          }}
+        />
         <div style={{ position: 'absolute', right: pad - 16 * u, top: pad - 10 * u }}>
           <PriceBurst p={heroP} size={210 * u} u={u} />
         </div>
