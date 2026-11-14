@@ -1,14 +1,12 @@
-import {
-  AbsoluteFill,
-  Sequence,
-  interpolate,
-  useCurrentFrame,
-  useVideoConfig
-} from 'remotion'
+import { AbsoluteFill, useCurrentFrame, useVideoConfig } from 'remotion'
+import { TransitionSeries, springTiming } from '@remotion/transitions'
+import { fade } from '@remotion/transitions/fade'
+import { slide } from '@remotion/transitions/slide'
 import { brand, menu, type BoxContent } from '@doughhoho/brand'
 import { headingFont, bodyFont } from '../fonts'
 import { formatPrice } from '../components/Price'
 import { Logo } from '../components/Logo'
+import { CookieBox } from '../components/CookieBox'
 import {
   Cookie,
   GinghamBackground,
@@ -29,11 +27,16 @@ export type MeetTheCookiesProps = {
 export const MEET_THE_COOKIES_FPS = 30
 const HOOK = 66
 const PER_COOKIE = 45
-const SUMMARY = 75
+const BOX = 100
 const CTA = 96
+const TRANSITION = 14 // scenes overlap by this much while one gives way
 
 export const meetTheCookiesDuration = (cookieCount: number) =>
-  HOOK + PER_COOKIE * cookieCount + SUMMARY + CTA
+  HOOK +
+  PER_COOKIE * cookieCount +
+  BOX +
+  CTA -
+  TRANSITION * (cookieCount + 2)
 
 const findBox = (itemId: string) => {
   const item = menu.find((m) => m.id === itemId) ?? menu[0]
@@ -56,17 +59,6 @@ const rise = (p: number, distance = 40) => ({
   transform: `translateY(${(1 - p) * distance}px)`
 })
 
-// Fades a scene out over its last few frames (videos only).
-const useExit = (duration: number) => {
-  const frame = useCurrentFrame()
-  const { durationInFrames } = useVideoConfig()
-  if (durationInFrames === 1) return 1
-  return interpolate(frame, [duration - 6, duration], [1, 0], {
-    extrapolateLeft: 'clamp',
-    extrapolateRight: 'clamp'
-  })
-}
-
 const Hook = (props: MeetTheCookiesProps) => {
   const { width, height } = useVideoConfig()
   const { contents } = findBox(props.itemId)
@@ -74,10 +66,9 @@ const Hook = (props: MeetTheCookiesProps) => {
   const line1 = useEnter(6)
   const line2 = useEnter(12)
   const sub = useEnter(20)
-  const exit = useExit(HOOK)
   const size = width * 0.26
   return (
-    <AbsoluteFill style={{ opacity: exit }}>
+    <AbsoluteFill>
       {contents.map((c, i) => {
         const spot = scatter[i % scatter.length]
         return (
@@ -204,11 +195,10 @@ const CookieFeature = ({ cookie }: { cookie: BoxContent }) => {
   const frame = useCurrentFrame()
   const { width, height, durationInFrames } = useVideoConfig()
   const isStill = durationInFrames === 1
-  const drop = useEnter(0, 14)
-  const tag = useEnter(12, 9)
-  const name = useEnter(12)
-  const detail = useEnter(16)
-  const exit = useExit(PER_COOKIE)
+  const pop = useEnter(4, 14)
+  const tag = useEnter(14, 10)
+  const name = useEnter(10, 16)
+  const detail = useEnter(14, 16)
   const size = Math.min(width * 0.62, height * 0.32)
   const float = isStill ? 0 : Math.sin(frame / 9) * 6
   const detailText = cookie.free
@@ -220,8 +210,7 @@ const CookieFeature = ({ cookie }: { cookie: BoxContent }) => {
         alignItems: 'center',
         justifyContent: 'center',
         textAlign: 'center',
-        color: brand.colors.white,
-        opacity: exit
+        color: brand.colors.white
       }}
     >
       <Logo
@@ -233,7 +222,7 @@ const CookieFeature = ({ cookie }: { cookie: BoxContent }) => {
           position: 'relative',
           width: size,
           height: size,
-          transform: `translateY(${(1 - drop) * -height * 0.6 + float}px) rotate(${(1 - drop) * -50}deg)`
+          transform: `translateY(${float}px) scale(${0.7 + pop * 0.3}) rotate(${(1 - pop) * -20}deg)`
         }}
       >
         <Cookie cutout={cookie.cutout!} size={size} />
@@ -279,46 +268,41 @@ const CookieFeature = ({ cookie }: { cookie: BoxContent }) => {
   )
 }
 
-// All the box cookies together: "12 cookies + a free Peppermint Snow Ball".
-const Summary = ({ itemId }: { itemId: string }) => {
-  const { width } = useVideoConfig()
+// Every cookie packed into the box: "12 cookies + a free Peppermint Snow Ball".
+const BoxScene = ({ itemId }: { itemId: string }) => {
+  const { width, height } = useVideoConfig()
   const { contents } = findBox(itemId)
   const paid = contents.filter((c) => !c.free)
   const free = contents.filter((c) => c.free)
   const total = paid.reduce((n, c) => n + c.count, 0)
-  const title = useEnter(18)
-  const sub = useEnter(24)
-  const exit = useExit(SUMMARY)
-  const size = width * 0.3
+  const cookieCount = contents.reduce((n, c) => n + c.count, 0)
+  const textDelay = TRANSITION + 10 + cookieCount * 2
+  const title = useEnter(textDelay, 16)
+  const sub = useEnter(textDelay + 6, 16)
+  const boxH = Math.min(width * 0.84 * 0.92, height * 0.5)
+  const boxW = boxH / 0.92
   return (
     <AbsoluteFill
       style={{
         alignItems: 'center',
         justifyContent: 'center',
         textAlign: 'center',
-        color: brand.colors.white,
-        opacity: exit
+        color: brand.colors.white
       }}
     >
-      <div
-        style={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          justifyContent: 'center',
-          width: size * 3.3
-        }}
-      >
-        {contents.map((c, i) => (
-          <SummaryCookie key={c.name} cookie={c} size={size} delay={i * 3} />
-        ))}
-      </div>
+      <CookieBox
+        contents={contents}
+        width={boxW}
+        height={boxH}
+        delay={TRANSITION}
+      />
       <div
         style={{
           fontFamily: headingFont,
           fontWeight: 700,
-          fontSize: 130,
+          fontSize: 120,
           lineHeight: 1,
-          marginTop: 50,
+          marginTop: boxW * 0.14,
           ...rise(title)
         }}
       >
@@ -330,9 +314,9 @@ const Summary = ({ itemId }: { itemId: string }) => {
             fontFamily: headingFont,
             fontWeight: 700,
             fontStyle: 'italic',
-            fontSize: 62,
+            fontSize: 60,
             color: brand.colors.accent,
-            marginTop: 14,
+            marginTop: 12,
             padding: '0 60px',
             ...rise(sub)
           }}
@@ -341,38 +325,6 @@ const Summary = ({ itemId }: { itemId: string }) => {
         </div>
       ) : null}
     </AbsoluteFill>
-  )
-}
-
-const SummaryCookie = ({
-  cookie,
-  size,
-  delay
-}: {
-  cookie: BoxContent
-  size: number
-  delay: number
-}) => {
-  const p = useEnter(delay, 10)
-  return (
-    <div
-      style={{
-        position: 'relative',
-        width: size * 1.1,
-        height: size * 1.1,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        transform: `scale(${p})`
-      }}
-    >
-      <Cookie cutout={cookie.cutout!} size={size} />
-      {cookie.free ? (
-        <div style={{ position: 'absolute', right: 0, top: 0 }}>
-          <CountTag cookie={cookie} size={size * 0.36} />
-        </div>
-      ) : null}
-    </div>
   )
 }
 
@@ -483,54 +435,65 @@ const Frame = ({ children }: { children: React.ReactNode }) => (
   </AbsoluteFill>
 )
 
-// The Reel: headline, each cookie in turn, all together, then price and how
-// to order. Length grows with the number of cookies.
+const smooth = springTiming({
+  config: { damping: 200 },
+  durationInFrames: TRANSITION
+})
+
+// The Reel: headline, each cookie in turn, all of them packed in the box,
+// then price and how to order. Cookies slide in like a carousel; the box and
+// the last screen fade in. Length grows with the number of cookies.
 export const MeetTheCookies = (props: MeetTheCookiesProps) => {
   const { contents } = findBox(props.itemId)
-  const cookiesStart = HOOK
-  const summaryStart = cookiesStart + contents.length * PER_COOKIE
-  const ctaStart = summaryStart + SUMMARY
   return (
     <Frame>
-      <Sequence durationInFrames={HOOK}>
-        <Hook {...props} />
-      </Sequence>
-      {contents.map((c, i) => (
-        <Sequence
-          key={c.name}
-          from={cookiesStart + i * PER_COOKIE}
-          durationInFrames={PER_COOKIE}
-        >
-          <CookieFeature cookie={c} />
-        </Sequence>
-      ))}
-      <Sequence from={summaryStart} durationInFrames={SUMMARY}>
-        <Summary itemId={props.itemId} />
-      </Sequence>
-      <Sequence from={ctaStart}>
-        <CallToAction {...props} />
-      </Sequence>
+      <TransitionSeries>
+        <TransitionSeries.Sequence durationInFrames={HOOK}>
+          <Hook {...props} />
+        </TransitionSeries.Sequence>
+        {contents.flatMap((c) => [
+          <TransitionSeries.Transition
+            key={`${c.name}-in`}
+            presentation={slide({ direction: 'from-right' })}
+            timing={smooth}
+          />,
+          <TransitionSeries.Sequence key={c.name} durationInFrames={PER_COOKIE}>
+            <CookieFeature cookie={c} />
+          </TransitionSeries.Sequence>
+        ])}
+        <TransitionSeries.Transition presentation={fade()} timing={smooth} />
+        <TransitionSeries.Sequence durationInFrames={BOX}>
+          <BoxScene itemId={props.itemId} />
+        </TransitionSeries.Sequence>
+        <TransitionSeries.Transition presentation={fade()} timing={smooth} />
+        <TransitionSeries.Sequence durationInFrames={CTA}>
+          <CallToAction {...props} />
+        </TransitionSeries.Sequence>
+      </TransitionSeries>
     </Frame>
   )
 }
 
 export type MeetTheCookiesSlideProps = MeetTheCookiesProps & {
-  slide: number // 1 is the cover, then one per cookie, then price
+  slide: number // 1 is the cover, then one per cookie, the box, then price
 }
 
 export const meetTheCookiesSlideCount = (itemId: string) =>
-  findBox(itemId).contents.length + 2
+  findBox(itemId).contents.length + 3
 
 // One slide of the Instagram carousel.
 export const MeetTheCookiesSlide = (props: MeetTheCookiesSlideProps) => {
   const { contents } = findBox(props.itemId)
   const cookie = contents[props.slide - 2]
+  const boxSlide = contents.length + 2
   return (
     <Frame>
       {props.slide === 1 ? (
         <Hook {...props} />
       ) : cookie ? (
         <CookieFeature cookie={cookie} />
+      ) : props.slide === boxSlide ? (
+        <BoxScene itemId={props.itemId} />
       ) : (
         <CallToAction {...props} />
       )}
