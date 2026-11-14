@@ -36,6 +36,8 @@ import {
   type PhotoPanProps
 } from './templates/PhotoPan'
 import { Poster, POSTER_A3, type PosterProps } from './templates/Poster'
+import { PosterBold, type PosterBoldProps } from './templates/PosterBold'
+import { formatPrice } from './components/Price'
 import {
   PhotoAnnouncement,
   type PhotoAnnouncementProps
@@ -133,6 +135,38 @@ const posterDefaults: PosterProps = {
   ],
   orderBy: 'Order by 18 December',
   orderLine: 'WhatsApp to order',
+  fulfilment: 'Delivery or pickup',
+  qrCode: 'print/whatsapp-qr.png'
+}
+
+const cake = menu.find((m) => m.id === 'christmas-cake') ?? menu[0]
+const cookieBox = menu.find((m) => m.id === 'christmas-cookie-box') ?? menu[0]
+
+const posterBoldDefaults: PosterBoldProps = {
+  concept: 'A',
+  headline: 'Christmas Cakes',
+  headline2: '& Cookie Boxes',
+  callout: 'Order now for Christmas',
+  badge: 'Perfect for gifting',
+  products: [
+    {
+      photo: 'christmas-cake/photos/cake-slice.jpg',
+      focus: '55% 62%',
+      name: cake.name,
+      details: '6, 8 or 10 inch',
+      price: formatPrice(cake.price, cake.currency),
+      pricePrefix: 'from'
+    },
+    {
+      photo: 'christmas-cookie-box/photos/box-open.jpg',
+      focus: '52% 55%',
+      name: cookieBox.name,
+      details: '12 cookies + 1 free',
+      price: formatPrice(cookieBox.price, cookieBox.currency),
+      pricePrefix: ''
+    }
+  ],
+  orderBy: 'by 18 Dec',
   fulfilment: 'Delivery or pickup',
   qrCode: 'print/whatsapp-qr.png'
 }
@@ -266,5 +300,14 @@ export const Root = () => (
       {...POSTER_A3}
       defaultProps={posterDefaults}
     />
+    {(['A', 'B', 'C'] as const).map((concept) => (
+      <Still
+        key={concept}
+        id={`PosterBold-${concept}`}
+        component={PosterBold}
+        {...POSTER_A3}
+        defaultProps={{ ...posterBoldDefaults, concept }}
+      />
+    ))}
   </>
 )
