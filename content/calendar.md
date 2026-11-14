@@ -34,7 +34,7 @@ WhatsApp.
 | Mon 16 Nov | Cookie box | Reel + TikTok, **ad: Cookie 1** | MeetTheCookies | Meet the cookies | Meet the box. Which one are you? 👇 | made |
 | Mon 16 Nov | Both | Feed, **pin to profile** | MenuPost | The menu: cakes & cookie boxes | Christmas Cakes & Cookie Boxes are here 🎄 All prices on the post. WhatsApp (876) 368-0479 to order | made |
 | Mon 16 Nov | Cookie box | Feed, **pin to profile** | SecretSanta | Secret Santa, sorted | Secret Santa, sorted. Boxes for your team: WhatsApp us | made |
-| Tue 17 Nov | Cake | Reel + TikTok, **ad: Cake 1** | Christmas Cake Reel | The cake, then the three sizes and prices | Real Jamaican black cake, baked by hand 🎄 6" J$3,500 · 8" J$5,750 · 10" J$7,500 | to build |
+| Tue 17 Nov | Cake | Reel + TikTok, **ad: Cake 1** | CakeReel | "Real Jamaican black cake." → "Rum. Wine. Christmas." → gift tin → sizes and prices → order | Real Jamaican black cake, baked by hand 🎄 6" J$3,500 · 8" J$5,750 · 10" J$7,500 | made |
 | Wed 18 Nov | Both | Reel + TikTok | BoxReveal | Black cake has company | Black cake has company. | made (box photo) |
 | Thu 19 Nov | Cake | Feed (carousel) | to build | Pick your size: one slide per size with its price | Which size is your Christmas? 6, 8 or 10 inch 👇 | to build |
 | Fri 20 Nov | Cookie box | Reel + TikTok | Spotlight-CandyCane | Candy Cane | Peppermint, twisted by hand 🍬 4 in every box | made |

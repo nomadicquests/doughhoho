@@ -24,6 +24,7 @@ will be added later.
 | `SecretSanta`, `SecretSanta-story` | Image | 1080×1350 and 1080×1920: a real photo on top, the message on a green panel below. Built on `PhotoAnnouncement`, which also suits countdown posts |
 | `Spotlight-CandyCane`, `-TripleGingerSnap`, `-ButterCookies`, `-CranberryPistachio` (each also `-still`) | Video, Image | 1080×1920 Reel (6 s) and 1080×1350 still: one cookie on a white plate with its name, its tagline from `brand/menu.ts` and how many are in the box. `theme` is `red` or `green` |
 | `BakingDay` | Video | 1080×1920, 11 s: the camera glides down an upright photo (the tray), then pulls back to show it framed on red gingham, while a line builds word by word, and ends on a follow-us screen with the handle. Built on `PhotoPan`; `followLine` empty drops the follow screen |
+| `CakeReel` | Video | 1080×1920, about 14 s: cake photos with lines building word by word, a card per size with its price, then the order-by date and WhatsApp number |
 
 ## Making a post
 

@@ -38,6 +38,12 @@ import {
 import { Poster, POSTER_A3, type PosterProps } from './templates/Poster'
 import { PosterBold, type PosterBoldProps } from './templates/PosterBold'
 import { PosterSingle, type PosterSingleProps } from './templates/PosterSingle'
+import {
+  CakeReel,
+  CAKE_REEL_FPS,
+  cakeReelDuration,
+  type CakeReelProps
+} from './templates/CakeReel'
 import { formatPrice } from './components/Price'
 import {
   PhotoAnnouncement,
@@ -217,6 +223,36 @@ const posterCake: PosterSingleProps = {
   deal: '10% off 6 or more cakes'
 }
 
+const cakeReelDefaults: CakeReelProps = {
+  itemId: 'christmas-cake',
+  scenes: [
+    {
+      photo: 'christmas-cake/photos/cake-whole.jpg',
+      focus: '55% 60%',
+      fit: 'cover',
+      line: 'Real / Jamaican / black cake.',
+      dark: false
+    },
+    {
+      photo: 'christmas-cake/photos/cake-slice.jpg',
+      focus: '55% 62%',
+      fit: 'cover',
+      line: 'Rum. / Wine. / Christmas.',
+      dark: true
+    },
+    {
+      photo: 'christmas-cake/photos/cake-tin-tied.jpg',
+      focus: '50% 50%',
+      fit: 'contain',
+      line: 'Gift-ready / in gold.',
+      dark: true
+    }
+  ],
+  sizesTitle: 'Pick your size',
+  orderBy: 'Order by Fri 18 Dec',
+  orderLine: 'WhatsApp to order'
+}
+
 // One spotlight per cookie in the box, in posting order
 const spotlightCookies = [
   'Candy Cane',
@@ -394,6 +430,17 @@ export const Root = () => (
       component={PosterSingle}
       {...POSTER_A3}
       defaultProps={posterCookieBox}
+    />
+    <Composition
+      id="CakeReel"
+      component={CakeReel}
+      {...formats.story}
+      fps={CAKE_REEL_FPS}
+      durationInFrames={cakeReelDuration(cakeReelDefaults.scenes.length)}
+      defaultProps={cakeReelDefaults}
+      calculateMetadata={({ props }) => ({
+        durationInFrames: cakeReelDuration(props.scenes.length)
+      })}
     />
   </>
 )
