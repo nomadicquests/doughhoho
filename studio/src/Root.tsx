@@ -191,7 +191,7 @@ const posterCookieBox: PosterSingleProps = {
   showSizes: false,
   note: '',
   orderBy: 'Order by Fri 18 Dec',
-  deal: '10% off 6 or more cakes or boxes',
+  deal: '10% off 6 or more boxes',
   badge: 'Perfect for gifting',
   fulfilment: 'Delivery or pickup',
   qrCode: 'print/whatsapp-qr.png'
