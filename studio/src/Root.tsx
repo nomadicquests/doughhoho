@@ -148,7 +148,7 @@ const posterBoldDefaults: PosterBoldProps = {
   headline2: '& Cookie Boxes',
   callout: 'Order now for Christmas',
   badge: 'Perfect for gifting',
-  deal: '10% off orders of 6 or more',
+  deal: '10% off 6 or more cakes or boxes',
   products: [
     {
       photo: 'christmas-cake/photos/cake-slice.jpg',
@@ -159,15 +159,15 @@ const posterBoldDefaults: PosterBoldProps = {
       pricePrefix: 'from'
     },
     {
-      photo: 'christmas-cookie-box/photos/box-open.jpg',
-      focus: '52% 55%',
+      photo: 'christmas-cookie-box/photos/box-six-cups.jpg',
+      focus: '50% 8%',
       name: cookieBox.name,
       details: '12 cookies + 1 free',
       price: formatPrice(cookieBox.price, cookieBox.currency),
       pricePrefix: ''
     }
   ],
-  orderBy: 'Last orders: Friday 18 December',
+  orderBy: 'Order by Fri 18 Dec',
   fulfilment: 'Delivery or pickup',
   qrCode: 'print/whatsapp-qr.png'
 }

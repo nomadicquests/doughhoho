@@ -310,105 +310,200 @@ const ConceptA = (props: PosterBoldProps & { u: number }) => {
   )
 }
 
-// B: the food photos edge to edge on top, a bold green band below
+// B: the cookie box photo across the top with the cake in a round photo
+// overlapping its corner, the deadline on a red tag, then one green band with
+// the headline, one line per product, the offer and how to order.
 const ConceptB = (props: PosterBoldProps & { u: number }) => {
   const { u } = props
   const pad = (BLEED + SAFE) * u
+  const [cakeP, boxP] = props.products
+  const photoH = 690 * u
+  const circle = 380 * u
   return (
     <AbsoluteFill style={{ background: brand.colors.primary }}>
-      <div style={{ display: 'flex', height: '51%', position: 'relative' }}>
-        {props.products.map((p, i) => (
-          <div key={p.name} style={{ flex: 1, position: 'relative' }}>
-            <Img
-              src={staticFile(`menu/${p.photo}`)}
-              style={{
-                width: '100%',
-                height: '100%',
-                objectFit: 'cover',
-                objectPosition: p.focus,
-                borderLeft:
-                  i > 0 ? `${8 * u}px solid ${brand.colors.white}` : undefined
-              }}
-            />
-            <div
-              style={{
-                position: 'absolute',
-                top: pad,
-                [i === 0 ? 'left' : 'right']: pad - 10 * u
-              }}
-            >
-              <PriceBurst p={p} size={200 * u} u={u} />
-            </div>
-            <div
-              style={{
-                position: 'absolute',
-                left: 24 * u,
-                right: 24 * u,
-                bottom: 30 * u,
-                background: brand.colors.secondary,
-                borderRadius: 18 * u,
-                padding: `${16 * u}px ${20 * u}px`,
-                boxShadow: `0 ${8 * u}px ${18 * u}px rgba(0, 0, 0, 0.35)`
-              }}
-            >
-              <ProductLabel p={p} u={u * 0.92} color={brand.colors.white} />
-            </div>
-          </div>
-        ))}
-        <Logo
-          variant="badge"
+      <div style={{ position: 'relative', height: photoH, flexShrink: 0 }}>
+        <Img
+          src={staticFile(`menu/${boxP.photo}`)}
           style={{
-            position: 'absolute',
-            left: '50%',
-            bottom: -95 * u,
-            width: 190 * u,
-            transform: 'translateX(-50%)',
-            filter: `drop-shadow(0 ${8 * u}px ${14 * u}px rgba(0, 0, 0, 0.35))`
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            objectPosition: boxP.focus
           }}
         />
+        <div
+          style={{
+            position: 'absolute',
+            right: pad,
+            bottom: -34 * u,
+            background: brand.colors.secondary,
+            color: brand.colors.white,
+            fontWeight: 800,
+            fontSize: 42 * u,
+            letterSpacing: 2 * u,
+            textTransform: 'uppercase',
+            padding: `${16 * u}px ${32 * u}px`,
+            border: `${4 * u}px solid ${brand.colors.white}`,
+            zIndex: 2,
+            borderRadius: 14 * u,
+            boxShadow: `0 ${8 * u}px ${18 * u}px rgba(0, 0, 0, 0.35)`
+          }}
+        >
+          {props.orderBy}
+        </div>
+        <div style={{ position: 'absolute', right: pad - 16 * u, top: pad - 10 * u }}>
+          <PriceBurst p={boxP} size={210 * u} u={u} />
+        </div>
+        <div
+          style={{
+            position: 'absolute',
+            left: pad,
+            top: photoH - circle * 0.78,
+            width: circle,
+            height: circle
+          }}
+        >
+          <Img
+            src={staticFile(`menu/${cakeP.photo}`)}
+            style={{
+              width: circle,
+              height: circle,
+              objectFit: 'cover',
+              objectPosition: cakeP.focus,
+              borderRadius: '50%',
+              border: `${10 * u}px solid ${brand.colors.white}`,
+              boxSizing: 'border-box',
+              boxShadow: `0 ${12 * u}px ${28 * u}px rgba(0, 0, 0, 0.4)`
+            }}
+          />
+          <div style={{ position: 'absolute', right: -60 * u, top: -20 * u }}>
+            <PriceBurst p={cakeP} size={190 * u} u={u} />
+          </div>
+        </div>
       </div>
       <div
         style={{
           flex: 1,
+          minHeight: 0,
           color: brand.colors.white,
           display: 'flex',
           flexDirection: 'column',
-          alignItems: 'center',
           justifyContent: 'space-between',
-          textAlign: 'center',
-          padding: `${100 * u}px ${pad}px ${pad}px`
+          padding: `${120 * u}px ${pad}px ${pad}px`
         }}
       >
-        <div>
+        <div style={{ textAlign: 'center' }}>
           <div
             style={{
               fontFamily: headingFont,
               fontWeight: 700,
-              fontSize: 90 * u,
+              fontSize: 100 * u,
               lineHeight: 1
             }}
           >
-            {props.headline} {props.headline2}
+            {props.headline}
+            <br />
+            {props.headline2}
+          </div>
+        </div>
+        <div
+          style={{
+            fontWeight: 700,
+            fontSize: 32 * u,
+            lineHeight: 1.45,
+            textAlign: 'center'
+          }}
+        >
+          {props.products.map((p) => (
+            <div key={p.name}>
+              <span style={{ fontWeight: 800 }}>{p.name}</span> · {p.details}
+            </div>
+          ))}
+          <div
+            style={{
+              fontWeight: 800,
+              fontSize: 40 * u,
+              color: brand.colors.accent,
+              marginTop: 10 * u
+            }}
+          >
+            {props.deal}
           </div>
           <div
             style={{
-              marginTop: 20 * u,
               fontWeight: 800,
-              fontSize: 46 * u,
+              fontSize: 26 * u,
               letterSpacing: 4 * u,
               textTransform: 'uppercase',
-              color: brand.colors.accent
+              marginTop: 4 * u
             }}
           >
-            {props.callout}
+            ★ {props.badge} ★
           </div>
         </div>
-        <DealBanner props={props} u={u} />
-        <OrderBar props={props} u={u} dark />
+        <OrderPanel props={props} u={u} />
       </div>
     </AbsoluteFill>
   )
 }
+
+// Order details for B: a labelled QR code, then the WhatsApp number
+const OrderPanel = ({ props, u }: { props: PosterBoldProps; u: number }) => (
+  <div
+    style={{
+      display: 'flex',
+      alignItems: 'center',
+      gap: 30 * u,
+      borderTop: `${3 * u}px solid ${brand.colors.accent}`,
+      paddingTop: 26 * u
+    }}
+  >
+    <div style={{ textAlign: 'center', flexShrink: 0 }}>
+      <Img
+        src={staticFile(props.qrCode)}
+        style={{
+          width: 170 * u,
+          height: 170 * u,
+          background: brand.colors.white,
+          borderRadius: 12 * u,
+          padding: 8 * u,
+          boxSizing: 'border-box',
+          display: 'block'
+        }}
+      />
+      <div
+        style={{
+          fontWeight: 800,
+          fontSize: 20 * u,
+          letterSpacing: 2 * u,
+          textTransform: 'uppercase',
+          marginTop: 8 * u
+        }}
+      >
+        Scan to order
+      </div>
+    </div>
+    <div style={{ flex: 1 }}>
+      <div
+        style={{
+          fontWeight: 800,
+          fontSize: 36 * u,
+          letterSpacing: 2 * u,
+          textTransform: 'uppercase',
+          color: brand.colors.accent
+        }}
+      >
+        WhatsApp to order
+      </div>
+      <div style={{ fontWeight: 800, fontSize: 96 * u, lineHeight: 1.05 }}>
+        {brand.whatsapp}
+      </div>
+      <div style={{ fontWeight: 700, fontSize: 26 * u }}>
+        {props.fulfilment} · {brand.handle}
+      </div>
+    </div>
+  </div>
+)
 
 // C: a shop sign: white, thick red frame, round photos, very bold type
 const ConceptC = (props: PosterBoldProps & { u: number }) => {
