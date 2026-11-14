@@ -173,61 +173,60 @@ const Cover = (props: SizeCarouselProps & { s: number }) => {
   )
 }
 
-// One ring per size, all resting on the same baseline and drawn to scale.
-// Larger sizes are shown as faint dashed rings around the cake.
+// The footprint of each larger size, drawn as a flat dashed ellipse on the
+// table around the cake's base, in the same perspective as the photo.
+const BASE_TILT = 0.55 // ellipse height / width of the cake's base in the photo
+const BASE_RISE = 0.275 // base centre above the cake's lowest point, as a share of its width
+
 const SizeRings = ({
   names,
   active,
-  maxD,
+  maxW,
   cx,
   bottom,
   s
 }: {
   names: string[]
   active: number
-  maxD: number
+  maxW: number
   cx: number
   bottom: number
   s: number
 }) => {
   const largest = Math.max(...names.map(inches))
+  const cakeW = (maxW * inches(names[active])) / largest
+  const cy = bottom - cakeW * BASE_RISE
   return (
     <>
       {names.map((name, i) => {
-        // only the larger sizes, as outlines around the cake
         if (i <= active) return null
-        const d = (maxD * inches(name)) / largest
-        const on = i === active
+        const w = (maxW * inches(name)) / largest
+        const h = w * BASE_TILT
         return (
           <div key={name}>
             <div
               style={{
                 position: 'absolute',
-                left: cx - d / 2,
-                top: bottom - d,
-                width: d,
-                height: d,
+                left: cx - w / 2,
+                top: cy - h / 2,
+                width: w,
+                height: h,
                 borderRadius: '50%',
-                border: on
-                  ? `${5 * s}px solid rgba(255, 255, 255, 0.9)`
-                  : `${4 * s}px dashed rgba(255, 255, 255, 0.32)`,
+                border: `${4 * s}px dashed rgba(255, 255, 255, 0.45)`,
                 boxSizing: 'border-box'
               }}
             />
             <div
               style={{
                 position: 'absolute',
-                left: cx - 150 * s,
-                width: 300 * s,
-                top: bottom - d + 18 * s,
+                left: cx + w / 2 + 10 * s,
+                top: cy - 20 * s,
                 fontWeight: 800,
-                fontSize: (on ? 34 : 26) * s,
-                letterSpacing: 3 * s,
-                textTransform: 'uppercase',
-                color: on ? brand.colors.white : 'rgba(255, 255, 255, 0.45)'
+                fontSize: 32 * s,
+                color: 'rgba(255, 255, 255, 0.7)'
               }}
             >
-              {name}
+              {name.replace(' inch', '"')}
             </div>
           </div>
         )
@@ -243,10 +242,9 @@ const SizeSlide = (props: SizeCarouselProps & { s: number; index: number }) => {
   const size = sizes[props.index]
   const copy = props.sizes[props.index]
   const largest = Math.max(...sizes.map((z) => inches(z.name)))
-  const maxD = 700 * s
-  const d = (maxD * inches(size.name)) / largest
-  const w = d * 0.84
-  const bottom = 1040 * s
+  const maxW = 680 * s
+  const w = (maxW * inches(size.name)) / largest
+  const bottom = 930 * s
   return (
     <AbsoluteFill style={{ color: brand.colors.white, textAlign: 'center' }}>
       <GinghamBackground theme="red" />
@@ -297,12 +295,12 @@ const SizeSlide = (props: SizeCarouselProps & { s: number; index: number }) => {
       <SizeRings
         names={sizes.map((z) => z.name)}
         active={props.index}
-        maxD={maxD}
+        maxW={maxW}
         cx={540 * s}
         bottom={bottom}
         s={s}
       />
-      <Cake src={props.cutout} w={w} cx={540 * s} bottom={bottom - d * 0.07} />
+      <Cake src={props.cutout} w={w} cx={540 * s} bottom={bottom} />
       <div
         style={{
           position: 'absolute',
