@@ -32,8 +32,8 @@ export type PosterBoldProps = {
   heroBackdrop: string // B: colour behind the hero photo, matched to its background
 }
 
-const BLEED = 10.6 // 3 mm, in layout units
-const SAFE = 36 // a further 7 mm inside the trim
+export const BLEED = 10.6 // 3 mm, in layout units
+export const SAFE = 36 // a further 7 mm inside the trim
 
 // A gold starburst sticker with the price
 const PriceBurst = ({
@@ -87,7 +87,7 @@ const PriceBurst = ({
 }
 
 // A price callout in one of several shapes; `size` sets its scale
-const PriceCallout = ({
+export const PriceCallout = ({
   p,
   kind,
   size,
@@ -617,7 +617,13 @@ const ConceptB = (props: PosterBoldProps & { u: number }) => {
 }
 
 // Order details for B: a labelled QR code, then the WhatsApp number
-const OrderPanel = ({ props, u }: { props: PosterBoldProps; u: number }) => (
+export const OrderPanel = ({
+  props,
+  u
+}: {
+  props: { qrCode: string; fulfilment: string }
+  u: number
+}) => (
   <div
     style={{
       display: 'flex',

@@ -37,6 +37,7 @@ import {
 } from './templates/PhotoPan'
 import { Poster, POSTER_A3, type PosterProps } from './templates/Poster'
 import { PosterBold, type PosterBoldProps } from './templates/PosterBold'
+import { PosterSingle, type PosterSingleProps } from './templates/PosterSingle'
 import { formatPrice } from './components/Price'
 import {
   PhotoAnnouncement,
@@ -173,6 +174,27 @@ const posterBoldDefaults: PosterBoldProps = {
   logo: 'wordmark',
   priceStyle: 'tag',
   heroBackdrop: '#DEDBD6'
+}
+
+const posterCookieBox: PosterSingleProps = {
+  itemId: 'christmas-cookie-box',
+  photo: 'christmas-cookie-box/photos/box-open-sticker-fixed.jpg',
+  focus: '50% 55%',
+  photoWidth: 1,
+  backdrop: '#F3F3F3',
+  inset: 'christmas-cookie-box/photos/box-gift-tag.jpg',
+  insetFocus: '50% 50%',
+  headline: 'Christmas Cookie Box',
+  subline: '12 cookies + a free Peppermint Snow Ball',
+  pricePrefix: '',
+  showContents: true,
+  showSizes: false,
+  note: '',
+  orderBy: 'Order by Fri 18 Dec',
+  deal: '10% off 6 or more cakes or boxes',
+  badge: 'Perfect for gifting',
+  fulfilment: 'Delivery or pickup',
+  qrCode: 'print/whatsapp-qr.png'
 }
 
 // One spotlight per cookie in the box, in posting order
@@ -322,5 +344,11 @@ export const Root = () => (
         defaultProps={{ ...posterBoldDefaults, concept: 'B', priceStyle }}
       />
     ))}
+    <Still
+      id="Poster-CookieBox"
+      component={PosterSingle}
+      {...POSTER_A3}
+      defaultProps={posterCookieBox}
+    />
   </>
 )
