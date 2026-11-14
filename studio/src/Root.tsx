@@ -35,6 +35,7 @@ import {
   photoPanDuration,
   type PhotoPanProps
 } from './templates/PhotoPan'
+import { Poster, POSTER_A3, type PosterProps } from './templates/Poster'
 import {
   PhotoAnnouncement,
   type PhotoAnnouncementProps
@@ -99,6 +100,41 @@ const bakingDayDefaults: PhotoPanProps = {
   detailLine: '12 cookies + a free Snow Ball · order by 18 Dec',
   zoom: 1.9,
   followLine: 'Follow us for more Christmas baking'
+}
+
+const posterDefaults: PosterProps = {
+  headline: 'Black cake has',
+  headlineAccent: 'company.',
+  subline: 'Jamaican Black Cake & Christmas Cookie Boxes, baked by hand',
+  badge: 'Perfect for gifting',
+  cards: [
+    {
+      itemId: 'christmas-cake',
+      photo: 'christmas-cake/photos/cake-cut.jpg',
+      photoFocus: '45% 45%',
+      inset: 'christmas-cake/photos/cake-tin.jpg',
+      insetFocus: '50% 55%',
+      insetLabel: 'Gold gift tin',
+      title: 'Jamaican Black Cake',
+      details: '6, 8 & 10 inch',
+      priceLabel: 'from'
+    },
+    {
+      itemId: 'christmas-cookie-box',
+      photo: 'christmas-cookie-box/photos/box-open.jpg',
+      photoFocus: '52% 50%',
+      inset: null,
+      insetFocus: '50% 50%',
+      insetLabel: '',
+      title: 'Christmas Cookie Box',
+      details: '12 cookies + a free Peppermint Snow Ball',
+      priceLabel: ''
+    }
+  ],
+  orderBy: 'Order by 18 December',
+  orderLine: 'WhatsApp to order',
+  fulfilment: 'Delivery or pickup',
+  qrCode: null
 }
 
 // One spotlight per cookie in the box, in posting order
@@ -223,6 +259,12 @@ export const Root = () => (
       calculateMetadata={({ props }) => ({
         durationInFrames: photoPanDuration(props.followLine)
       })}
+    />
+    <Still
+      id="Poster-A3"
+      component={Poster}
+      {...POSTER_A3}
+      defaultProps={posterDefaults}
     />
   </>
 )
