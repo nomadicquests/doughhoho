@@ -142,3 +142,6 @@ cake as the hero). A3 at 300 dpi with 3 mm bleed; text kept 10 mm inside the
 trim. The QR code opens a WhatsApp chat with (876) 368-0479.
 
 Render: `pnpm still PosterBold-B out/poster-a3.png`
+
+Version 2 (cake from J$3,500) replaces version 1 (from J$3,000). Do not print
+version 1.
