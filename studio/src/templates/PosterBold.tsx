@@ -316,19 +316,20 @@ const ConceptA = (props: PosterBoldProps & { u: number }) => {
 const ConceptB = (props: PosterBoldProps & { u: number }) => {
   const { u } = props
   const pad = (BLEED + SAFE) * u
-  const [cakeP, boxP] = props.products
+  // The first product is the hero across the top; the second goes in the circle
+  const [heroP, circleP] = props.products
   const photoH = 690 * u
   const circle = 380 * u
   return (
     <AbsoluteFill style={{ background: brand.colors.primary }}>
       <div style={{ position: 'relative', height: photoH, flexShrink: 0 }}>
         <Img
-          src={staticFile(`menu/${boxP.photo}`)}
+          src={staticFile(`menu/${heroP.photo}`)}
           style={{
             width: '100%',
             height: '100%',
             objectFit: 'cover',
-            objectPosition: boxP.focus
+            objectPosition: heroP.focus
           }}
         />
         <div
@@ -352,7 +353,7 @@ const ConceptB = (props: PosterBoldProps & { u: number }) => {
           {props.orderBy}
         </div>
         <div style={{ position: 'absolute', right: pad - 16 * u, top: pad - 10 * u }}>
-          <PriceBurst p={boxP} size={210 * u} u={u} />
+          <PriceBurst p={heroP} size={210 * u} u={u} />
         </div>
         <div
           style={{
@@ -364,12 +365,12 @@ const ConceptB = (props: PosterBoldProps & { u: number }) => {
           }}
         >
           <Img
-            src={staticFile(`menu/${cakeP.photo}`)}
+            src={staticFile(`menu/${circleP.photo}`)}
             style={{
               width: circle,
               height: circle,
               objectFit: 'cover',
-              objectPosition: cakeP.focus,
+              objectPosition: circleP.focus,
               borderRadius: '50%',
               border: `${10 * u}px solid ${brand.colors.white}`,
               boxSizing: 'border-box',
@@ -377,7 +378,7 @@ const ConceptB = (props: PosterBoldProps & { u: number }) => {
             }}
           />
           <div style={{ position: 'absolute', right: -60 * u, top: -20 * u }}>
-            <PriceBurst p={cakeP} size={190 * u} u={u} />
+            <PriceBurst p={circleP} size={190 * u} u={u} />
           </div>
         </div>
       </div>

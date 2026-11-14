@@ -151,8 +151,8 @@ const posterBoldDefaults: PosterBoldProps = {
   deal: '10% off 6 or more cakes or boxes',
   products: [
     {
-      photo: 'christmas-cake/photos/cake-slice.jpg',
-      focus: '55% 62%',
+      photo: 'christmas-cake/photos/cake-cut.jpg',
+      focus: '50% 55%',
       name: cake.name,
       details: '6, 8 or 10 inch',
       price: formatPrice(cake.price, cake.currency),
@@ -160,7 +160,7 @@ const posterBoldDefaults: PosterBoldProps = {
     },
     {
       photo: 'christmas-cookie-box/photos/box-six-cups.jpg',
-      focus: '50% 8%',
+      focus: '50% 45%',
       name: cookieBox.name,
       details: '12 cookies + 1 free',
       price: formatPrice(cookieBox.price, cookieBox.currency),
