@@ -1,6 +1,7 @@
 import {
   AbsoluteFill,
   Easing,
+  Img,
   OffthreadVideo,
   interpolate,
   staticFile,
@@ -19,8 +20,11 @@ export type BoxRevealProps = {
   line: string // the words that build up, with / between each beat
   preorderLine: string
   orderLine: string
-  // A clip in studio/public/footage/ of the box being opened. While it is
-  // null, a drawn box opens instead.
+  // A photo of the open box, in studio/public/menu/. Shown on a light
+  // background with green words. Used when there is no clip.
+  photo: string | null
+  // A clip in studio/public/footage/ of the box being opened. Takes the
+  // place of the photo. With neither, a drawn box opens instead.
   clip: string | null
   clipStartSeconds: number
 }
@@ -191,14 +195,69 @@ const Footage = ({ clip, startSeconds }: { clip: string; startSeconds: number })
   )
 }
 
+// The photo fades up and slowly pushes in. Behind it, the plain top-left
+// corner of the same photo is blown up and blurred to fill the frame, so the
+// backdrop runs edge to edge and the photo's own edges disappear.
+const PhotoScene = ({ photo }: { photo: string }) => {
+  const frame = useCurrentFrame()
+  const { width, height, durationInFrames } = useVideoConfig()
+  const src = staticFile(`menu/${photo}`)
+  const appear = useEnter(0, 20)
+  const push =
+    durationInFrames === 1
+      ? 1
+      : interpolate(frame, [0, durationInFrames], [1, 1.04])
+  // Sized and placed for the box photo: the box fills most of the width and
+  // sits in the middle, under the words.
+  const photoW = width * 1.5
+  const photoH = photoW * 0.7465
+  const boxCentreX = 0.53
+  return (
+    <AbsoluteFill>
+      <Img
+        src={src}
+        style={{
+          position: 'absolute',
+          inset: 0,
+          width: '100%',
+          height: '100%',
+          objectFit: 'cover',
+          objectPosition: '0% 0%',
+          filter: 'blur(30px)',
+          transform: 'scale(5)',
+          transformOrigin: '0% 0%'
+        }}
+      />
+      <Img
+        src={src}
+        style={{
+          position: 'absolute',
+          width: photoW,
+          left: width / 2 - photoW * boxCentreX,
+          top: height * 0.495 - photoH / 2,
+          opacity: appear,
+          transform: `scale(${push * (1.06 - appear * 0.06)})`,
+          transformOrigin: `${boxCentreX * 100}% 50%`,
+          maskImage:
+            'radial-gradient(ellipse 50% 50% at 50% 50%, black 70%, transparent 100%)',
+          WebkitMaskImage:
+            'radial-gradient(ellipse 50% 50% at 50% 50%, black 70%, transparent 100%)'
+        }}
+      />
+    </AbsoluteFill>
+  )
+}
+
 const Beat = ({
   text,
   index,
-  last
+  last,
+  light
 }: {
   text: string
   index: number
   last: boolean
+  light: boolean // dark words for a light background
 }) => {
   const p = useEnter(FIRST_WORD + index * WORD_GAP, 14)
   return (
@@ -209,7 +268,13 @@ const Beat = ({
         opacity: p,
         transform: `translateY(${(1 - p) * 30}px) scale(${0.85 + p * 0.15})`,
         fontStyle: last ? 'italic' : 'normal',
-        color: last ? brand.colors.accent : brand.colors.white
+        color: light
+          ? last
+            ? brand.colors.secondary
+            : brand.colors.primary
+          : last
+            ? brand.colors.accent
+            : brand.colors.white
       }}
     >
       {text}
@@ -217,8 +282,9 @@ const Beat = ({
   )
 }
 
-// A Reel: the box opens while a line builds one beat at a time, then the
-// price and how to order. Plays over real footage when a clip is set.
+// A Reel: the box is revealed while a line builds one beat at a time, then
+// the price and how to order. Uses real footage if a clip is set, else the
+// box photo, else a drawn box whose lid opens.
 export const BoxReveal = (props: BoxRevealProps) => {
   const { height } = useVideoConfig()
   const item = menu.find((m) => m.id === props.itemId) ?? menu[0]
@@ -226,10 +292,15 @@ export const BoxReveal = (props: BoxRevealProps) => {
   const ctaDelay = FIRST_WORD + beats.length * WORD_GAP + 24
   const details = useEnter(ctaDelay, 16)
   const button = useEnter(ctaDelay + 8, 11)
+  const light = !props.clip && props.photo !== null
+  const shadow = (blur: number) =>
+    light ? 'none' : `0 ${blur / 6}px ${blur}px rgba(0, 0, 0, 0.45)`
   return (
     <AbsoluteFill style={{ fontFamily: bodyFont }}>
       {props.clip ? (
         <Footage clip={props.clip} startSeconds={props.clipStartSeconds} />
+      ) : props.photo ? (
+        <PhotoScene photo={props.photo} />
       ) : (
         <DrawnBox itemId={props.itemId} />
       )}
@@ -244,11 +315,17 @@ export const BoxReveal = (props: BoxRevealProps) => {
           fontWeight: 700,
           fontSize: 132,
           lineHeight: 1.08,
-          textShadow: '0 4px 24px rgba(0, 0, 0, 0.45)'
+          textShadow: shadow(24)
         }}
       >
         {beats.map((b, i) => (
-          <Beat key={i} text={b} index={i} last={i === beats.length - 1} />
+          <Beat
+            key={i}
+            text={b}
+            index={i}
+            last={i === beats.length - 1}
+            light={light}
+          />
         ))}
       </div>
       <div
@@ -261,8 +338,8 @@ export const BoxReveal = (props: BoxRevealProps) => {
           flexDirection: 'column',
           alignItems: 'center',
           textAlign: 'center',
-          color: brand.colors.white,
-          textShadow: '0 2px 12px rgba(0, 0, 0, 0.4)'
+          color: light ? brand.colors.primary : brand.colors.white,
+          textShadow: shadow(12)
         }}
       >
         <div
@@ -271,7 +348,7 @@ export const BoxReveal = (props: BoxRevealProps) => {
             fontSize: 40,
             letterSpacing: 3,
             textTransform: 'uppercase',
-            color: brand.colors.accent,
+            color: light ? brand.colors.secondary : brand.colors.accent,
             opacity: details,
             transform: `translateY(${(1 - details) * 20}px)`
           }}
@@ -292,8 +369,8 @@ export const BoxReveal = (props: BoxRevealProps) => {
         <div
           style={{
             marginTop: 26,
-            background: brand.colors.white,
-            color: brand.colors.primary,
+            background: light ? brand.colors.primary : brand.colors.white,
+            color: light ? brand.colors.white : brand.colors.primary,
             fontWeight: 800,
             fontSize: 42,
             padding: '20px 56px',

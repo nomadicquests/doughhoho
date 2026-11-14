@@ -20,7 +20,7 @@ will be added later.
 | `PromoReel` | Video | 1080×1920 (Reels, TikTok, Stories), length grows with item count |
 | `MeetTheCookies` | Video | 1080×1920: headline, each cookie in turn, all of them packed in the box, price and how to order (about 13 s) |
 | `MeetTheCookies-slide-1` … `-8` | Image | 1080×1350 carousel: cover, one slide per cookie, the packed box, price |
-| `BoxReveal` | Video | 1080×1920, 8 s: the box opens while a line builds word by word, then price and how to order. Set `clip` to a video in `studio/public/footage/` to use real footage instead of the drawn box |
+| `BoxReveal` | Video | 1080×1920, 8 s: the box is revealed while a line builds word by word, then price and how to order. Uses `clip` (real footage in `studio/public/footage/`) if set, else `photo` (the box photo, with green words on a light background), else a drawn box whose lid opens |
 | `SecretSanta`, `SecretSanta-story` | Image | 1080×1350 and 1080×1920: a real photo on top, the message on a green panel below. Built on `PhotoAnnouncement`, which also suits countdown posts |
 
 ## Making a post

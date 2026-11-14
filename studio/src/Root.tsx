@@ -54,6 +54,7 @@ const boxRevealDefaults: BoxRevealProps = {
   line: 'Black cake / has / company.',
   preorderLine: 'Preorder now · order by 18 Dec',
   orderLine: 'WhatsApp us to order',
+  photo: 'christmas-cookie-box/photos/box-open.jpg',
   clip: null,
   clipStartSeconds: 0
 }
