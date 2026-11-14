@@ -174,7 +174,7 @@ const Cover = (props: SizeCarouselProps & { s: number }) => {
 }
 
 // One ring per size, all resting on the same baseline and drawn to scale.
-// The current size is solid and bold; larger sizes are faint and dashed.
+// Larger sizes are shown as faint dashed rings around the cake.
 const SizeRings = ({
   names,
   active,
@@ -194,8 +194,8 @@ const SizeRings = ({
   return (
     <>
       {names.map((name, i) => {
-        // smaller sizes would sit behind the cake, so only show this size and up
-        if (i < active) return null
+        // only the larger sizes, as outlines around the cake
+        if (i <= active) return null
         const d = (maxD * inches(name)) / largest
         const on = i === active
         return (
