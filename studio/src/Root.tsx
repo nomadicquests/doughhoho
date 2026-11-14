@@ -151,8 +151,10 @@ const posterBoldDefaults: PosterBoldProps = {
   deal: '10% off 6 or more cakes or boxes',
   products: [
     {
-      photo: 'christmas-cake/photos/cake-cut.jpg',
-      focus: '50% 55%',
+      photo: 'christmas-cake/photos/cake-whole.jpg',
+      focus: '50% 62%',
+      inset: 'christmas-cake/photos/cake-tin.jpg',
+      insetLabel: 'Gold gift tin',
       name: cake.name,
       details: '6, 8 or 10 inch',
       price: formatPrice(cake.price, cake.currency),

@@ -14,6 +14,8 @@ export type PosterProduct = {
   details: string
   price: string // e.g. 'J$2,400'
   pricePrefix: string // e.g. 'from', or empty
+  inset?: string // an extra round photo next to it, e.g. the packaging
+  insetLabel?: string
 }
 
 export type PosterBoldProps = {
@@ -365,6 +367,48 @@ const ConceptB = (props: PosterBoldProps & { u: number }) => {
         <div style={{ position: 'absolute', right: pad - 16 * u, top: pad - 10 * u }}>
           <PriceBurst p={heroP} size={210 * u} u={u} />
         </div>
+        {heroP.inset ? (
+          <div
+            style={{
+              position: 'absolute',
+              right: pad,
+              top: 270 * u,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center'
+            }}
+          >
+            <Img
+              src={staticFile(`menu/${heroP.inset}`)}
+              style={{
+                width: 250 * u,
+                height: 250 * u,
+                objectFit: 'cover',
+                objectPosition: '50% 55%',
+                borderRadius: '50%',
+                border: `${8 * u}px solid ${brand.colors.white}`,
+                boxSizing: 'border-box',
+                boxShadow: `0 ${10 * u}px ${22 * u}px rgba(0, 0, 0, 0.35)`
+              }}
+            />
+            <div
+              style={{
+                marginTop: -18 * u,
+                background: brand.colors.primary,
+                color: brand.colors.white,
+                fontWeight: 800,
+                fontSize: 22 * u,
+                letterSpacing: 2 * u,
+                textTransform: 'uppercase',
+                padding: `${6 * u}px ${18 * u}px`,
+                borderRadius: 999,
+                whiteSpace: 'nowrap'
+              }}
+            >
+              {heroP.insetLabel}
+            </div>
+          </div>
+        ) : null}
         <div
           style={{
             position: 'absolute',
