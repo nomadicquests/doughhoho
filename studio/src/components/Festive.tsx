@@ -21,13 +21,18 @@ export const useEnter = (delay = 0, damping = 12) => {
   return spring({ frame: frame - delay, fps, config: { damping } })
 }
 
-// Brand green with a faint gold gingham check and a soft vignette.
-export const GinghamBackground = () => {
+export type Theme = 'green' | 'red'
+
+// Green: brand green with a faint gold check. Red: brand red with a faint
+// white check, like a red gingham tablecloth. Both with a soft vignette.
+export const GinghamBackground = ({ theme = 'green' }: { theme?: Theme }) => {
   const { width } = useVideoConfig()
   const cell = Math.round(width / 18)
-  const line = `${brand.colors.accent}14`
+  const line =
+    theme === 'red' ? `${brand.colors.white}12` : `${brand.colors.accent}14`
+  const base = theme === 'red' ? brand.colors.secondary : brand.colors.primary
   return (
-    <AbsoluteFill style={{ background: brand.colors.primary }}>
+    <AbsoluteFill style={{ background: base }}>
       <AbsoluteFill
         style={{
           backgroundImage: [
@@ -46,8 +51,15 @@ export const GinghamBackground = () => {
   )
 }
 
-// Small gold flecks drifting down, like warm snow. Fixed positions in stills.
-export const GoldFlecks = ({ count = 28 }: { count?: number }) => {
+// Small flecks drifting down, like warm snow: gold on green, white on red.
+// Fixed positions in stills.
+export const GoldFlecks = ({
+  count = 28,
+  color = brand.colors.accent
+}: {
+  count?: number
+  color?: string
+}) => {
   const frame = useCurrentFrame()
   const { width, height } = useVideoConfig()
   return (
@@ -67,7 +79,7 @@ export const GoldFlecks = ({ count = 28 }: { count?: number }) => {
               width: size,
               height: size,
               borderRadius: '50%',
-              background: brand.colors.accent,
+              background: color,
               opacity: 0.25 + random(`o-${i}`) * 0.4
             }}
           />

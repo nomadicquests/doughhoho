@@ -23,6 +23,12 @@ import {
   type BoxRevealProps
 } from './templates/BoxReveal'
 import {
+  CookieSpotlight,
+  COOKIE_SPOTLIGHT_FPS,
+  COOKIE_SPOTLIGHT_DURATION,
+  type CookieSpotlightProps
+} from './templates/CookieSpotlight'
+import {
   PhotoAnnouncement,
   type PhotoAnnouncementProps
 } from './templates/PhotoAnnouncement'
@@ -68,6 +74,15 @@ const secretSantaDefaults: PhotoAnnouncementProps = {
   body: 'Order Christmas Cookie Boxes for your team or Secret Santa. J$2,400 each.',
   buttonLine: 'WhatsApp us for team orders',
   footer: 'Order by 18 Dec · @doughhoho.bakery'
+}
+
+const cookieSpotlightDefaults: CookieSpotlightProps = {
+  itemId: 'christmas-cookie-box',
+  cookie: 'Candy Cane',
+  kicker: 'Meet the cookies',
+  tagline: 'Twisted by hand, one stripe at a time.',
+  orderLine: 'Order by 18 Dec · link in bio or WhatsApp',
+  theme: 'red'
 }
 
 const boxCookieCount = (itemId: string) =>
@@ -151,6 +166,20 @@ export const Root = () => (
       component={PhotoAnnouncement}
       {...formats.story}
       defaultProps={secretSantaDefaults}
+    />
+    <Composition
+      id="CookieSpotlight"
+      component={CookieSpotlight}
+      {...formats.story}
+      fps={COOKIE_SPOTLIGHT_FPS}
+      durationInFrames={COOKIE_SPOTLIGHT_DURATION}
+      defaultProps={cookieSpotlightDefaults}
+    />
+    <Still
+      id="CookieSpotlight-still"
+      component={CookieSpotlight}
+      {...formats.portrait}
+      defaultProps={cookieSpotlightDefaults}
     />
   </>
 )

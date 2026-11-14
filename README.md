@@ -22,6 +22,7 @@ will be added later.
 | `MeetTheCookies-slide-1` … `-8` | Image | 1080×1350 carousel: cover, one slide per cookie, the packed box, price |
 | `BoxReveal` | Video | 1080×1920, 8 s: the box is revealed while a line builds word by word, then price and how to order. Uses `clip` (real footage in `studio/public/footage/`) if set, else `photo` (the box photo, with green words on a light background), else a drawn box whose lid opens |
 | `SecretSanta`, `SecretSanta-story` | Image | 1080×1350 and 1080×1920: a real photo on top, the message on a green panel below. Built on `PhotoAnnouncement`, which also suits countdown posts |
+| `CookieSpotlight`, `CookieSpotlight-still` | Video, Image | 1080×1920 Reel (6 s) and 1080×1350 still: one cookie on a white plate with its name, a line about it and how many are in the box. `theme` is `red` or `green` |
 
 ## Making a post
 
