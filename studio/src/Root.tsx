@@ -153,8 +153,6 @@ const posterBoldDefaults: PosterBoldProps = {
     {
       photo: 'christmas-cake/photos/cake-whole.jpg',
       focus: '50% 62%',
-      inset: 'christmas-cake/photos/cake-tin.jpg',
-      insetLabel: 'Gold gift tin',
       name: cake.name,
       details: '6, 8 or 10 inch',
       price: formatPrice(cake.price, cake.currency),
