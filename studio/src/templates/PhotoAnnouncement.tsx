@@ -12,6 +12,8 @@ export type PhotoAnnouncementProps = {
   body: string
   buttonLine: string
   footer: string
+  label?: string // optional tag over the photo, e.g. the product name
+  hideBadge?: boolean // true when the photo already shows the logo
 }
 
 // A still post: a real photo on top, a green panel with the message below.
@@ -37,6 +39,28 @@ export const PhotoAnnouncement = (props: PhotoAnnouncementProps) => {
           objectPosition: props.photoFocus
         }}
       />
+      {props.label ? (
+        <div
+          style={{
+            position: 'absolute',
+            top: 44 * s,
+            left: 44 * s,
+            background: brand.colors.primary,
+            color: brand.colors.white,
+            border: `${4 * s}px solid ${brand.colors.accent}`,
+            fontFamily: headingFont,
+            fontStyle: 'italic',
+            fontWeight: 700,
+            fontSize: 46 * s,
+            padding: `${10 * s}px ${34 * s}px`,
+            borderRadius: 999,
+            transform: 'rotate(-4deg)',
+            boxShadow: '0 8px 16px rgba(0, 0, 0, 0.25)'
+          }}
+        >
+          {props.label}
+        </div>
+      ) : null}
       <div
         style={{
           position: 'absolute',
@@ -119,7 +143,7 @@ export const PhotoAnnouncement = (props: PhotoAnnouncementProps) => {
           {props.footer}
         </div>
       </div>
-      <Logo
+      {props.hideBadge ? null : <Logo
         variant="badge"
         style={{
           position: 'absolute',
@@ -129,7 +153,7 @@ export const PhotoAnnouncement = (props: PhotoAnnouncementProps) => {
           transform: 'rotate(8deg)',
           filter: 'drop-shadow(0 8px 14px rgba(0, 0, 0, 0.35))'
         }}
-      />
+      />}
     </AbsoluteFill>
   )
 }

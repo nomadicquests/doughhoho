@@ -104,8 +104,10 @@ const boxRevealDefaults: BoxRevealProps = {
 }
 
 const secretSantaDefaults: PhotoAnnouncementProps = {
-  photo: 'christmas-cookie-box/photos/box-open.jpg',
-  photoFocus: '50% 55%',
+  photo: 'christmas-cookie-box/photos/box-mailer-open.jpg',
+  photoFocus: '50% 60%',
+  label: 'Christmas Cookie Box',
+  hideBadge: true, // the logo is printed inside the box lid
   kicker: 'For the office',
   headline: 'Cookies make',
   headlineAccent: 'the best colleagues.',
