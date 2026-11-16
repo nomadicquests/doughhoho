@@ -34,4 +34,4 @@ longer footage, keep it in Google Drive and put the link in `notes.md`.
 
 These files are for private reference. We borrow ideas (layout, pacing, mood,
 colour approach), never copy someone's actual graphics, photos, music or logo
-into a Doughhoho post.
+into a Dough Ho Ho Bakery post.

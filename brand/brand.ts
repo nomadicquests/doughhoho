@@ -1,9 +1,6 @@
-// The single source of truth for how Doughhoho looks.
+// The single source of truth for how Dough Ho Ho Bakery looks.
 // Every template in studio/ reads from here, so changing a colour or font
 // here changes it everywhere.
-//
-// TODO: confirm the business name and social handle (the logo says
-// "Dough Ho-Ho Bakery").
 
 import badgeGreen from './assets/badge-green.svg'
 import badgeWhite from './assets/badge-white.svg'
@@ -14,8 +11,12 @@ import wordmarkWhite from './assets/wordmark-white.svg'
 import wordmarkBlack from './assets/wordmark-black.svg'
 
 export const brand = {
-  name: 'Doughhoho',
-  handle: '@doughhoho', // TODO: confirm the real social handle
+  name: 'Dough Ho Ho Bakery',
+  handle: '@doughhoho.bakery',
+  // How people order
+  whatsapp: '(876) 368-0479' as string | null,
+  whatsappUrl: 'https://wa.me/18763680479', // opens a chat; used for QR codes
+  orderUrl: null as string | null, // TODO: the order form link
   colors: {
     green: '#17320B', // main brand colour
     gold: '#CB9B09',

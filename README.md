@@ -1,6 +1,6 @@
-# Doughhoho
+# Dough Ho Ho Bakery
 
-Social media graphics, videos and ad content for Doughhoho. An ordering form
+Social media graphics, videos and ad content for Dough Ho Ho Bakery. An ordering form
 will be added later.
 
 ## What's where
@@ -18,6 +18,14 @@ will be added later.
 | ----------- | ----- | ---------------------------------------- |
 | `ItemDrop`  | Image | square 1080×1080, portrait 1080×1350, story 1080×1920 |
 | `PromoReel` | Video | 1080×1920 (Reels, TikTok, Stories), length grows with item count |
+| `MeetTheCookies` | Video | 1080×1920: headline, each cookie in turn, all of them packed in the box, price and how to order (about 13 s) |
+| `MeetTheCookies-slide-1` … `-8` | Image | 1080×1350 carousel: cover, one slide per cookie, the packed box, price |
+| `BoxReveal` | Video | 1080×1920, 8 s: the box is revealed while a line builds word by word, then price and how to order. Uses `clip` (real footage in `studio/public/footage/`) if set, else `photo` (the box photo, with green words on a light background), else a drawn box whose lid opens |
+| `SecretSanta`, `SecretSanta-story` | Image | 1080×1350 and 1080×1920: a real photo on top, the message on a green panel below. Built on `PhotoAnnouncement`, which also suits countdown posts |
+| `Spotlight-CandyCane`, `-TripleGingerSnap`, `-ButterCookies`, `-CranberryPistachio` (each also `-still`) | Video, Image | 1080×1920 Reel (6 s) and 1080×1350 still: one cookie on a white plate with its name, its tagline from `brand/menu.ts` and how many are in the box. `theme` is `red` or `green` |
+| `BakingDay` | Video | 1080×1920, about 15 s: glides down the cookie tray, then the black cake, then both products with prices and the order-by date, then a follow-us screen. Uses `PhotoPan` in glide-only mode |
+| `CakeReel` | Video | 1080×1920, about 14 s: cake photos with lines building word by word, a card per size with its price, then the order-by date and WhatsApp number |
+| `PickYourSize-slide-1` … `-5` | Image | 1080×1350 carousel: cover, one slide per cake size drawn to scale against the largest with its price, then the gift tin and how to order |
 
 ## Making a post
 
